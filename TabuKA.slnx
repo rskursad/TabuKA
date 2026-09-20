@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TabuKA.csproj" />
+  <Project Path="TabuKA.Tests/TabuKA.Tests.csproj" />
+</Solution>

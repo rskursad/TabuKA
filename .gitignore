@@ -1,0 +1,76 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Pp]ublish/
+*.exe.pdb
+*.dll
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+
+# Test results
+[Tt]est[Rr]esult*/
+*.coverage
+*.coveragexml
+*.trx
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+[Tt]est[Rr]esult[Bb]uild[Ff]iles/
+[Rr]elease[Ss]olution/
+[Rr]eleases/
+
+# Rider / VS Code
+.idea/
+*.sln.iml
+.vscode/
+
+# Native build artifacts (Android)
+*.apk
+*.aab
+*.keystore
+*.jks
+*.ap_
+TabuKA.Android/build/
+TabuKA.Android/.gradle/
+TabuKA.Android/local.properties
+TabuKA.Android/bin/
+TabuKA.Android/obj/
+
+# Avalonia / .NET
+*.Generated.cs
+Generated/
+Avalonia.axaml.epub
+
+# Databases (runtime data, not source)
+tabuka.db
+tabuka.db-*
+
+# Large downloaded models (Vosk ASR model - download separately)
+Models/vosk-model-tr/
+
+# Logs & temp files
+*.log
+*.tmp
+*.temp
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Sensitive / local config
+*.user
+appsettings.Local.json
+secrets.json
+
+plan.md
+prompt.md

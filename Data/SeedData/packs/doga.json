@@ -1,0 +1,1020 @@
+{
+  "categoryName": "Doğa",
+  "words": [
+    {
+      "mainWord": "Şimşek",
+      "forbiddenWords": ["yıldırım", "fırtına", "parlar", "çakar", "gökyüzü"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yıldırım",
+      "forbiddenWords": ["şimşek", "çarpar", "gök", "parlar", "elektrik"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Gök Gürültüsü",
+      "forbiddenWords": ["ses", "şimşek", "fırtına", "gürler", "bulut"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Bulut",
+      "forbiddenWords": ["gökyüzü", "beyaz", "yağmur", "pamuk", "süzülür"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yağmur",
+      "forbiddenWords": ["damla", "ıslanmak", "bulut", "şemsiye", "yağar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çiseleme",
+      "forbiddenWords": ["ince", "yağmur", "yavaş", "damla", "serpiştirir"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Sağanak",
+      "forbiddenWords": ["yağmur", "ani", "çok", "sel", "bastırır"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kar",
+      "forbiddenWords": ["beyaz", "kış", "soğuk", "yağar", "örtü"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tipi",
+      "forbiddenWords": ["rüzgar", "kar", "savurur", "soğuk", "görünmez"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Dolu",
+      "forbiddenWords": ["buz", "tanesi", "gök", "yağış", "vurur"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kırağı",
+      "forbiddenWords": ["buz", "sabah", "soğuk", "çimen", "beyaz"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çiy",
+      "forbiddenWords": ["damla", "sabah", "yaprak", "nem", "çimen"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Sis",
+      "forbiddenWords": ["görüş", "örtü", "yoğun", "sabah", "bulanık"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Pus",
+      "forbiddenWords": ["sis", "hafif", "görüş", "bulanık", "uçuk"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Rüzgar",
+      "forbiddenWords": ["eser", "yel", "savurur", "ağaç", "kuvvet"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Fırtına",
+      "forbiddenWords": ["güçlü", "rüzgar", "yağmur", "yıkım", "deniz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kasırga",
+      "forbiddenWords": ["fırtına", "döner", "dev", "okyanus", "yıkım"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Hortum",
+      "forbiddenWords": ["döner", "siler", "huni", "güçlü", "yıkım"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tayfun",
+      "forbiddenWords": ["kasırga", "fırtına", "pasifik", "dev", "yıkım"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Meltem",
+      "forbiddenWords": ["hafif", "rüzgar", "deniz", "kuzey", "serin"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Esinti",
+      "forbiddenWords": ["hafif", "rüzgar", "yaprak", "serin", "huzur"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Gökkuşağı",
+      "forbiddenWords": ["renk", "yay", "yağmur", "güneş", "yedi"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Güneş",
+      "forbiddenWords": ["sıcak", "ışık", "parlar", "doğar", "yıldız"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Ay",
+      "forbiddenWords": ["gece", "dolunay", "ışık", "gökyüzü", "hilal"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yıldız",
+      "forbiddenWords": ["parlar", "gece", "gökyüzü", "uzak", "ışıldar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kuyruklu Yıldız",
+      "forbiddenWords": ["uzay", "kuyruk", "parlar", "gök", "nadir"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Göktaşı",
+      "forbiddenWords": ["uzay", "düşer", "taş", "meteor", "parlar"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Yanardağ",
+      "forbiddenWords": ["dağ", "lav", "patlar", "krater", "kül"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Lav",
+      "forbiddenWords": ["yanardağ", "akıcı", "kızgın", "taş", "erimiş"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Krater",
+      "forbiddenWords": ["ağız", "yanardağ", "çukur", "dağ", "açıklık"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kül",
+      "forbiddenWords": ["yanık", "gri", "kalıntı", "külhan", "duman"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Deprem",
+      "forbiddenWords": ["sarsar", "yer", "sallanır", "hasar", "artçı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Artçı",
+      "forbiddenWords": ["deprem", "sonra", "sarsar", "küçük", "yer"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Tsunami",
+      "forbiddenWords": ["deprem", "deniz", "dev", "dalga", "kıyı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Sel",
+      "forbiddenWords": ["su", "bastırır", "sürükler", "yağmur", "taşar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çığ",
+      "forbiddenWords": ["kar", "dağ", "yuvarlanır", "beyaz", "buna"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Heyelan",
+      "forbiddenWords": ["kayar", "toprak", "dağ", "yıkım", "çamura"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Erozyon",
+      "forbiddenWords": ["toprak", "taşınır", "rüzgar", "su", "aşınır"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Şelale",
+      "forbiddenWords": ["su", "düşer", "yüksek", "gürler", "kaya"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çağlayan",
+      "forbiddenWords": ["su", "akar", "dökülür", "gürler", "vadi"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Nehir",
+      "forbiddenWords": ["akar", "su", "uzun", "deniz", "ırmak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Irmak",
+      "forbiddenWords": ["nehir", "akar", "su", "büyük", "vadi"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Dere",
+      "forbiddenWords": ["su", "küçük", "akar", "taş", "dağ"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Göl",
+      "forbiddenWords": ["su", "durgun", "balık", "saz", "tekne"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Deniz",
+      "forbiddenWords": ["tuzlu", "mavi", "dalga", "sahil", "tekne"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Okyanus",
+      "forbiddenWords": ["deniz", "dev", "kıta", "mavi", "dalga"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Dalga",
+      "forbiddenWords": ["deniz", "kıyı", "yükselir", "sörf", "vurur"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Akıntı",
+      "forbiddenWords": ["su", "akar", "deniz", "yön", "çeker"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kıyı",
+      "forbiddenWords": ["deniz", "sahil", "kenar", "kum", "gemi"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Sahil",
+      "forbiddenWords": ["deniz", "kum", "kıyı", "güneş", "plaj"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Plaj",
+      "forbiddenWords": ["kum", "deniz", "güneş", "şemsiye", "yüzmek"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kumsal",
+      "forbiddenWords": ["kum", "deniz", "kıyı", "birikim", "ayak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Vadi",
+      "forbiddenWords": ["dağ", "arası", "alçak", "dere", "geniş"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Boğaz",
+      "forbiddenWords": ["geçit", "deniz", "dar", "kara", "köprü"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Körfez",
+      "forbiddenWords": ["deniz", "kara", "girintisi", "liman", "gemi"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Koy",
+      "forbiddenWords": ["deniz", "girinti", "tekne", "sakin", "sahil"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Yarımada",
+      "forbiddenWords": ["kara", "deniz", "ucu", "etrafı", "çıkıntı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Ada",
+      "forbiddenWords": ["kara", "deniz", "etrafı", "yüzölçümü", "turizm"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Takımada",
+      "forbiddenWords": ["ada", "grup", "deniz", "birçok", "topluluk"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kıta",
+      "forbiddenWords": ["kara", "büyük", "kütle", "dünya", "ayrılır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Uçurum",
+      "forbiddenWords": ["kenar", "düşüş", "kaya", "deniz", "dik"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kanyon",
+      "forbiddenWords": ["derin", "vadi", "kaya", "nehir", "duvar"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Mağara",
+      "forbiddenWords": ["yeraltı", "karanlık", "oyuk", "kaya", "gizli"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Dağ",
+      "forbiddenWords": ["yüksek", "tepe", "zirve", "tırmanmak", "kocaman"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tepe",
+      "forbiddenWords": ["dağ", "küçük", "yüksek", "tırmanmak", "doruğa"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Zirve",
+      "forbiddenWords": ["tepe", "doruğa", "dağ", "tırmanır", "yüksekte"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Ova",
+      "forbiddenWords": ["düz", "geniş", "verimli", "tarım", "alan"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yayla",
+      "forbiddenWords": ["dağ", "serin", "otlak", "yaz", "yüksek"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çöl",
+      "forbiddenWords": ["kum", "kurak", "sıcak", "deve", "susuz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Vaha",
+      "forbiddenWords": ["çöl", "su", "yeşil", "hurma", "adacık"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Orman",
+      "forbiddenWords": ["ağaç", "yeşil", "gölge", "yaban", "çalı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Koru",
+      "forbiddenWords": ["ağaç", "küçük", "orman", "yürüyüş", "gölge"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çalı",
+      "forbiddenWords": ["küçük", "ağaç", "dikeni", "çalılık", "budak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Ağaç",
+      "forbiddenWords": ["gövde", "yaprak", "dal", "gölge", "ormanda"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yaprak",
+      "forbiddenWords": ["ağaç", "yeşil", "düşer", "dal", "fotosentez"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Dal",
+      "forbiddenWords": ["ağaç", "uzanır", "kuş", "budak", "kopar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kök",
+      "forbiddenWords": ["bitki", "toprak", "emer", "alt", "tutar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Gövde",
+      "forbiddenWords": ["ağaç", "kalın", "kütük", "dal", "yukarı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kabuk",
+      "forbiddenWords": ["ağaç", "dış", "korur", "sert", "soylu"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Yosun",
+      "forbiddenWords": ["yeşil", "kaygan", "taş", "sık", "nemli"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Mantar",
+      "forbiddenWords": ["şapka", "orman", "sap", "yenir", "nemli"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Eğrelti",
+      "forbiddenWords": ["bitki", "yaprak", "gölge", "eski", "orman"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Çiçek",
+      "forbiddenWords": ["açar", "güzel", "kokar", "bahar", "yaprak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tomurcuk",
+      "forbiddenWords": ["açılmamış", "çiçek", "gelişir", "bahar", "genç"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Gül",
+      "forbiddenWords": ["çiçek", "kokar", "diken", "kırmızı", "bahçe"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Papatya",
+      "forbiddenWords": ["çiçek", "beyaz", "sarı", "kır", "sevgi"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Lale",
+      "forbiddenWords": ["çiçek", "bahar", "soğan", "hollanda", "renkli"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Menekşe",
+      "forbiddenWords": ["çiçek", "mor", "bahar", "küçük", "kokar"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Ayçiçeği",
+      "forbiddenWords": ["çiçek", "sarı", "güneş", "tohum", "tarla"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Nergis",
+      "forbiddenWords": ["çiçek", "sarı", "bahar", "kokar", "soğan"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Karanfil",
+      "forbiddenWords": ["çiçek", "koku", "bahçe", "diken", "gül"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Orkide",
+      "forbiddenWords": ["çiçek", "egzotik", "tropik", "narin", "değerli"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Zambak",
+      "forbiddenWords": ["çiçek", "beyaz", "kokar", "düğün", "havuz"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Nilüfer",
+      "forbiddenWords": ["çiçek", "su", "göl", "yaprak", "açar"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Diken",
+      "forbiddenWords": ["batar", "sivri", "gül", "acı", "korur"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çimen",
+      "forbiddenWords": ["yeşil", "kısa", "bahçe", "biter", "yumuşak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kahve",
+      "forbiddenWords": ["içecek", "çekirdek", "sabah", "kafein", "fincan"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Zeytin",
+      "forbiddenWords": ["ağaç", "siyah", "yeşil", "yağ", "salamura"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çam",
+      "forbiddenWords": ["ağaç", "kozalak", "yeşil", "orman", "reçine"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Meşe",
+      "forbiddenWords": ["ağaç", "sert", "palamut", "yaprak", "orman"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Söğüt",
+      "forbiddenWords": ["ağaç", "eğilir", "su", "yaprak", "narin"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çınar",
+      "forbiddenWords": ["ağaç", "gölge", "koca", "yaprak", "meyve"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Palmiye",
+      "forbiddenWords": ["ağaç", "tropik", "deniz", "yelpaze", "yaprak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kaktüs",
+      "forbiddenWords": ["diken", "çöl", "susuz", "yeşil", "yaprak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Bambu",
+      "forbiddenWords": ["sert", "dalı", "panda", "asya", "ygelişir"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kavak",
+      "forbiddenWords": ["ağaç", "yüksek", "sıra", "beyaz", "tüylü"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çayır",
+      "forbiddenWords": ["yeşil", "otlak", "geniş", "ot", "hayvan"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Mera",
+      "forbiddenWords": ["otlak", "hayvan", "ot", "çoban", "yeşil"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Bataklık",
+      "forbiddenWords": ["sulu", "düşük", "çamur", "sık", "ıslak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Turba",
+      "forbiddenWords": ["bataklık", "odun", "yakıt", "köz", "organik"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kaya",
+      "forbiddenWords": ["sert", "taş", "büyük", "dağ", "çıkıntı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Taş",
+      "forbiddenWords": ["sert", "küçük", "fırlatır", "yol", "kayalık"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çakıl",
+      "forbiddenWords": ["taş", "küçük", "plaj", "yuvarlak", "kırılmış"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kum",
+      "forbiddenWords": ["ince", "taneli", "plaj", "çöl", "avuç"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Toprak",
+      "forbiddenWords": ["bitki", "tarla", "kahverengi", "kazmak", "verimli"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çamur",
+      "forbiddenWords": ["ıslak", "yapışkan", "toprak", "yağmur", "kirli"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kireç",
+      "forbiddenWords": ["beyaz", "taş", "duvar", "kalker", "sıva"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Mermer",
+      "forbiddenWords": ["beyaz", "taş", "parlak", "heykel", "soğuk"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Granit",
+      "forbiddenWords": ["sert", "taş", "benekli", "mutfak", "doğal"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Altın",
+      "forbiddenWords": ["sarı", "değerli", "maden", "parlar", "mücevher"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Gümüş",
+      "forbiddenWords": ["parlak", "değerli", "maden", "çatal", "takı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Demir",
+      "forbiddenWords": ["maden", "sert", "çelik", "pas", "güçlü"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Bakır",
+      "forbiddenWords": ["kırmızımsı", "maden", "tava", "kablo", "yumuşak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kömür",
+      "forbiddenWords": ["siyah", "yanar", "maden", "odun", "yakıt"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Petrol",
+      "forbiddenWords": ["siyah", "yakıt", "çıkarır", "sıvı", "motor"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Doğalgaz",
+      "forbiddenWords": ["yanar", "mutfak", "ocağı", "boru", "yakıt"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Elmas",
+      "forbiddenWords": ["sert", "parlar", "değerli", "yüzük", "kristal"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yakut",
+      "forbiddenWords": ["kırmızı", "değerli", "taş", "parlar", "sert"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Zümrüt",
+      "forbiddenWords": ["yeşil", "değerli", "taş", "parlar", "takı"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "İnci",
+      "forbiddenWords": ["beyaz", "parlak", "kabuk", "değerli", "yuvarlak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kristal",
+      "forbiddenWords": ["şeffaf", "parlar", "katı", "avlama", "buza"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kehribar",
+      "forbiddenWords": ["sarı", "fosilleşmiş", "reçine", "parlar", "takı"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Volkan",
+      "forbiddenWords": ["dağ", "patlar", "lav", "kül", "krater"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Magma",
+      "forbiddenWords": ["erimiş", "kaya", "içerde", "sıcak", "volkan"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Fay",
+      "forbiddenWords": ["kırık", "yer", "deprem", "hat", "kabuk"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kaldera",
+      "forbiddenWords": ["çöküntü", "yanardağ", "dev", "krater", "derin"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Dünya",
+      "forbiddenWords": ["gezegen", "mavi", "yuvarlak", "yaşam", "güneş"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Gezegen",
+      "forbiddenWords": ["yörünge", "güneş", "gök", "uzay", "yuvarlak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Uzay",
+      "forbiddenWords": ["sonsuz", "yıldız", "gök", "astronot", "boşluk"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kara Delik",
+      "forbiddenWords": ["çeker", "görünmez", "uzay", "güçlü", "ışık"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Samanyolu",
+      "forbiddenWords": ["galaksi", "yıldız", "gece", "gök", "parlak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Galaksi",
+      "forbiddenWords": ["yıldız", "sistem", "uzay", "sarmal", "milyon"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Meteor",
+      "forbiddenWords": ["uzay", "düşer", "parlar", "taş", "gök"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Merkür",
+      "forbiddenWords": ["gezegen", "güneş", "küçük", "sıcak", "yakın"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Venüs",
+      "forbiddenWords": ["gezegen", "sıcak", "sabah", "yıldız", "bulut"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Mars",
+      "forbiddenWords": ["gezegen", "kırmızı", "kızıl", "uzay", "toprak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Jüpiter",
+      "forbiddenWords": ["gezegen", "dev", "gaz", "lekeler", "güneş"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Satürn",
+      "forbiddenWords": ["gezegen", "halka", "dev", "gaz", "güneş"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Uydu",
+      "forbiddenWords": ["yörünge", "gezegen", "döner", "uzay", "sinyal"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Roket",
+      "forbiddenWords": ["uzay", "ateşler", "yükselir", "gökyüzü", "fırlar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Atmosfer",
+      "forbiddenWords": ["hava", "dünya", "katman", "gaz", "korur"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Ozon",
+      "forbiddenWords": ["katman", "atmosfer", "gaz", "güneş", "koruma"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Sera Etkisi",
+      "forbiddenWords": ["ısınır", "dünya", "gaz", "karbon", "iklim"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "İklim",
+      "forbiddenWords": ["hava", "uzun", "bölge", "mevsim", "düzen"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Mevsim",
+      "forbiddenWords": ["dört", "yıl", "hava", "döner", "aylar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Sonbahar",
+      "forbiddenWords": ["yaprak", "dökülür", "sarı", "serin", "hasat"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "İlkbahar",
+      "forbiddenWords": ["çiçek", "açar", "yeşillik", "sıcak", "uyanır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kış",
+      "forbiddenWords": ["soğuk", "kar", "kazak", "üşütür", "buz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yaz",
+      "forbiddenWords": ["sıcak", "deniz", "güneş", "tatil", "plaj"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Gündüz",
+      "forbiddenWords": ["güneş", "ışık", "sabah", "akşam", "parlak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Gece",
+      "forbiddenWords": ["karanlık", "ay", "yıldız", "uyku", "sabaha"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Şafak",
+      "forbiddenWords": ["güneş", "doğar", "sabah", "ışık", "uyanış"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Alacakaranlık",
+      "forbiddenWords": ["güneş", "batarken", "kararır", "akşam", "yarı"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Bulutlu",
+      "forbiddenWords": ["gökyüzü", "bulut", "güneş", "gizlenir", "gri"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Aydınlık",
+      "forbiddenWords": ["ışık", "güneş", "parlak", "parıltı", "göz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Karanlık",
+      "forbiddenWords": ["ışıksız", "gece", "görünmez", "korkutur", "kapalı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Isı",
+      "forbiddenWords": ["sıcak", "derecesi", "ölçülür", "enerji", "ateş"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Soğuk",
+      "forbiddenWords": ["kış", "donma", "ayaz", "titreşim", "buz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Don",
+      "forbiddenWords": ["buz", "soğuk", "su", "katı", "tarla"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Buz",
+      "forbiddenWords": ["su", "katı", "soğuk", "buzlanır", "kaygan"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Buzul",
+      "forbiddenWords": ["buz", "kütle", "yavaş", "kayar", "kutuplar"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Yangın",
+      "forbiddenWords": ["ateş", "yanar", "duman", "söndürür", "orman"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Ateş",
+      "forbiddenWords": ["yanar", "alev", "sıcaklık", "yakma", "kor"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Alev",
+      "forbiddenWords": ["ateş", "insanlaşır", "yukarı", "sıcak", "yakıcıdır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Duman",
+      "forbiddenWords": ["ateş", "yükselir", "gri", "boğar", "tütün"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kıvılcım",
+      "forbiddenWords": ["ateş", "çakar", "küçük", "sıçrar", "parlar"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Su",
+      "forbiddenWords": ["sıvı", "içilir", "hayat", "akışkan", "şeffaf"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Buhar",
+      "forbiddenWords": ["su", "gaz", "yükselir", "sıcak", "görünmez"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kaynak",
+      "forbiddenWords": ["su", "çıkar", "dere", "temiz", "başlangıç"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Pınar",
+      "forbiddenWords": ["su", "çıkar", "temiz", "kaynak", "soğuk"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Yağmur Suyu",
+      "forbiddenWords": ["yağmur", "toplanır", "depo", "saf", "damla"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Gök Gürlemesi",
+      "forbiddenWords": ["ses", "yıldırım", "gök", "uzaktan", "tok"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Serap",
+      "forbiddenWords": ["hayal", "çöl", "su", "titreşim", "parıltı"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kuzey Işıkları",
+      "forbiddenWords": ["gece", "renk", "gökyüzü", "kutup", "yeşil"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Ekosistem",
+      "forbiddenWords": ["canlı", "doğa", "denge", "yaşam", "ortam"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Biyoçeşitlilik",
+      "forbiddenWords": ["çeşit", "canlı", "tür", "doğa", "zenginlik"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Doğa",
+      "forbiddenWords": ["dünya", "canlı", "orman", "yeşil", "yaratır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tabiat",
+      "forbiddenWords": ["doğa", "dünya", "canlı", "toprak", "hava"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çevre",
+      "forbiddenWords": ["etraf", "korunur", "doğa", "temizlik", "yaşam"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yeşillik",
+      "forbiddenWords": ["yeşil", "ot", "ağaç", "doğa", "bahçe"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Bahçe",
+      "forbiddenWords": ["çiçek", "sebze", "toprak", "ağaç", "meyve"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çiftlik",
+      "forbiddenWords": ["hayvan", "tarla", "köy", "ürün", "ahır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tarla",
+      "forbiddenWords": ["ekin", "toprak", "tarım", "geniş", "çiftçi"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Ekin",
+      "forbiddenWords": ["tarla", "yetişir", "buğday", "yeşil", "hasat"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Hasat",
+      "forbiddenWords": ["biçilir", "toplanır", "tarla", "ürün", "sonbahar"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kuraklık",
+      "forbiddenWords": ["susuz", "uzun", "çatlar", "kavrulur", "verimsiz"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Nem",
+      "forbiddenWords": ["ıslaklık", "havada", "rutubet", "buğu", "hissedilir"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Rutubet",
+      "forbiddenWords": ["nem", "ıslak", "duvar", "küf", "havası"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Küf",
+      "forbiddenWords": ["yeşil", "çürür", "nem", "ekmek", "lekeler"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Gübre",
+      "forbiddenWords": ["toprak", "besler", "verim", "dışkı", "bahçe"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Toz",
+      "forbiddenWords": ["küçük", "tanecik", "havada", "temizlik", "savrulur"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çakmaktaşı",
+      "forbiddenWords": ["sert", "taş", "ateş", "çakar", "eski"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Mangal",
+      "forbiddenWords": ["ateş", "kömür", "et", "pişirir", "demir"],
+      "difficulty": 2
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:TabuKA.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+             x:Class="TabuKA.Views.StatisticsView"
+             x:DataType="vm:StatisticsViewModel">
+
+    <Design.DataContext>
+        <vm:StatisticsViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="Button.NavButton">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="Margin" Value="0,8" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+        
+        <Style Selector="Border.StatCard">
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+        </Style>
+
+        <Style Selector="DataGrid">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="#0A0E17">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Border Padding="32,20" HorizontalAlignment="Center" MaxWidth="1200">
+                <StackPanel Spacing="24">
+                    <!-- Header -->
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Button Grid.Column="0" Content="← ANA MENÜ" Command="{Binding GoBackCommand}" 
+                                FontFamily="{StaticResource PixelFont}"
+                                Background="#374151" Foreground="#F3F4F6"
+                                Padding="14,8" FontSize="13" CornerRadius="8"
+                                VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center" Spacing="4">
+                            <TextBlock Text="🏆 SKOR TABLOLARI" 
+                                       FontFamily="{StaticResource PixelFont}"
+                                       FontSize="26" FontWeight="Black" Foreground="#FCD34D" HorizontalAlignment="Center" />
+                            <TextBlock Text="OYUN PERFORMANSI VE ŞAMPİYONLUK GEÇMİŞİ" 
+                                       FontFamily="{StaticResource PixelFont}"
+                                       FontSize="12" FontWeight="Bold"
+                                       Foreground="#9CA3AF" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <Button Grid.Column="2" Content="🔄 YENİLE" Command="{Binding RefreshCommand}"
+                                FontFamily="{StaticResource PixelFont}"
+                                Background="#10B981" Foreground="White"
+                                Padding="14,8" FontSize="13" CornerRadius="8"
+                                VerticalAlignment="Center" IsVisible="{Binding !IsLoading}" />
+                    </Grid>
+
+                <!-- Loading Indicator -->
+                <Border IsVisible="{Binding IsLoading}" 
+                        Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                        CornerRadius="8" Padding="24" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+                        <ProgressBar IsIndeterminate="True" Width="24" Height="24" />
+                        <TextBlock Text="Yükleniyor..." VerticalAlignment="Center" FontSize="16" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Summary Cards -->
+                <Border IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                        Classes="StatCard">
+                    <Grid ColumnDefinitions="*,*,*,*,*">
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding TotalGamesPlayed}" FontSize="32" FontWeight="Bold" 
+                                       Foreground="{DynamicResource SystemControlForegroundAccentBrush}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Oynanan Oyun" FontSize="12" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding TotalRoundsPlayed}" FontSize="32" FontWeight="Bold" 
+                                       Foreground="{DynamicResource SystemControlForegroundAccentBrush}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Toplam Tur" FontSize="12" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding TotalWordsGuessed}" FontSize="32" FontWeight="Bold" 
+                                       Foreground="#4CAF50" HorizontalAlignment="Center" />
+                            <TextBlock Text="Doğru Tahmin" FontSize="12" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding TotalTabooViolations}" FontSize="32" FontWeight="Bold" 
+                                       Foreground="#F44336" HorizontalAlignment="Center" />
+                            <TextBlock Text="Tabu İhlali" FontSize="12" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="4" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding AverageScorePerGame, StringFormat='{}{0:F1}'}" FontSize="32" FontWeight="Bold" 
+                                       Foreground="#FF9800" HorizontalAlignment="Center" />
+                            <TextBlock Text="Ort. Puan/Oyun" FontSize="12" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Team Statistics -->
+                <Border IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                        Classes="StatCard">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="👥 Takım İstatistikleri" FontSize="20" FontWeight="SemiBold" />
+                        <DataGrid ItemsSource="{Binding TeamStats}" AutoGenerateColumns="False" 
+                                  IsReadOnly="True" CanUserResizeColumns="True" CanUserSortColumns="True"
+                                  MaxHeight="300" Margin="0,8,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Takım" Binding="{Binding TeamName}" Width="150" />
+                                <DataGridTextColumn Header="Oynanan Oyun" Binding="{Binding GamesPlayed}" Width="120" />
+                                <DataGridTextColumn Header="Toplam Puan" Binding="{Binding TotalScore}" Width="120" />
+                                <DataGridTextColumn Header="Doğru" Binding="{Binding CorrectAnswers}" Width="100" />
+                                <DataGridTextColumn Header="Tabu" Binding="{Binding TabooViolations}" Width="100" />
+                                <DataGridTextColumn Header="Pas" Binding="{Binding PassesUsed}" Width="100" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Category Statistics -->
+                <Border IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                        Classes="StatCard">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="📂 Kategori Bazında Performans" FontSize="20" FontWeight="SemiBold" />
+                        <DataGrid ItemsSource="{Binding CategoryStats}" AutoGenerateColumns="False" 
+                                  IsReadOnly="True" CanUserResizeColumns="True" CanUserSortColumns="True"
+                                  MaxHeight="300" Margin="0,8,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Kategori" Binding="{Binding CategoryName}" Width="200" />
+                                <DataGridTextColumn Header="Oynama Sayısı" Binding="{Binding TimesPlayed}" Width="120" />
+                                <DataGridTextColumn Header="Doğru" Binding="{Binding CorrectGuesses}" Width="100" />
+                                <DataGridTextColumn Header="Tabu" Binding="{Binding TabooCount}" Width="100" />
+                                <DataGridTextColumn Header="Başarı %" Binding="{Binding SuccessRate, StringFormat='{}{0:F1}%'}" Width="120" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Game History -->
+                <Border IsVisible="{Binding IsLoading, Converter={StaticResource InverseBoolConverter}}"
+                        Classes="StatCard">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="🕐 Oyun Geçmişi (Son 20)" FontSize="20" FontWeight="SemiBold" />
+                        <DataGrid ItemsSource="{Binding GameHistory}" AutoGenerateColumns="False" 
+                                  IsReadOnly="True" CanUserResizeColumns="True" CanUserSortColumns="True"
+                                  MaxHeight="300" Margin="0,8,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Tarih" Binding="{Binding Date}" Width="150" />
+                                <DataGridTextColumn Header="Kazanan" Binding="{Binding Winner}" Width="150" />
+                                <DataGridTextColumn Header="Tur Sayısı" Binding="{Binding TotalRounds}" Width="100" />
+                                <DataGridTextColumn Header="Toplam Puan" Binding="{Binding TotalScore}" Width="120" />
+                                <DataGridTextColumn Header="Süre" Binding="{Binding Duration}" Width="100" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,197 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:TabuKA.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
+             x:Class="TabuKA.Views.WordManagementView"
+             x:DataType="vm:WordManagementViewModel">
+
+    <Design.DataContext>
+        <vm:WordManagementViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="Button.NavButton">
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0,8" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Button.DangerButton">
+            <Setter Property="Background" Value="#F44336" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0,8" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Button.PrimaryButton">
+            <Setter Property="Background" Value="{DynamicResource SystemControlForegroundAccentBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="16,12" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0,8" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Styles>
+
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top" Padding="24,16"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+            <StackPanel Orientation="Horizontal" Spacing="16">
+                <Button Content="← Geri" Command="{Binding GoBackCommand}"
+                        Padding="12,8" FontSize="14" CornerRadius="6" />
+                <TextBlock Text="📝 Kelime Yönetimi" FontSize="22" FontWeight="Bold"
+                           VerticalAlignment="Center" />
+                <TextBlock Text="Kelime ekleyin, düzenleyin veya silin"
+                           FontSize="14" VerticalAlignment="Center" Margin="0,2,0,0"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+            </StackPanel>
+        </Border>
+
+        <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,400" Margin="16">
+            <!-- Toolbar -->
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Padding="16" CornerRadius="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                    Margin="0,0,0,8">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <TextBlock Text="Ara:" VerticalAlignment="Center" FontSize="14" />
+                    <TextBox Text="{Binding SearchText}" Width="200" VerticalAlignment="Center"
+                             PlaceholderText="Kelime ara..." />
+                    <TextBlock Text="Kategori:" VerticalAlignment="Center" FontSize="14" />
+                    <ComboBox ItemsSource="{Binding Categories}" Width="180" VerticalAlignment="Center"
+                              SelectedItem="{Binding SelectedFilterCategory, Mode=TwoWay}"
+                              DisplayMemberBinding="{Binding Name}" />
+                    <Button Classes="PrimaryButton" Content="➕ Yeni Kelime" Command="{Binding StartAddCommand}"
+                            HorizontalAlignment="Stretch" Margin="24,0,0,0" />
+                    <Button Classes="NavButton" Content="✏️ Düzenle" Command="{Binding StartEditCommand}" />
+                    <Button Classes="DangerButton" Content="🗑 Sil" Command="{Binding DeleteWordCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Words table -->
+            <Border Grid.Row="1" Grid.Column="0" Padding="16" CornerRadius="10"
+                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                    BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                    Margin="0,0,8,8">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top" Text="Kelimeler" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8" />
+                    <DataGrid ItemsSource="{Binding Words}" AutoGenerateColumns="False"
+                              IsReadOnly="True" CanUserResizeColumns="True" CanUserSortColumns="True"
+                              SelectedItem="{Binding SelectedWord, Mode=TwoWay}"
+                              MaxHeight="560">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Kelime" Binding="{Binding MainWord}" Width="2*" />
+                            <DataGridTextColumn Header="Kategori" Binding="{Binding CategoryName}" Width="1.2*" />
+                            <DataGridTextColumn Header="Zorluk" Binding="{Binding Difficulty}" Width="80" />
+                            <DataGridTextColumn Header="Yasaklı Kelimeler" Binding="{Binding ForbiddenText}" Width="3*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <!-- Side panel -->
+            <StackPanel Grid.Row="1" Grid.Column="1" Spacing="8">
+                <!-- Add / Edit form -->
+                <Border Padding="16" CornerRadius="10"
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                        BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundAccentBrush}"
+                        IsVisible="{Binding IsEditing}">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Kelime Ekle / Düzenle" FontSize="16" FontWeight="SemiBold" />
+                        <TextBlock Text="Ana Kelime" FontSize="13" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                        <TextBox Text="{Binding EditMainWord, Mode=TwoWay}" PlaceholderText="Örn: Uçak" FontSize="16" />
+                        <TextBlock Text="Yasaklı Kelimeler (virgülle ayırın)" FontSize="13" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                        <TextBox Text="{Binding EditForbiddenWords, Mode=TwoWay}" PlaceholderText="kanat, gökyüzü, pilot, hava" MinLines="2" MaxLines="4" />
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Kategori" FontSize="13" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                                <ComboBox ItemsSource="{Binding Categories}" Width="180"
+                                          SelectedItem="{Binding EditCategory, Mode=TwoWay}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="Zorluk" FontSize="13" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                                <ComboBox ItemsSource="{Binding DifficultyLevels}" Width="90"
+                                          SelectedItem="{Binding EditDifficulty, Mode=TwoWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <Button Classes="PrimaryButton" Content="💾 Kaydet" Command="{Binding SaveWordCommand}" />
+                            <Button Classes="NavButton" Content="İptal" Command="{Binding CancelEditCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Category management -->
+                <Border Padding="16" CornerRadius="10"
+                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                        BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Kategori Yönetimi" FontSize="16" FontWeight="SemiBold" />
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <TextBox Text="{Binding NewCategoryName, Mode=TwoWay}" Width="180"
+                                     PlaceholderText="Yeni kategori adı" />
+                            <Button Content="➕ Ekle" Command="{Binding AddCategoryCommand}"
+                                    Padding="12,8" FontSize="14" CornerRadius="6" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <ComboBox ItemsSource="{Binding Categories}" Width="180"
+                                      SelectedItem="{Binding SelectedCategoryToDelete, Mode=TwoWay}"
+                                      DisplayMemberBinding="{Binding Name}"
+                                      PlaceholderText="Silinecek kategori" />
+                            <Button Classes="DangerButton" Content="🗑 Kategoriyi Sil"
+                                    Command="{Binding DeleteCategoryCommand}" Margin="0" />
+                        </StackPanel>
+                        <TextBlock Text="Dikkat: Kategoriyle birlikte içindeki kelimeler de silinir."
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Status -->
+                <Border IsVisible="{Binding StatusMessage, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Padding="12" CornerRadius="8"
+                        Background="{Binding StatusMessage, Converter={StaticResource StatusToBackgroundConverter}}"
+                        BorderThickness="1"
+                        BorderBrush="{Binding StatusMessage, Converter={StaticResource StatusToBorderConverter}}">
+                    <TextBlock Text="{Binding StatusMessage}" FontSize="13" TextWrapping="Wrap"
+                               HorizontalAlignment="Center" />
+                </Border>
+            </StackPanel>
+
+            <!-- Footer -->
+            <Border Grid.Row="2" Grid.ColumnSpan="2" Padding="16,8" CornerRadius="10"
+                    Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                    BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                    Margin="0,8,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="24">
+                    <TextBlock Text="📝 Kelime Yönetimi" FontSize="13"
+                               Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                    <TextBlock Text="Değişiklikler veritabanına anında kaydedilir" FontSize="12"
+                               Foreground="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

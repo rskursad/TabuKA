@@ -1,0 +1,39 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:TabuKA"
+             xmlns:converters="using:TabuKA.Converters"
+             x:Class="TabuKA.App"
+             RequestedThemeVariant="Default">
+    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <converters:BoolToStatusTextConverter x:Key="BoolToStatusTextConverter" />
+        <converters:BoolToStatusColorConverter x:Key="BoolToStatusColorConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+        <converters:RoundResultToTextConverter x:Key="RoundResultToTextConverter" />
+        <converters:RoundResultToColorConverter x:Key="RoundResultToColorConverter" />
+        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
+        <converters:GameStatusToTextConverter x:Key="GameStatusToTextConverter" />
+        <converters:BoolToCategoryBackgroundConverter x:Key="BoolToCategoryBackgroundConverter" />
+        <converters:BoolToCategoryBorderConverter x:Key="BoolToCategoryBorderConverter" />
+        <converters:RoundNumberConverter x:Key="RoundNumberConverter" />
+        <converters:StatusToBackgroundConverter x:Key="StatusToBackgroundConverter" />
+        <converters:StatusToBorderConverter x:Key="StatusToBorderConverter" />
+        <FontFamily x:Key="PixelFont">avares://TabuKA/Assets/Fonts#Monocraft, Consolas, Courier New</FontFamily>
+    </Application.Resources>
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+        <Style Selector="TextBlock.Pixel">
+            <Setter Property="FontFamily" Value="{StaticResource PixelFont}" />
+        </Style>
+        <Style Selector="Button.Pixel">
+            <Setter Property="FontFamily" Value="{StaticResource PixelFont}" />
+        </Style>
+    </Application.Styles>
+</Application>
