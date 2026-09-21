@@ -1,0 +1,1075 @@
+{
+  "categoryName": "Yiyecekler",
+  "words": [
+    {
+      "mainWord": "Baklava",
+      "forbiddenWords": ["tatlı", "şerbet", "ceviz", "hamur", "antep"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Künefe",
+      "forbiddenWords": ["tatlı", "peynir", "şerbet", "sıcak", "tel"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kadayıf",
+      "forbiddenWords": ["tatlı", "şerbet", "küçük", "fırında", "tel"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Sütlaç",
+      "forbiddenWords": ["tatlı", "süt", "pirinç", "tarçın", "fırın"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Aşure",
+      "forbiddenWords": ["tatlı", "buğday", "madde", "nohut", "muharrem"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Revani",
+      "forbiddenWords": ["tatlı", "irmik", "şerbet", "sarı", "kek"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Keşkül",
+      "forbiddenWords": ["tatlı", "badem", "süt", "kase", "soğuk"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kazandibi",
+      "forbiddenWords": ["tatlı", "süt", "muhallebi", "yanık", "kek"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Tulumba",
+      "forbiddenWords": ["tatlı", "hamur", "şerbet", "kızartma", "çıtır"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Lokma",
+      "forbiddenWords": ["tatlı", "hamur", "kızartma", "şerbet", "yuvarlak"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Dondurma",
+      "forbiddenWords": ["soğuk", "süt", "koni", "yaz", "erir"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çikolata",
+      "forbiddenWords": ["kakao", "tatlı", "kalıp", "şeker", "erir"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Turta",
+      "forbiddenWords": ["hamur", "meyve", "fırın", "tatlı", "elma"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Pasta",
+      "forbiddenWords": ["kek", "krem", "mum", "doğarken", "dilim"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kurabiye",
+      "forbiddenWords": ["hamur", "fırın", "çay", "çıtır", "bisküvi"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kek",
+      "forbiddenWords": ["fırın", "un", "hamur", "kabartır", "yatırır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Poğaça",
+      "forbiddenWords": ["hamur", "peynir", "fırın", "çay", "mayalı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Simit",
+      "forbiddenWords": ["susam", "hamur", "çay", "halka", "sabah"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Börek",
+      "forbiddenWords": ["hamur", "fırın", "peynir", "katman", "çay"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Pide",
+      "forbiddenWords": ["hamur", "fırın", "peynir", "kiyma", "uzun"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Lahmacun",
+      "forbiddenWords": ["hamur", "et", "maydanoz", "acı", "ince"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Pizza",
+      "forbiddenWords": ["hamur", "peynir", "domates", "italya", "fırın"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Burgur",
+      "forbiddenWords": ["buğday", "pilav", "tane", "yemek", "kırık"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Pilav",
+      "forbiddenWords": ["pirinç", "tencere", "yanında", "sarı", "tereyağı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Mantı",
+      "forbiddenWords": ["hamur", "et", "yoğurt", "sos", "küçük"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Lokum",
+      "forbiddenWords": ["tatlı", "küp", "şeker", "pudra", "gül"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Helva",
+      "forbiddenWords": ["tatlı", "irmik", "tereyağı", "çerez", "sıcak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kahvaltı",
+      "forbiddenWords": ["sabah", "yemek", "peynir", "ekmek", "çay"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Menemen",
+      "forbiddenWords": ["yumurta", "domates", "biber", "tava", "sabah"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Omlet",
+      "forbiddenWords": ["yumurta", "tava", "sabah", "çevirme", "peynir"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yumurta",
+      "forbiddenWords": ["tavuk", "kabuk", "sarısı", "kırılır", "kaynatır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Sucuk",
+      "forbiddenWords": ["et", "baharat", "kuru", "ızgara", "dilim"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Pastırma",
+      "forbiddenWords": ["et", "kuru", "baharat", "çemen", "ince"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Salam",
+      "forbiddenWords": ["et", "dilim", "sandviç", "rendelenmiş", "ömr"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Sosis",
+      "forbiddenWords": ["et", "uzun", "defne", "ızgara", "domates"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kebap",
+      "forbiddenWords": ["et", "şiş", "mangal", "lavaş", "ateş"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Şiş",
+      "forbiddenWords": ["metal", "et", "çubuk", "mangal", "batırılır"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Tandır",
+      "forbiddenWords": ["toprak", "ateş", "et", "kuyu", "fırın"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "İskender",
+      "forbiddenWords": ["kebap", "domates", "tereyağı", "yoğurt", "beyaz"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Adana Kebap",
+      "forbiddenWords": ["et", "acı", "adana", "mangal", "baharat"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çorba",
+      "forbiddenWords": ["sıvı", "kaşık", "tencere", "başlangıç", "sıcak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Mercimek Çorbası",
+      "forbiddenWords": ["sarı", "mercimek", "sıcak", "limon", "tencere"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tarhana",
+      "forbiddenWords": ["çorba", "kuru", "yoğurt", "un", "dilim"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Dolma",
+      "forbiddenWords": ["yaprak", "pirinç", "sarar", "tencere", "yeşil"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Sarma",
+      "forbiddenWords": ["üzüm", "yaprak", "pirinç", "zeytin", "rulo"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Hünkâr Beğendi",
+      "forbiddenWords": ["patlıcan", "et", "sos", "yoğurt", "tabak"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Musakka",
+      "forbiddenWords": ["patlıcan", "et", "domates", "tava", "meyve"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Balık",
+      "forbiddenWords": ["deniz", "olta", "pul", "kızartma", "yüzgeç"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tavuk",
+      "forbiddenWords": ["et", "kümes", "roasting", "uyluk", "stok"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Salça",
+      "forbiddenWords": ["domates", "kırmızı", "tencere", "sos", "kavanoz"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Zeytinyağı",
+      "forbiddenWords": ["zeytin", "salata", "yemek", "soğuk", "yeşil"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tereyağı",
+      "forbiddenWords": ["süt", "yağ", "kahvaltı", "erir", "sürülür"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yoğurt",
+      "forbiddenWords": ["süt", "mayalanır", "kaşık", "kahvaltı", "koyu"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kaymak",
+      "forbiddenWords": ["süt", "tabaka", "bal", "pide", "krema"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Krema",
+      "forbiddenWords": ["pasta", "süt", "tatlı", "çırpılır", "sürülür"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Peynir",
+      "forbiddenWords": ["süt", "kahvaltı", "mayalanır", "dilim", "sarı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kaşar",
+      "forbiddenWords": ["peynir", "sarı", "erir", "tost", "dilim"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Beyaz Peynir",
+      "forbiddenWords": ["süt", "kahvaltı", "salatalık", "dilim", "salamura"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çedar",
+      "forbiddenWords": ["peynir", "sarı", "amerika", "burger", "erir"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Mozzarella",
+      "forbiddenWords": ["peynir", "pizza", "erir", "italya", "beyaz"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Ekmek",
+      "forbiddenWords": ["un", "fırın", "dilim", "kahvaltı", "buğday"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Lavaş",
+      "forbiddenWords": ["ince", "hamur", "kebap", "sarı", "dürüm"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Dürüm",
+      "forbiddenWords": ["lavaş", "sarı", "kebap", "rulo", "doldurur"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Bazlama",
+      "forbiddenWords": ["hamur", "sac", "yuvarlak", "kahvaltı", "tereyağı"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Gözleme",
+      "forbiddenWords": ["hamur", "sac", "peynir", "ıspanak", "açar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Krep",
+      "forbiddenWords": ["ince", "hamur", "tava", "çikolata", "rulo"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Waffle",
+      "forbiddenWords": ["hamur", "kare", "çikolata", "meyve", "dondurma"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Pankek",
+      "forbiddenWords": ["krep", "yuvarlak", "bal", "kahvaltı", "yığın"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Makarna",
+      "forbiddenWords": ["un", "haşlanır", "iyileşir", "tabak", "pasta"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Spagetti",
+      "forbiddenWords": ["makarna", "uzun", "italya", "çatal", "sos"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Lazanya",
+      "forbiddenWords": ["makarna", "katman", "fırın", "peynir", "sos"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Bulgur",
+      "forbiddenWords": ["buğday", "pilav", "tane", "yemek", "kırık"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Mercimek",
+      "forbiddenWords": ["küçük", "baklagil", "saracı", "çorba", "yeşil"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Nohut",
+      "forbiddenWords": ["küçük", "baklagil", "yuvarlak", "çorba", "hindistan"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kuru Fasulye",
+      "forbiddenWords": ["eytalyan", "beyaz", "yemek", "pirinç", "beraber"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Barbunya",
+      "forbiddenWords": ["fasulye", "kırmızı", "zeytin", "tane", "sebze"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Bezelye",
+      "forbiddenWords": ["küçük", "yeşil", "tane", "sebze", "tencere"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Patates",
+      "forbiddenWords": ["toprak", "yumru", "kızartma", "haşlama", "fırın"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Patates Kızartması",
+      "forbiddenWords": ["patates", "yağ", "yemek", "çıtır", "restoran"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Soğan",
+      "forbiddenWords": ["katman", "kes", "ağlatır", "kızar", "pişirir"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Sarımsak",
+      "forbiddenWords": ["diş", "kokar", "baharat", "parça", "beyaz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Domates",
+      "forbiddenWords": ["kırmızı", "salata", "sos", "su", "yuvarlak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Biber",
+      "forbiddenWords": ["acı", "yeşil", "kırmızı", "baharat", "salça"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Patlıcan",
+      "forbiddenWords": ["mor", "sebze", "haşlama", "kızartma", "musakka"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kabak",
+      "forbiddenWords": ["sebze", "yeşil", "yan", "dolması", "render"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Havuç",
+      "forbiddenWords": ["turuncu", "sebze", "tavşan", "salata", "çiğ"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Ispanak",
+      "forbiddenWords": ["yeşil", "sebze", "demir", "güç", "yapraklı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Marul",
+      "forbiddenWords": ["yeşil", "salata", "yapraklı", "taze", "buruşuk"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Brokoli",
+      "forbiddenWords": ["yeşil", "sebze", "karnabahar", "sürgülü", "saplı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Karnabahar",
+      "forbiddenWords": ["beyaz", "sebze", "yeşil", "çiçek", "haşlanır"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Lahana",
+      "forbiddenWords": ["yaprak", "yeşil", "dolma", "turşu", "top"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Salatalık",
+      "forbiddenWords": ["yeşil", "uzun", "su", "çiğ", "taze"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kornişon",
+      "forbiddenWords": ["küçük", "salatalık", "turşu", "sivri", "hıyar"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Turşu",
+      "forbiddenWords": ["sirke", "kavanoz", "sebze", "ekşi", "sakar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Prasa",
+      "forbiddenWords": ["yeşil", "beyaz", "sap", "zeytin", "sebze"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kereviz",
+      "forbiddenWords": ["sap", "kokusu", "köşe", "yeşil", "saman"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kuşkonmaz",
+      "forbiddenWords": ["ince", "yeşil", "sürgün", "sebze", "buğu"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Enginar",
+      "forbiddenWords": ["kalp", "yeşil", "yaprak", "zeytin", "açar"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Elma",
+      "forbiddenWords": ["meyve", "kırmızı", "yeşil", "ağaç", "çıtır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Armut",
+      "forbiddenWords": ["meyve", "ağaç", "sarı", "yeşil", "yumuşak"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Karpuz",
+      "forbiddenWords": ["yaz", "meyve", "kırmızı", "çekirdek", "yeşil"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kavun",
+      "forbiddenWords": ["meyve", "yaz", "dilim", "tatlı", "kabuko"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Üzüm",
+      "forbiddenWords": ["meyve", "damla", "yeşil", "mor", "kuru"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Muz",
+      "forbiddenWords": ["meyve", "sarı", "soyulur", "şeklinde", "ağaç"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Portakal",
+      "forbiddenWords": ["meyve", "turuncu", "su", "vitaminli", "soyulur"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Mandalin",
+      "forbiddenWords": ["portakal", "küçük", "soyulur", "dilim", "turunçgil"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Limon",
+      "forbiddenWords": ["sarı", "ekşi", "meyve", "sıkar", "çay"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Greyfurt",
+      "forbiddenWords": ["turuncu", "ekşi", "acı", "turunçgil", "kahvaltı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Şeftali",
+      "forbiddenWords": ["meyve", "yumuşak", "tüylü", "pembe", "sarı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kayısı",
+      "forbiddenWords": ["turuncu", "meyve", "yumuşak", "sarı", "çekirdek"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kiraz",
+      "forbiddenWords": ["meyve", "küçük", "kırmızı", "sap", "yaz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Vişne",
+      "forbiddenWords": ["kiraz", "ekşi", "kırmızı", "meyve", "reçel"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çilek",
+      "forbiddenWords": ["meyve", "kırmızı", "yaz", "reçel", "tohumlu"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Ahududu",
+      "forbiddenWords": ["meyve", "kırmızı", "küçük", "şurup", "reçel"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Böğürtlen",
+      "forbiddenWords": ["meyve", "mor", "diken", "küçük", "topla"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Ananas",
+      "forbiddenWords": ["meyve", "tropik", "sarı", "püsküllü", "sivrisi"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Mango",
+      "forbiddenWords": ["meyve", "tropik", "sarı", "turuncu", "tatlı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Papaya",
+      "forbiddenWords": ["meyve", "tropik", "yeşil", "yumuşak", "siyah"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kivi",
+      "forbiddenWords": ["meyve", "yeşil", "tüylü", "küçük", "ülke"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Nar",
+      "forbiddenWords": ["meyve", "kırmızı", "tanecik", "sert", "açar"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "İncir",
+      "forbiddenWords": ["meyve", "taze", "kuru", "mor", "bal"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Hurma",
+      "forbiddenWords": ["palmiye", "kuru", "tatlı", "çöl", "ramazan"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Hindistan Cevizi",
+      "forbiddenWords": ["tropik", "kabuğu", "süt", "beyaz", "palmiye"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Ceviz",
+      "forbiddenWords": ["kabuğu", "sert", "beyaz", "kırılır", "ağaç"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Fındık",
+      "forbiddenWords": ["kabuğu", "karadeniz", "küçük", "kırılır", "ağaç"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Badem",
+      "forbiddenWords": ["kabuğu", "sert", "mia", "kızarmış", "tatlı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Fıstık",
+      "forbiddenWords": ["yer", "kabuğu", "tuzlu", "çerez", "ezme"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Antep Fıstığı",
+      "forbiddenWords": ["yeşil", "çerez", "tatlı", "baklava", "kabuğu"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kestane",
+      "forbiddenWords": ["ateş", "kabuğu", "tatlı", "kış", "pişer"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Buğday",
+      "forbiddenWords": ["tane", "un", "ekmek", "tarla", "sarı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Arpa",
+      "forbiddenWords": ["tahıl", "bira", "yem", "tane", "tarla"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Mısır",
+      "forbiddenWords": ["tane", "koçanı", "patlamış", "sarı", "tarla"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Pirinç",
+      "forbiddenWords": ["tane", "pilav", "hasat", "beyaz", "tencere"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Yulaf",
+      "forbiddenWords": ["tahıl", "kahvaltı", "pul", "gevreği", "tane"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Mısır Gevreği",
+      "forbiddenWords": ["mısır", "kahvaltı", "süt", "gevrek", "kase"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Bal",
+      "forbiddenWords": ["arı", "tatlı", "şurup", "doğal", "kahvaltı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Pekmez",
+      "forbiddenWords": ["şurup", "tatlı", "üzüm", "karadeniz", "kahvaltı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Reçel",
+      "forbiddenWords": ["meyve", "şeker", "kaşık", "ekmek", "kavanoz"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Margarin",
+      "forbiddenWords": ["yağ", "tereyağı", "sürülür", "fırın", "kahvaltı"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Bisküvi",
+      "forbiddenWords": ["kurabiye", "çıtır", "çay", "paket", "tatlı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kraker",
+      "forbiddenWords": ["tuzlu", "çıtır", "atıştırma", "paket", "çay"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çerezu",
+      "forbiddenWords": ["çerez", "kuru", "yemiş", "atıştırma", "tuzlu"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Patlamış Mısır",
+      "forbiddenWords": ["mısır", "sinema", "tuzlu", "patlar", "kese"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Çikolatalı Gofret",
+      "forbiddenWords": ["çikolata", "katman", "çıtır", "dikdörtgen", "atıştırma"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Şeker",
+      "forbiddenWords": ["tatlı", "granül", "çay", "toz", "küp"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tuz",
+      "forbiddenWords": ["beyaz", "kristal", "yemek", "serpilir", "lezzet"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Karabiber",
+      "forbiddenWords": ["baharat", "siyah", "öğütülür", "acı", "değirmen"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kırmızı Biber",
+      "forbiddenWords": ["biber", "toz", "acı", "kırmızı", "pul"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Tarçın",
+      "forbiddenWords": ["baharat", "kabuk", "tatlı", "kokusu", "çubuk"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kimyon",
+      "forbiddenWords": ["baharat", "tohum", "kebap", "aroması", "toprak"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Zerdeçal",
+      "forbiddenWords": ["baharat", "sarı", "takviye", "toz", "kök"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Vanilya",
+      "forbiddenWords": ["baharat", "özüt", "tatlı", "dondurma", "pod"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Nane",
+      "forbiddenWords": ["yeşil", "serin", "çay", "tazelenme", "aroması"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Maydanoz",
+      "forbiddenWords": ["yeşil", "salata", "kesnide", "taze", "dal"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Fesleğen",
+      "forbiddenWords": ["yeşil", "bitki", "makarna", "andoa", "taze"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Kekik",
+      "forbiddenWords": ["bitki", "koku", "et", "kurutulur", "dağ"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Biberiye",
+      "forbiddenWords": ["bitki", "çam", "koku", "et", "baharat"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Köri",
+      "forbiddenWords": ["baharat", "sarı", "hint", "tavuk", "sos"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Sirke",
+      "forbiddenWords": ["ekşi", "sıvı", "turşu", "salata", "fermente"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Soya Sosu",
+      "forbiddenWords": ["koyu", "sıvı", "tuzlu", "japon", "damla"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Ketçap",
+      "forbiddenWords": ["domates", "sos", "patates", "marka", "hamburger"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Majonez",
+      "forbiddenWords": ["yumurta", "sos", "beyaz", "sandviç", "yağ"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Hardal",
+      "forbiddenWords": ["sarı", "sos", "acı", "sosis", "burun"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Çay",
+      "forbiddenWords": ["sıcak", "demlenir", "fincan", "kahvaltı", "yeşil"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kahve",
+      "forbiddenWords": ["çekirdek", "fincan", "sıcak", "uyanır", "lory"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Türk Kahvesi",
+      "forbiddenWords": ["çekirdek", "demleme", "telvesi", "fincan", "fındık"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Süt",
+      "forbiddenWords": ["beyaz", "içilir", "inekten", "kahvaltı", "kalsiyum"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Ayran",
+      "forbiddenWords": ["yoğurt", "soğuk", "içecek", "kebap", "tuzlu"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Kola",
+      "forbiddenWords": ["içecek", "gazlı", "mutlu", "marka", "soğuk"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Soda",
+      "forbiddenWords": ["içecek", "karbonlu", "şişe", "gaz", "meşrubat"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Maden Suyu",
+      "forbiddenWords": ["içecek", "gazlı", "mineral", "şişe", "kabarcık"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Limonata",
+      "forbiddenWords": ["limon", "şeker", "soğuk", "yaz", "sürahi"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Şerbet",
+      "forbiddenWords": ["şurup", "tatlı", "soğuk", "buz", "kırmızı"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Meyve Suyu",
+      "forbiddenWords": ["meyve", "sıkılır", "paketi", "içecek", "taze"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Bira",
+      "forbiddenWords": ["içecek", "arpa", "köpük", "soğuk", "alkol"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Şarap",
+      "forbiddenWords": ["üzüm", "alkol", "kırmızı", "kadeh", "fermente"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Rakı",
+      "forbiddenWords": ["içecek", "beyaz", "sofra", "balık", "alkol"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Peynir Tabağı",
+      "forbiddenWords": ["peynir", "çeşit", "turp", "sofra", "uzum"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Meze",
+      "forbiddenWords": ["başlangıç", "sofra", "küçük", "balk", "ucuz"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Cacık",
+      "forbiddenWords": ["yoğurt", "salatalık", "sarımçak", "yaz", "soğuk"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Haydari",
+      "forbiddenWords": ["yoğurt", "sarımsak", "sofra", "krema", "meze"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Humus",
+      "forbiddenWords": ["nahut", "tahin", "meze", "limon", "püre"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Tahin",
+      "forbiddenWords": ["susam", "ezme", "tatlı", "kahvaltı", "pekmez"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Susam",
+      "forbiddenWords": ["tohum", "küçük", "simit", "tahin", "serpilir"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Pekmezli",
+      "forbiddenWords": ["pekmez", "tatlı", "mutluluk", "kırmızı", "çizik"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Sini",
+      "forbiddenWords": ["tepsi", "yemek", "sofra", "yuvarlak", "küçük"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Pişmaniye",
+      "forbiddenWords": ["tatlı", "pamuk", "iplik", "koşu", "un"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "İrmik",
+      "forbiddenWords": ["buğday", "helva", "revani", "tane", "süt"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Bisküvili Pasta",
+      "forbiddenWords": ["bisküvi", "muhallebi", "muz", "katman", "bufet"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Çikolatalı Pasta",
+      "forbiddenWords": ["kek", "çikolata", "ganaj", "doğum", "dilim"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Tiramisu",
+      "forbiddenWords": ["italya", "kahve", "kek", "krem", "katman"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Profiterol",
+      "forbiddenWords": ["hamur", "çikolata", "dolgusu", "pasta", "top"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Ekler",
+      "forbiddenWords": ["hamur", "krem", "çikolata", "uzun", "pastane"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Baklavalık",
+      "forbiddenWords": ["katman", "yağsız", "yufka", "gayet", "makas"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Güllaç",
+      "forbiddenWords": ["ramazan", "süt", "tatlı", "yaprak", "pudra"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Supangle",
+      "forbiddenWords": ["süt", "kakao", "tatlı", "sos", "fincan"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Tahinli",
+      "forbiddenWords": ["tahin", "pekmez", "kahvaltı", "sürülür", "ekmek"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Sandviç",
+      "forbiddenWords": ["ekmek", "araya", "peynir", "salam", "öğle"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Tost",
+      "forbiddenWords": ["ekmek", "peynir", "sucuk", "makine", "ısıtılır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Hamburger",
+      "forbiddenWords": ["köfte", "ekmek", "marul", "ketçap", "fastfood"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Sushi",
+      "forbiddenWords": ["japonya", "pirinç", "balık", "nor", "çubuk"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Salata",
+      "forbiddenWords": ["yeşillik", "domates", "zeytinyağı", "soğuk", "karıştırılır"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Piyaz",
+      "forbiddenWords": ["fasulye", "yumurta", "soğan", "zeytinyağı", "salata"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Çoban Salatası",
+      "forbiddenWords": ["domates", "salatalık", "soğan", "maydanoz", "yeşil"],
+      "difficulty": 2
+    },
+    {
+      "mainWord": "Süzme",
+      "forbiddenWords": ["yoğurt", "süzülmüş", "sos", "yemek", "ekşili"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Labne",
+      "forbiddenWords": ["peynir", "krema", "sürülür", "kahvaltı", "yumuşak"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kaşarlı",
+      "forbiddenWords": ["peynir", "eriyen", "tost", "pide", "üstü"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Sosisli",
+      "forbiddenWords": ["sosis", "ekmek", "ketçap", "içine", "mısır"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Zeytin",
+      "forbiddenWords": ["ağaç", "tane", "salata", "kahvaltı", "yağı"],
+      "difficulty": 1
+    },
+    {
+      "mainWord": "Turşu Kurmak",
+      "forbiddenWords": ["kavanoz", "sirke", "sebze", "salça", "bekletir"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Kuymak",
+      "forbiddenWords": ["mısır", "peynir", "tereyağı", "karadeniz", "sıcak"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Hamsili Pilav",
+      "forbiddenWords": ["hamsi", "pirinç", "balık", "karadeniz", "pişirilmiş"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Keşkek",
+      "forbiddenWords": ["buğday", "et", "uzun", "karışık", "köy"],
+      "difficulty": 3
+    },
+    {
+      "mainWord": "Etli Ekmek",
+      "forbiddenWords": ["et", "hamur", "fırın", "konya", "ince"],
+      "difficulty": 3
+    }
+  ]
+}

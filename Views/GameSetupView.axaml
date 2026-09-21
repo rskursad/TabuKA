@@ -1,0 +1,333 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:TabuKA.ViewModels"
+             xmlns:controls="using:Avalonia.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="850"
+             x:Class="TabuKA.Views.GameSetupView"
+             x:DataType="vm:GameSetupViewModel">
+
+    <Design.DataContext>
+        <vm:GameSetupViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="Border.SectionCard">
+            <Setter Property="Background" Value="#111827" />
+            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="BorderBrush" Value="#374151" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Padding" Value="24" />
+        </Style>
+
+        <Style Selector="Border.CategoryChip">
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="#1F2937" />
+            <Setter Property="BorderBrush" Value="#374151" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="Border.CategoryChip:pointerover">
+            <Setter Property="BorderBrush" Value="#38BDF8" />
+        </Style>
+
+        <Style Selector="Button.ArcadeBtn">
+            <Setter Property="FontFamily" Value="{StaticResource PixelFont}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BorderThickness" Value="0,0,0,4" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.ArcadeBtn:pressed">
+            <Setter Property="BorderThickness" Value="0,2,0,2" />
+            <Setter Property="Margin" Value="0,2,0,0" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Background="#0A0E17">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Border Padding="16,16" HorizontalAlignment="Center" MaxWidth="880">
+                <StackPanel Spacing="20">
+                    <!-- Header -->
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Button Grid.Column="0" Content="← ANA MENÜ" Command="{Binding GoBackCommand}"
+                                Classes="ArcadeBtn"
+                                Background="#374151" BorderBrush="#1F2937" Foreground="#F3F4F6"
+                                Padding="16,10" FontSize="13"
+                                VerticalAlignment="Center" />
+
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Center" Spacing="4">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                                <TextBlock Text="🎮" FontSize="26" VerticalAlignment="Center" />
+                                <TextBlock Text="OYUN LOBİSİ"
+                                           FontFamily="{StaticResource PixelFont}"
+                                           FontSize="26" FontWeight="Black"
+                                           Foreground="#38BDF8" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <TextBlock Text="TAKIMINI VE KURALLARINI BELİRLE"
+                                       FontFamily="{StaticResource PixelFont}"
+                                       FontSize="12" FontWeight="Bold"
+                                       Foreground="#FCD34D" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- 1. Game Rules Card -->
+                    <Border Classes="SectionCard" BorderBrush="#6366F1">
+                        <StackPanel Spacing="18">
+                            <TextBlock Text="⏱️ OYUN KURALLARI VE SÜRE"
+                                       FontFamily="{StaticResource PixelFont}"
+                                       FontSize="15" FontWeight="Bold" Foreground="#A5B4FC" />
+
+                            <!-- Row 1: Time & Pass -->
+                            <Grid ColumnDefinitions="*,*">
+                                <!-- Round Time -->
+                                <StackPanel Grid.Column="0" Spacing="8" Margin="0,0,16,0">
+                                    <TextBlock Text="TUR SÜRESİ:"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontWeight="Bold" FontSize="13" Foreground="#E0E7FF" />
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Slider Grid.Column="0" Minimum="30" Maximum="180" Value="{Binding RoundTimeSeconds}"
+                                                TickFrequency="15" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Text="{Binding RoundTimeSeconds, StringFormat='{}{0} SN'}"
+                                                   FontFamily="{StaticResource PixelFont}"
+                                                   FontWeight="Black" FontSize="16" Width="70" TextAlignment="Right"
+                                                   Foreground="#34D399"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                </StackPanel>
+
+                                <!-- Pass Limit -->
+                                <StackPanel Grid.Column="1" Spacing="8" Margin="16,0,0,0">
+                                    <TextBlock Text="PAS HAKKI (HER TUR):"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontWeight="Bold" FontSize="13" Foreground="#E0E7FF" />
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Slider Grid.Column="0" Minimum="0" Maximum="10" Value="{Binding PassLimit}"
+                                                TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding PassLimit, StringFormat='{}{0}'}"
+                                                   FontFamily="{StaticResource PixelFont}"
+                                                   FontWeight="Black" FontSize="16" Width="60" TextAlignment="Right"
+                                                   Foreground="#F59E0B"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                    <TextBlock Text="0 = Sınırsız Pas"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontSize="11" Foreground="#9CA3AF" />
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- Row 2: Target Score & Auto Taboo Speech Recognition -->
+                            <Grid ColumnDefinitions="*,*">
+                                <!-- Target Score -->
+                                <StackPanel Grid.Column="0" Spacing="8" Margin="0,0,16,0">
+                                    <TextBlock Text="KAZANMA HEDEFİ:"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontWeight="Bold" FontSize="13" Foreground="#E0E7FF" />
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Slider Grid.Column="0" Minimum="0" Maximum="50" Value="{Binding ScoreToWin}"
+                                                TickFrequency="5" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding ScoreToWin, StringFormat='{}{0} P'}"
+                                                   FontFamily="{StaticResource PixelFont}"
+                                                   FontWeight="Black" FontSize="16" Width="70" TextAlignment="Right"
+                                                   Foreground="#FBBF24"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                    <TextBlock Text="0 = Serbest Oyun"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontSize="11" Foreground="#9CA3AF" />
+                                </StackPanel>
+
+                                <!-- Auto Taboo Voice Control -->
+                                <StackPanel Grid.Column="1" Spacing="8" Margin="16,0,0,0">
+                                    <TextBlock Text="SESLİ TABU TESPİTİ:"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontWeight="Bold" FontSize="13" Foreground="#E0E7FF" />
+                                    <ToggleSwitch IsChecked="{Binding EnableAutoTabooCheck}"
+                                                  FontFamily="{StaticResource PixelFont}"
+                                                  OnContent="Açık (Mikrofon İzni Gerekir)"
+                                                  OffContent="Kapalı (Yalnızca Butonlar)" />
+                                    <TextBlock Text="{Binding PermissionStatusBadge}"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontSize="11" FontWeight="Bold"
+                                               Foreground="#34D399"
+                                               IsVisible="{Binding PermissionStatusBadge, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                    <TextBlock Text="Yakındaki anlatıcıyı dinler, uzaktaki sesleri eler."
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontSize="11" Foreground="#9CA3AF" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 2. Teams Setup Card -->
+                    <Border Classes="SectionCard" BorderBrush="#10B981">
+                        <StackPanel Spacing="16">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                    <TextBlock Text="👥" FontSize="18" VerticalAlignment="Center" />
+                                    <TextBlock Text="TAKIMLAR"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontSize="15" FontWeight="Bold"
+                                               Foreground="#6EE7B7" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="TAKIM SAYISI:"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontSize="12" Foreground="#9CA3AF" VerticalAlignment="Center" />
+                                    <NumericUpDown Value="{Binding TeamCount}" Minimum="2" Maximum="6"
+                                                   FontFamily="{StaticResource PixelFont}"
+                                                   Width="90" FontSize="13" />
+                                </StackPanel>
+                            </Grid>
+
+                            <ItemsControl ItemsSource="{Binding Teams}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#1E1B4B"
+                                                CornerRadius="10" Padding="14,10" Margin="0,4"
+                                                BorderThickness="2" BorderBrush="#3730A3">
+                                            <Grid ColumnDefinitions="120,*">
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                                    <TextBlock Text="🛡️" FontSize="14" VerticalAlignment="Center" />
+                                                    <TextBlock Text="{Binding TeamNumber, StringFormat='Takım {0}:'}"
+                                                               FontFamily="{StaticResource PixelFont}"
+                                                               FontSize="13" FontWeight="Bold"
+                                                               Foreground="#C7D2FE" VerticalAlignment="Center" />
+                                                </StackPanel>
+                                                <TextBox Grid.Column="1" Text="{Binding Name}"
+                                                         FontFamily="{StaticResource PixelFont}"
+                                                         PlaceholderText="Takım adı girin..." FontSize="14" />
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 3. Categories Selection Card -->
+                    <Border Classes="SectionCard" BorderBrush="#F59E0B">
+                        <StackPanel Spacing="16">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Grid.Column="0" Spacing="2">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="💎" FontSize="16" VerticalAlignment="Center" />
+                                        <TextBlock Text="KATEGORİLER"
+                                                   FontFamily="{StaticResource PixelFont}"
+                                                   FontSize="15" FontWeight="Bold"
+                                                   Foreground="#FCD34D" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                    <TextBlock Text="(Seçim yapılmazsa tüm kelimeler karıştırılır)"
+                                               FontFamily="{StaticResource PixelFont}"
+                                               FontSize="11" Foreground="#9CA3AF" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                    <Button Content="✅ TÜMÜ" Command="{Binding SelectAllCategoriesCommand}"
+                                            Classes="ArcadeBtn"
+                                            Background="#10B981" BorderBrush="#047857" Foreground="White"
+                                            Padding="10,6" FontSize="11" />
+                                    <Button Content="❌ TEMİZLE" Command="{Binding DeselectAllCategoriesCommand}"
+                                            Classes="ArcadeBtn"
+                                            Background="#EF4444" BorderBrush="#991B1B" Foreground="White"
+                                            Padding="10,6" FontSize="11" />
+                                </StackPanel>
+                            </Grid>
+
+                            <ItemsControl ItemsSource="{Binding Categories}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <controls:WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Classes="CategoryChip"
+                                                Background="{Binding IsSelected, Converter={StaticResource BoolToCategoryBackgroundConverter}}"
+                                                BorderBrush="{Binding IsSelected, Converter={StaticResource BoolToCategoryBorderConverter}}">
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                      Content="{Binding Name}"
+                                                      FontFamily="{StaticResource PixelFont}"
+                                                      FontSize="13" Margin="2,0"
+                                                      Command="{Binding $parent[UserControl].DataContext.ToggleCategoryCommand}"
+                                                      CommandParameter="{Binding}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="{Binding SelectedCategories.Count, StringFormat='{}{0} KATEGORİ SEÇİLDİ'}"
+                                       FontFamily="{StaticResource PixelFont}"
+                                       FontSize="12" Foreground="#38BDF8"
+                                       HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Validation Error Message -->
+                    <TextBlock Text="{Binding ValidationMessage}"
+                               FontFamily="{StaticResource PixelFont}"
+                               Foreground="#EF4444" FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               IsVisible="{Binding ValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                    <!-- Launch Game Button -->
+                    <Button Content="🚀 OYUNU BAŞLAT"
+                            Command="{Binding StartGameCommand}"
+                            Classes="ArcadeBtn"
+                            Background="#10B981" BorderBrush="#047857" Foreground="White"
+                            FontSize="17" FontWeight="Black"
+                            Padding="24,16" CornerRadius="14"
+                            HorizontalAlignment="Stretch" MaxWidth="380"
+                            HorizontalContentAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+
+        <!-- Microphone Permission Confirmation Dialog -->
+        <Border IsVisible="{Binding IsPermissionDialogOpen}"
+                Background="#B0000000"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border Background="#18181B"
+                    CornerRadius="18" Padding="24,20" MaxWidth="440" Margin="16"
+                    BorderThickness="3" BorderBrush="#3B82F6"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    BoxShadow="0 12 36 0 #70000000">
+                <StackPanel Spacing="16" HorizontalAlignment="Center">
+                    <TextBlock Text="🎙️" FontSize="44" HorizontalAlignment="Center" />
+                    <TextBlock Text="MİKROFON ERİŞİM İZNİ"
+                               FontFamily="{StaticResource PixelFont}"
+                               FontSize="16" FontWeight="Black"
+                               Foreground="#60A5FA" HorizontalAlignment="Center" />
+                    <TextBlock Text="TabuKA'nın oyun sırasında anlatıcının söylediği yasaklı kelimeleri otomatik algılayabilmesi için mikrofon erişimi gerekmektedir.&#x0a;&#x0a;Yalnızca aktif oyun rauntları sırasında ve yakındaki sesler dinlenir. İzin veriyor musunuz?"
+                               FontFamily="{StaticResource PixelFont}"
+                               FontSize="12" Foreground="#E2E8F0"
+                               TextWrapping="Wrap" TextAlignment="Center" />
+
+                    <Grid ColumnDefinitions="*,*" Margin="0,8,0,0">
+                        <!-- Allow Button -->
+                        <Button Grid.Column="0" Content="✅ İZİN VER"
+                                Command="{Binding GrantMicrophonePermissionCommand}"
+                                Classes="ArcadeBtn"
+                                Background="#10B981" BorderBrush="#047857" Foreground="White"
+                                Padding="12,10" FontSize="13" FontWeight="Bold"
+                                Margin="0,0,6,0" HorizontalContentAlignment="Center" />
+
+                        <!-- Deny Button -->
+                        <Button Grid.Column="1" Content="❌ İZİN VERME"
+                                Command="{Binding DenyMicrophonePermissionCommand}"
+                                Classes="ArcadeBtn"
+                                Background="#EF4444" BorderBrush="#991B1B" Foreground="White"
+                                Padding="12,10" FontSize="13" FontWeight="Bold"
+                                Margin="6,0,0,0" HorizontalContentAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

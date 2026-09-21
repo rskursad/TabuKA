@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:TabuKA.ViewModels"
+             xmlns:views="using:TabuKA.Views"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="TabuKA.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             Background="#0A0E17"
+             FontFamily="{StaticResource PixelFont}">
+
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="{x:Type vm:MainViewModel}">
+            <views:MainMenuView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GameSetupViewModel}">
+            <views:GameSetupView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GamePlayViewModel}">
+            <views:GamePlayView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+            <views:SettingsView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StatisticsViewModel}">
+            <views:StatisticsView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:WordManagementViewModel}">
+            <views:WordManagementView DataContext="{Binding}" />
+        </DataTemplate>
+    </UserControl.DataTemplates>
+
+    <Grid>
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
+</UserControl>

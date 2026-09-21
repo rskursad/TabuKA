@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType Condition="'$(TargetFramework)' == 'net10.0' and $([MSBuild]::IsOSPlatform('Windows'))">Library</OutputType>
+    <OutputType Condition="'$(TargetFramework)' == 'net10.0' and !$([MSBuild]::IsOSPlatform('Windows'))">Exe</OutputType>
+    <OutputType Condition="'$(TargetFramework)' != 'net10.0'">WinExe</OutputType>
+    <TargetFramework Condition="!$([MSBuild]::IsOSPlatform('Windows'))">net10.0</TargetFramework>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('Windows'))">net10.0;net10.0-windows</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <AvaloniaResource Include="Assets\**" />
+    <None Include="Models\**"
+          CopyToOutputDirectory="PreserveNewest"
+          TargetPath="Models\%(RecursiveDir)%(Filename)%(Extension)" />
+    <None Include="Data\SeedData\**"
+          CopyToOutputDirectory="PreserveNewest"
+          TargetPath="Data\SeedData\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Data\SeedData\**" />
+    <Compile Remove="WordGeneratorTool\**" />
+    <Content Remove="WordGeneratorTool\**" />
+    <None Remove="WordGeneratorTool\**" />
+    <EmbeddedResource Remove="WordGeneratorTool\**" />
+    <Compile Remove="TabuKA.Tests\**" />
+    <Content Remove="TabuKA.Tests\**" />
+    <None Remove="TabuKA.Tests\**" />
+    <EmbeddedResource Remove="TabuKA.Tests\**" />
+    <Compile Remove="TabuKA.Android\**" />
+    <Content Remove="TabuKA.Android\**" />
+    <None Remove="TabuKA.Android\**" />
+    <EmbeddedResource Remove="TabuKA.Android\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.3.22" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="12.1.2" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.2" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.12">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.12" />
+    <PackageReference Include="NAudio" Version="3.1.0" />
+    <PackageReference Include="NAudio.Core" Version="3.1.0" />
+    <PackageReference Include="Vosk" Version="0.3.38" />
+  </ItemGroup>
+</Project>
