@@ -404,8 +404,10 @@ public class DatabaseService : IDatabaseService
     }
 
     /// <summary>
-    /// Reads all bundled seed files (initial_words.json, packs/*.json, external_words.json)
-    /// and imports words that do not already exist.
+    /// Reads all bundled seed data (initial_words.json, packs/*.json, external_words.json)
+    /// and imports words that do not already exist. Bundled files are embedded into the
+    /// assembly so they also work on Android; user-added pack files are additionally read
+    /// from disk on desktop platforms.
     /// </summary>
     public async Task<int> SeedFromSeedDataAsync()
     {
@@ -413,35 +415,39 @@ public class DatabaseService : IDatabaseService
 
         var categories = (await context.Categories.ToListAsync()).ToDictionary(c => c.Name, c => c.Id);
 
-        var seedRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "SeedData");
-        if (!Directory.Exists(seedRoot))
-        {
-            var fallback = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SeedData");
-            if (Directory.Exists(fallback))
-                seedRoot = fallback;
-        }
-        if (!Directory.Exists(seedRoot))
-            return 0;
-
-        var packDir = Path.Combine(seedRoot, "packs");
-        var files = new List<string>
-        {
-            Path.Combine(seedRoot, "initial_words.json"),
-            Path.Combine(seedRoot, "external_words.json")
-        };
-
-        if (Directory.Exists(packDir))
-        {
-            files.AddRange(Directory.GetFiles(packDir, "*.json"));
-        }
-
-        var imported = 0;
         var wordsToAdd = new List<Word>();
 
-        foreach (var filePath in files.Where(File.Exists))
+        // 1) Embedded seed resources - work on every platform (incl. Android)
+        var resourceNames = GetType().Assembly.GetManifestResourceNames()
+            .Where(n => n.IndexOf("SeedData", StringComparison.OrdinalIgnoreCase) >= 0)
+            .OrderBy(n => n, StringComparer.Ordinal)
+            .ToList();
+
+        foreach (var resourceName in resourceNames)
         {
-            var wordsInFile = ParseSeedFile(filePath, categories);
-            wordsToAdd.AddRange(wordsInFile);
+            wordsToAdd.AddRange(ParseSeedResource(resourceName, categories));
+        }
+
+        // 2) Additional user-provided pack files on disk (desktop drop-in support)
+        var seedRoot = ResolveSeedRoot();
+        if (!string.IsNullOrEmpty(seedRoot))
+        {
+            var files = new List<string>
+            {
+                Path.Combine(seedRoot, "initial_words.json"),
+                Path.Combine(seedRoot, "external_words.json")
+            };
+
+            var packDir = Path.Combine(seedRoot, "packs");
+            if (Directory.Exists(packDir))
+            {
+                files.AddRange(Directory.GetFiles(packDir, "*.json"));
+            }
+
+            foreach (var filePath in files.Where(File.Exists))
+            {
+                wordsToAdd.AddRange(ParseSeedFile(filePath, categories));
+            }
         }
 
         var existingKeys = new HashSet<(string, int)>();
@@ -450,6 +456,7 @@ public class DatabaseService : IDatabaseService
             existingKeys.Add((w.MainWord, w.CategoryId));
         }
 
+        var imported = 0;
         foreach (var word in wordsToAdd.Where(w => w != null))
         {
             if (existingKeys.Contains((word.MainWord, word.CategoryId)))
@@ -465,10 +472,37 @@ public class DatabaseService : IDatabaseService
         return imported;
     }
 
+    private static string? ResolveSeedRoot()
+    {
+        var seedRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "SeedData");
+        if (Directory.Exists(seedRoot))
+            return seedRoot;
+
+        var fallback = Path.Combine(Directory.GetCurrentDirectory(), "Data", "SeedData");
+        return Directory.Exists(fallback) ? fallback : null;
+    }
+
+    private List<Word> ParseSeedResource(string resourceName, Dictionary<string, int> categories)
+    {
+        using var stream = GetType().Assembly.GetManifestResourceStream(resourceName);
+        if (stream == null)
+            return new List<Word>();
+
+        using var reader = new StreamReader(stream);
+        return ParseSeedJson(reader.ReadToEnd(), categories);
+    }
+
     private List<Word> ParseSeedFile(string filePath, Dictionary<string, int> categories)
     {
+        return ParseSeedJson(File.ReadAllText(filePath), categories);
+    }
+
+    private List<Word> ParseSeedJson(string json, Dictionary<string, int> categories)
+    {
         var result = new List<Word>();
-        var json = File.ReadAllText(filePath);
+        if (string.IsNullOrWhiteSpace(json))
+            return result;
+
         using var document = JsonDocument.Parse(json);
 
         if (document.RootElement.ValueKind == JsonValueKind.Array)

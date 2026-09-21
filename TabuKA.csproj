@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <OutputType Condition="'$(TargetFramework)' == 'net10.0' and $([MSBuild]::IsOSPlatform('Windows'))">Library</OutputType>
+    <OutputType Condition="'$(TargetFramework)' == 'net10.0' and !$([MSBuild]::IsOSPlatform('Windows'))">Exe</OutputType>
     <OutputType Condition="'$(TargetFramework)' != 'net10.0'">WinExe</OutputType>
-    <OutputType Condition="'$(TargetFramework)' == 'net10.0'">Library</OutputType>
-    <TargetFrameworks>net10.0-windows;net10.0</TargetFrameworks>
+    <TargetFramework Condition="!$([MSBuild]::IsOSPlatform('Windows'))">net10.0</TargetFramework>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('Windows'))">net10.0;net10.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -16,6 +18,7 @@
     <None Include="Data\SeedData\**"
           CopyToOutputDirectory="PreserveNewest"
           TargetPath="Data\SeedData\%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Data\SeedData\**" />
     <Compile Remove="WordGeneratorTool\**" />
     <Content Remove="WordGeneratorTool\**" />
     <None Remove="WordGeneratorTool\**" />

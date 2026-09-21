@@ -12,7 +12,7 @@ Masaüstü Tabu kelime anlatma oyunu. Avalonia UI + .NET 10 ile geliştirilmişt
 
 ## Teknolojiler
 
-- .NET 10 (`net10.0-windows`)
+- .NET 10 (`net10.0` / `net10.0-windows` / `net10.0-android`)
 - Avalonia 12.1.2 + Avalonia.Controls.DataGrid
 - Entity Framework Core 10 + SQLite
 - CommunityToolkit.Mvvm 8.4.2
@@ -21,9 +21,32 @@ Masaüstü Tabu kelime anlatma oyunu. Avalonia UI + .NET 10 ile geliştirilmişt
 
 ## Kurulum ve Çalıştırma
 
+### Make (Linux / macOS / Windows-Git-Bash)
+
+```bash
+make build          # Derle  (varsayılan: Debug)
+make run            # Masaüstü uygulamayı çalıştır
+make test           # Birim testleri
+make ci             # Derle + test
+make publish        # Bulunulan platform için yayınla
+make publish-linux  # Kendi kendine yeten Linux paketi (linux-x64)
+make publish-win    # Windows paketi (win-x64) - yalnızca Windows'ta
+make publish-mac    # macOS paketi (osx-x64) - yalnızca macOS'ta
+make android-build  # Android APK derle
+make android-run    # Bağlı cihaz/emülatörde çalıştır
+make workload-android  # Android iş yükünü kur
+make clean          # bin/obj/publish temizliği
+```
+
+Konfigürasyon değiştirmek için: `make run CONFIG=Release`
+
+### Doğrudan dotnet
+
 ```bash
 dotnet restore
-dotnet run --project TabuKA
+dotnet run --project TabuKA                     # Linux/macOS
+dotnet run --project TabuKA -f net10.0-windows  # Windows
+dotnet build TabuKA.Android                     # Android APK (önce: dotnet workload install android)
 ```
 
 Testler:
@@ -33,6 +56,17 @@ dotnet test TabuKA.Tests
 ```
 
 Veritabanı `tabuka.db` uygulama klasöründe otomatik oluşturulur; `Data\SeedData` altındaki kelime paketleri boş veritabanına otomatik yüklenir.
+
+## Platform Destek Matrisi
+
+| Platform       | Hedef TFM        | Çıktı Türü | Nasıl        |
+|----------------|------------------|------------|--------------|
+| Linux          | `net10.0`        | Exe        | `make run`   |
+| macOS          | `net10.0`        | Exe        | `make run`   |
+| Windows        | `net10.0-windows`| WinExe     | `TabuKA.ps1 run` |
+| Android        | `net10.0-android`| APK        | `make android-build` |
+
+Windows'ta alt kütüphane hedefi (`net10.0`) Android referansı için `Library` olarak derlenir; Linux/macOS'ta aynı hedef masaüstü için `Exe` olur.
 
 ## Ses Tanıma (Vosk)
 
