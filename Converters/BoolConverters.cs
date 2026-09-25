@@ -11,8 +11,17 @@ public class BoolToCategoryBackgroundConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is true 
-            ? new SolidColorBrush(Color.Parse("#E3F2FD")) 
+        bool isSelected = value is true;
+        bool isDark = Avalonia.Application.Current?.ActualThemeVariant == Avalonia.Styling.ThemeVariant.Dark;
+
+        if (isDark)
+        {
+            return isSelected 
+                ? new SolidColorBrush(Color.Parse("#381A4C")) 
+                : new SolidColorBrush(Color.Parse("#1A162F"));
+        }
+        return isSelected 
+            ? new SolidColorBrush(Color.Parse("#F3E8FF")) 
             : new SolidColorBrush(Color.Parse("#FFFFFF"));
     }
 
@@ -26,9 +35,18 @@ public class BoolToCategoryBorderConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is true 
-            ? new SolidColorBrush(Color.Parse("#2196F3")) 
-            : new SolidColorBrush(Color.Parse("#E0E0E0"));
+        bool isSelected = value is true;
+        bool isDark = Avalonia.Application.Current?.ActualThemeVariant == Avalonia.Styling.ThemeVariant.Dark;
+
+        if (isDark)
+        {
+            return isSelected 
+                ? new SolidColorBrush(Color.Parse("#C084FC")) 
+                : new SolidColorBrush(Color.Parse("#2F2752"));
+        }
+        return isSelected 
+            ? new SolidColorBrush(Color.Parse("#A855F7")) 
+            : new SolidColorBrush(Color.Parse("#D4D8EE"));
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -227,6 +245,54 @@ public class StatusToBorderConverter : IValueConverter
         if (message.Contains("Yedek") || message.Contains("Dışa") || message.Contains("İçe"))
             return new SolidColorBrush(Color.Parse("#42A5F5"));
         return new SolidColorBrush(Color.Parse("#FFA726"));
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
+
+public class ModelStatusBgConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        bool isInstalled = value is true;
+        return isInstalled
+            ? new SolidColorBrush(Color.Parse("#1A10B981"))
+            : new SolidColorBrush(Color.Parse("#1AF59E0B"));
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
+
+public class ModelStatusBorderConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        bool isInstalled = value is true;
+        return isInstalled
+            ? new SolidColorBrush(Color.Parse("#10B981"))
+            : new SolidColorBrush(Color.Parse("#F59E0B"));
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
+
+public class ModelStatusFgConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        bool isInstalled = value is true;
+        return isInstalled
+            ? new SolidColorBrush(Color.Parse("#10B981"))
+            : new SolidColorBrush(Color.Parse("#F59E0B"));
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

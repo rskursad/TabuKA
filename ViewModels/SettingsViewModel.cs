@@ -46,13 +46,23 @@ public partial class SettingsViewModel : ViewModelBase
     public partial string StatusMessage { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial string SelectedSpeechEngine { get; set; } = SpeechEngineNames.Vosk;
+    public partial bool IsModelInstalled { get; set; }
+
+    [ObservableProperty]
+    public partial string ModelStatusText { get; set; } = "Kontrol ediliyor...";
+
+    [ObservableProperty]
+    public partial bool IsDownloadingModel { get; set; }
+
+    [ObservableProperty]
+    public partial double ModelDownloadProgress { get; set; }
+
+    [ObservableProperty]
+    public partial string ModelDownloadStatusMessage { get; set; } = string.Empty;
 
     private readonly ISoundEffectService _soundEffectService;
 
     public List<string> Themes { get; } = new() { "System", "Light", "Dark" };
-    
-    public List<string> SpeechEngines { get; } = new() { "Simulation", "Vosk (Offline)" };
 
     public SettingsViewModel(
         ISettingsService settingsService, 
@@ -80,8 +90,7 @@ public partial class SettingsViewModel : ViewModelBase
             AutoSave = await _settingsService.GetSettingAsync("AutoSave", true);
             ShowTutorial = await _settingsService.GetSettingAsync("ShowTutorial", true);
 
-            var defaultEngine = await _speechManager.IsVoskAvailableAsync() ? SpeechEngineNames.Vosk : SpeechEngineNames.Simulation;
-            SelectedSpeechEngine = await _settingsService.GetSettingAsync("SpeechEngine", defaultEngine);
+            await RefreshModelStatusAsync();
 
             WordCount = await _databaseService.GetWordCountAsync();
             CategoryCount = await _databaseService.GetCategoryCountAsync();
@@ -90,6 +99,57 @@ public partial class SettingsViewModel : ViewModelBase
         {
             IsLoading = false;
         }
+    }
+
+    public async Task RefreshModelStatusAsync()
+    {
+        IsModelInstalled = await _speechManager.IsModelInstalledAsync();
+        ModelStatusText = IsModelInstalled ? "✅ Kurulu ve Hazır" : "⚠️ Model Yüklü Değil";
+    }
+
+    [RelayCommand]
+    public async Task DownloadModelAsync()
+    {
+        if (IsDownloadingModel) return;
+
+        IsDownloadingModel = true;
+        ModelDownloadProgress = 0;
+        ModelDownloadStatusMessage = "İndirme başlatılıyor...";
+        StatusMessage = "Türkçe ses tanıma modeli indiriliyor...";
+
+        var progress = new Progress<double>(p =>
+        {
+            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            {
+                ModelDownloadProgress = p;
+            });
+        });
+
+        var success = await _speechManager.DownloadAndInstallModelAsync(progress, status =>
+        {
+            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            {
+                ModelDownloadStatusMessage = status;
+            });
+        });
+
+        IsDownloadingModel = false;
+        await RefreshModelStatusAsync();
+        StatusMessage = success
+            ? "Model başarıyla indirildi ve iç kurulum tamamlandı."
+            : "Model indirilemedi veya kurulum başarısız oldu.";
+    }
+
+    [RelayCommand]
+    public async Task DeleteModelAsync()
+    {
+        if (IsDownloadingModel) return;
+
+        var deleted = await _speechManager.DeleteModelAsync();
+        await RefreshModelStatusAsync();
+        StatusMessage = deleted
+            ? "Ses modeli başarıyla silindi."
+            : "Silinecek model dosyası bulunamadı.";
     }
 
     partial void OnSelectedThemeChanged(string value)
@@ -111,29 +171,6 @@ public partial class SettingsViewModel : ViewModelBase
     partial void OnShowTutorialChanged(bool value)
     {
         _ = _settingsService.SetSettingAsync("ShowTutorial", value);
-    }
-
-    partial void OnSelectedSpeechEngineChanged(string value)
-    {
-        _ = ApplySpeechEngineAsync(value);
-    }
-
-    private async Task ApplySpeechEngineAsync(string value)
-    {
-        await _settingsService.SetSettingAsync("SpeechEngine", value);
-
-        try
-        {
-            await _speechManager.SetEngineAsync(value);
-            var available = await _speechManager.IsCurrentEngineAvailableAsync();
-            StatusMessage = available
-                ? $"Konuşma motoru seçildi: {value}"
-                : "Konuşma motoru: Vosk modeli bulunamadı (uygulama başlatılırken otomatik indirilecek)";
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = $"Motor değiştirilemedi: {ex.Message}";
-        }
     }
 
     private void ApplyTheme(string theme)

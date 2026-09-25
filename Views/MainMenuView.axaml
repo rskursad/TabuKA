@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:TabuKA.ViewModels"
+             xmlns:controls="using:TabuKA.Views.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
@@ -12,174 +13,212 @@
     </Design.DataContext>
 
     <UserControl.Styles>
-        <Style Selector="Button.ArcadeButton">
+        <!-- Hero Play Button -->
+        <Style Selector="Button.HeroPlayButton">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="24,18" />
-            <Setter Property="Margin" Value="0,10" />
-            <Setter Property="FontSize" Value="17" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="FontFamily" Value="{StaticResource PixelFont}" />
-            <Setter Property="CornerRadius" Value="12" />
-            <Setter Property="BorderThickness" Value="0,0,0,5" />
+            <Setter Property="Padding" Value="22,18" />
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="Background" Value="{StaticResource BrandHeroGradient}" />
+            <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Cursor" Value="Hand" />
         </Style>
 
-        <Style Selector="Button.ArcadeButton:pointerover">
-            <Setter Property="Opacity" Value="0.92" />
+        <Style Selector="Button.HeroPlayButton:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource BrandHeroHoverGradient}" />
         </Style>
 
-        <Style Selector="Button.ArcadeButton:pressed">
-            <Setter Property="BorderThickness" Value="0,2,0,2" />
-            <Setter Property="Margin" Value="0,13,0,7" />
-        </Style>
-
-        <!-- Specific vibrant arcade button colors -->
-        <Style Selector="Button.Play">
-            <Setter Property="Background" Value="#10B981" />
-            <Setter Property="BorderBrush" Value="#047857" />
-            <Setter Property="Foreground" Value="White" />
-        </Style>
-
-        <Style Selector="Button.Words">
-            <Setter Property="Background" Value="#6366F1" />
-            <Setter Property="BorderBrush" Value="#4338CA" />
-            <Setter Property="Foreground" Value="White" />
-        </Style>
-
-        <Style Selector="Button.Stats">
-            <Setter Property="Background" Value="#F59E0B" />
-            <Setter Property="BorderBrush" Value="#B45309" />
-            <Setter Property="Foreground" Value="#1E1B4B" />
-        </Style>
-
-        <Style Selector="Button.Settings">
-            <Setter Property="Background" Value="#06B6D4" />
-            <Setter Property="BorderBrush" Value="#0E7490" />
-            <Setter Property="Foreground" Value="#082F49" />
-        </Style>
-
-        <Style Selector="Border.ArcadeCard">
-            <Setter Property="Background" Value="#1E1B4B" />
-            <Setter Property="BorderBrush" Value="#818CF8" />
-            <Setter Property="BorderThickness" Value="3" />
+        <!-- Menu Action Cards -->
+        <Style Selector="Button.MenuFeatureCard">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="18,14" />
+            <Setter Property="Margin" Value="0,4" />
             <Setter Property="CornerRadius" Value="16" />
-            <Setter Property="BoxShadow" Value="0 8 24 0 #40000000" />
+            <Setter Property="Background" Value="{DynamicResource AppCardBackgroundBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="Button.MenuFeatureCard:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource AppCardBackgroundSubtleBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppHeroBadgeBorderBrush}" />
         </Style>
     </UserControl.Styles>
 
-    <Grid Background="#0B0F19">
-        <!-- Main Scrollable Container -->
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <Border Padding="16,20" HorizontalAlignment="Center" MaxWidth="820">
-                <StackPanel Spacing="24" HorizontalAlignment="Center">
+    <Grid Background="{DynamicResource AppBackgroundBrush}">
+        <!-- Soft red triangular facet behind header -->
+        <controls:BrandTriAccent Variant="Corner" AccentOpacity="0.18"
+                                 VerticalAlignment="Top" HorizontalAlignment="Right"
+                                 Width="280" Height="220" Margin="0,-40,-30,0" />
+        <controls:BrandTriAccent Variant="TopEdge" AccentOpacity="0.12"
+                                 VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                                 Height="36" Margin="0,0,0,0" />
 
-                    <!-- Arcade Header / Title -->
-                    <StackPanel Spacing="10" HorizontalAlignment="Center" Margin="0,8,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="12">
-                            <TextBlock Text="👾" FontSize="36" VerticalAlignment="Center" />
-                            <TextBlock Text="TabuKA" FontSize="38" FontWeight="Black"
-                                       FontFamily="{StaticResource PixelFont}"
-                                       Foreground="#38BDF8" VerticalAlignment="Center" />
-                            <TextBlock Text="🎮" FontSize="36" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <Border Background="#312E81" CornerRadius="8" Padding="14,5"
-                                BorderThickness="2" BorderBrush="#6366F1" HorizontalAlignment="Center">
-                            <TextBlock Text="★ KELİME ANLATMA ARENASI ★"
-                                       FontFamily="{StaticResource PixelFont}"
-                                       FontSize="13" FontWeight="Bold"
-                                       Foreground="#FCD34D"
+        <!-- Scrollable Main Container -->
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Border Padding="24,32" HorizontalAlignment="Center" MaxWidth="540">
+                <StackPanel Spacing="24" HorizontalAlignment="Stretch">
+
+                    <!-- ================= BRAND & LOGO HEADER ================= -->
+                    <StackPanel Spacing="12" HorizontalAlignment="Center" Margin="0,8,0,4">
+
+                        <!-- Brand mark from Assets/temp.jpeg (processed) -->
+                        <Image Source="/Assets/logo-mark.png"
+                               Width="96" Height="96"
+                               Stretch="Uniform"
+                               HorizontalAlignment="Center" />
+
+                        <!-- Title and Catchphrase -->
+                        <StackPanel Spacing="6" HorizontalAlignment="Center">
+                            <TextBlock Text="TabuKA" FontSize="36" FontWeight="Black"
+                                       Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                       HorizontalAlignment="Center" LetterSpacing="1"
+                                       TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="400" />
+                            <TextBlock Text="YASAK KELİMEYİ SÖYLEME • TAKIMINI ZAFERE TAŞI!"
+                                       FontSize="11" FontWeight="Bold" LetterSpacing="1.2"
+                                       Foreground="{DynamicResource AppHeroBadgeBorderBrush}"
                                        HorizontalAlignment="Center" />
+                        </StackPanel>
+
+                        <!-- Pill Badge: Dynamic Word Count -->
+                        <Border Background="{DynamicResource AppCardBackgroundSubtleBrush}"
+                                BorderBrush="{DynamicResource AppCardBorderBrush}"
+                                BorderThickness="1" CornerRadius="20"
+                                Padding="16,6" HorizontalAlignment="Center" Margin="0,2,0,0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock Text="🔥" FontSize="13" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding WordCount, StringFormat='{}{0} Kelime'}"
+                                           FontSize="12" FontWeight="Bold"
+                                           Foreground="#10B981" VerticalAlignment="Center" />
+                                <TextBlock Text="•" FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding CategoryCount, StringFormat='{}{0} Kategori'}"
+                                           FontSize="12" FontWeight="Bold"
+                                           Foreground="#8B5CF6" VerticalAlignment="Center" />
+                                <TextBlock Text="•" FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" VerticalAlignment="Center" />
+                                <TextBlock Text="Oynamaya Hazır"
+                                           FontSize="12" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource AppTextSecondaryBrush}" VerticalAlignment="Center" />
+                            </StackPanel>
                         </Border>
                     </StackPanel>
 
-                    <!-- Arcade Status / Stats Panel -->
-                    <Border Classes="ArcadeCard" Padding="18" MaxWidth="480" HorizontalAlignment="Stretch">
-                        <StackPanel Spacing="14">
-                            <TextBlock Text="⚔️ VERİTABANI ENVANTERİ"
-                                       FontFamily="{StaticResource PixelFont}"
-                                       FontSize="13" FontWeight="Bold"
-                                       Foreground="#A5B4FC" HorizontalAlignment="Center" />
+                    <!-- ================= HERO ACTION: OYUNA BAŞLA ================= -->
+                    <Button Classes="HeroPlayButton"
+                            Command="{Binding NavigateToGameSetupCommand}"
+                            Margin="0,6,0,6">
+                        <Grid ColumnDefinitions="Auto,*,Auto">
+                            <!-- Play Icon Badge -->
+                            <Border Grid.Column="0" Background="#33FFFFFF" CornerRadius="14"
+                                    Width="50" Height="50" Margin="0,0,16,0"
+                                    VerticalAlignment="Center">
+                                <TextBlock Text="▶" FontSize="20" Foreground="White"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Margin="2,0,0,0" />
+                            </Border>
 
-                            <Grid ColumnDefinitions="*,*,*">
-                                <!-- Words -->
-                                <Border Grid.Column="0" Background="#111827" CornerRadius="10" Padding="10,8" Margin="3,0"
-                                        BorderThickness="2" BorderBrush="#374151">
-                                    <StackPanel Spacing="4" HorizontalAlignment="Center">
-                                        <TextBlock Text="📚" FontSize="18" HorizontalAlignment="Center" />
-                                        <TextBlock Text="{Binding WordCount}" FontSize="20" FontWeight="Black"
-                                                   FontFamily="{StaticResource PixelFont}"
-                                                   Foreground="#34D399" HorizontalAlignment="Center" />
-                                        <TextBlock Text="Kelime" FontSize="11"
-                                                   FontFamily="{StaticResource PixelFont}"
-                                                   Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
+                            <!-- Button Labels -->
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                                <TextBlock Text="OYUNA BAŞLA" FontSize="18" FontWeight="Black"
+                                           Foreground="White" LetterSpacing="1" />
+                                <TextBlock Text="Takımları kur, süreyi seç ve kapışmaya başla!"
+                                           FontSize="12" Foreground="#FFE6EC" />
+                            </StackPanel>
 
-                                <!-- Categories -->
-                                <Border Grid.Column="1" Background="#111827" CornerRadius="10" Padding="10,8" Margin="3,0"
-                                        BorderThickness="2" BorderBrush="#374151">
-                                    <StackPanel Spacing="4" HorizontalAlignment="Center">
-                                        <TextBlock Text="📂" FontSize="18" HorizontalAlignment="Center" />
-                                        <TextBlock Text="{Binding CategoryCount}" FontSize="20" FontWeight="Black"
-                                                   FontFamily="{StaticResource PixelFont}"
-                                                   Foreground="#60A5FA" HorizontalAlignment="Center" />
-                                        <TextBlock Text="Kategori" FontSize="11"
-                                                   FontFamily="{StaticResource PixelFont}"
-                                                   Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
+                            <!-- Forward Chevron -->
+                            <TextBlock Grid.Column="2" Text="›" FontSize="28" FontWeight="Bold"
+                                       Foreground="White" VerticalAlignment="Center" Margin="8,0,0,0" />
+                        </Grid>
+                    </Button>
 
-                                <!-- Ready Status -->
-                                <Border Grid.Column="2" Background="#111827" CornerRadius="10" Padding="10,8" Margin="3,0"
-                                        BorderThickness="2" BorderBrush="#374151">
-                                    <StackPanel Spacing="4" HorizontalAlignment="Center">
-                                        <TextBlock Text="⚡" FontSize="18" HorizontalAlignment="Center" />
-                                        <TextBlock Text="ONLINE" FontSize="14" FontWeight="Black"
-                                                   FontFamily="{StaticResource PixelFont}"
-                                                   Foreground="#4ADE80" HorizontalAlignment="Center" />
-                                        <TextBlock Text="Sunucu" FontSize="11"
-                                                   FontFamily="{StaticResource PixelFont}"
-                                                   Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                    </StackPanel>
+                    <!-- ================= FEATURE NAVIGATION CARDS ================= -->
+                    <StackPanel Spacing="8" HorizontalAlignment="Stretch">
+
+                        <!-- Card 1: Words Manager -->
+                        <Button Classes="MenuFeatureCard"
+                                Command="{Binding NavigateToWordManagementCommand}">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="{DynamicResource AppMenuIconWordBgBrush}"
+                                        BorderBrush="{DynamicResource AppMenuIconWordBorderBrush}" BorderThickness="1.5"
+                                        CornerRadius="12" Width="44" Height="44" Margin="0,0,16,0">
+                                    <TextBlock Text="🃏" FontSize="20"
+                                               Foreground="{DynamicResource AppMenuIconWordFgBrush}"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                    <TextBlock Text="Kelime Havuzu &amp; Editör" FontSize="15" FontWeight="Bold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                                    <TextBlock Text="Kelimeleri incele, filtrele veya yenilerini ekle" FontSize="12"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" Text="›" FontSize="24"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0" />
                             </Grid>
-                        </StackPanel>
-                    </Border>
+                        </Button>
 
-                    <!-- Arcade Navigation Buttons -->
-                    <StackPanel Spacing="8" HorizontalAlignment="Stretch" MaxWidth="480">
-                        <Button Classes="ArcadeButton Play"
-                                Command="{Binding NavigateToGameSetupCommand}"
-                                Content="🚀 YENİ OYUN BAŞLAT"
-                                ToolTip.Tip="Takımları kur ve maceraya başla!" />
+                        <!-- Card 2: Scoreboard & Stats -->
+                        <Button Classes="MenuFeatureCard"
+                                Command="{Binding NavigateToStatisticsCommand}">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="{DynamicResource AppMenuIconStatsBgBrush}"
+                                        BorderBrush="{DynamicResource AppMenuIconStatsBorderBrush}" BorderThickness="1.5"
+                                        CornerRadius="12" Width="44" Height="44" Margin="0,0,16,0">
+                                    <TextBlock Text="🏆" FontSize="20"
+                                               Foreground="{DynamicResource AppMenuIconStatsFgBrush}"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                    <TextBlock Text="Skor Tablosu &amp; İstatistik" FontSize="15" FontWeight="Bold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                                    <TextBlock Text="Şampiyon takımları ve oyun geçmişini görüntüle" FontSize="12"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" Text="›" FontSize="24"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                            </Grid>
+                        </Button>
 
-                        <Button Classes="ArcadeButton Words"
-                                Command="{Binding NavigateToWordManagementCommand}"
-                                Content="📝 KELİME HAVUZU VE EDİTÖR"
-                                ToolTip.Tip="Kelimeleri incele, yenilerini ekle" />
-
-                        <Button Classes="ArcadeButton Stats"
-                                Command="{Binding NavigateToStatisticsCommand}"
-                                Content="🏆 SKOR TABLOSU VE İSTATİSTİK"
-                                ToolTip.Tip="Şampiyonları ve oyun geçmişini gör" />
-
-                        <Button Classes="ArcadeButton Settings"
-                                Command="{Binding NavigateToSettingsCommand}"
-                                Content="⚙️ SİSTEM AYARLARI"
-                                ToolTip.Tip="Tema, ses ve motor ayarları" />
+                        <!-- Card 3: Settings -->
+                        <Button Classes="MenuFeatureCard"
+                                Command="{Binding NavigateToSettingsCommand}">
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Border Grid.Column="0" Background="{DynamicResource AppMenuIconSettingsBgBrush}"
+                                        BorderBrush="{DynamicResource AppMenuIconSettingsBorderBrush}" BorderThickness="1.5"
+                                        CornerRadius="12" Width="44" Height="44" Margin="0,0,16,0">
+                                    <TextBlock Text="⚙️" FontSize="20"
+                                               Foreground="{DynamicResource AppMenuIconSettingsFgBrush}"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                    <TextBlock Text="Oyun Ayarları" FontSize="15" FontWeight="Bold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                                    <TextBlock Text="Ses seviyesi, tema ve sesli tabu algılama seçenekleri" FontSize="12"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="2" Text="›" FontSize="24"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                            </Grid>
+                        </Button>
                     </StackPanel>
 
-                    <!-- Pixel Footer -->
-                    <StackPanel Spacing="4" HorizontalAlignment="Center" Margin="0,8,0,16">
-                        <TextBlock Text="🕹️ TabuKA Arcade v1.1.0 • .NET 10"
-                                   FontFamily="{StaticResource PixelFont}"
-                                   FontSize="11" Foreground="#475569" HorizontalAlignment="Center" />
-                        <TextBlock Text="YASAKLI KELİMEYİ SÖYLEME • TAKIMINI ZAFERE TAŞI!"
-                                   FontFamily="{StaticResource PixelFont}"
-                                   FontSize="10" Foreground="#334155" HorizontalAlignment="Center" />
+                    <!-- ================= CLEAN GAME FOOTER ================= -->
+                    <StackPanel Spacing="4" HorizontalAlignment="Center" Margin="0,16,0,8">
+                        <TextBlock Text="TabuKA • Eğlenceli Kelime Oyunu"
+                                   FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AppTextMutedBrush}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Arkadaşlarınla eğlenirken sınırları zorla!"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource AppTextMutedBrush}"
+                                   HorizontalAlignment="Center" />
                     </StackPanel>
+
                 </StackPanel>
             </Border>
         </ScrollViewer>

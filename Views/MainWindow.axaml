@@ -8,13 +8,14 @@
         mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
         x:Class="TabuKA.Views.MainWindow"
         x:DataType="vm:MainViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="TabuKA - Kelime Anlatma Arenası 🎮"
+        Icon="/Assets/tabuka.ico"
+        Title="TabuKA - Kelime Anlatma Oyunu"
         WindowStartupLocation="CenterScreen"
-        Background="#0A0E17"
-        FontFamily="{StaticResource PixelFont}"
+        Background="{DynamicResource AppBackgroundBrush}"
         MinWidth="360"
-        MinHeight="540">
+        MinHeight="540"
+        Width="980"
+        Height="660">
 
     <views:MainView />
 </Window>

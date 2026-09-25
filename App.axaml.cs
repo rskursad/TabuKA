@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -18,6 +20,31 @@ public partial class App : Application
 {
     public static IServiceProvider? Services { get; private set; }
 
+    static App()
+    {
+        ConfigureNativeLibraryResolver();
+    }
+
+    private static void ConfigureNativeLibraryResolver()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            NativeLibrary.SetDllImportResolver(typeof(App).Assembly, (libraryName, assembly, searchPath) =>
+            {
+                if (libraryName == "libvosk")
+                {
+                    var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                    var libPath = Path.Combine(baseDir, "libvosk.so");
+                    if (File.Exists(libPath))
+                    {
+                        return NativeLibrary.Load(libPath, assembly, searchPath);
+                    }
+                }
+                return IntPtr.Zero;
+            });
+        }
+    }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -31,18 +58,25 @@ public partial class App : Application
         using var scope = Services.CreateScope();
         var dbService = scope.ServiceProvider.GetRequiredService<IDatabaseService>();
         dbService.InitializeAsync().GetAwaiter().GetResult();
-        
-        // Import initial word data if database is empty
-        _ = Task.Run(async () =>
+
+        // Seed bundled words before the UI is shown so a new game always starts with words ready
+        ImportInitialDataAsync(scope.ServiceProvider).GetAwaiter().GetResult();
+
+        try
         {
-            await ImportInitialDataAsync(scope.ServiceProvider);
-        });
-        
-        // Download Vosk model if not present
-        _ = Task.Run(async () =>
+            var settingsService = scope.ServiceProvider.GetRequiredService<ISettingsService>();
+            var savedTheme = settingsService.GetThemeAsync().GetAwaiter().GetResult();
+            RequestedThemeVariant = savedTheme switch
+            {
+                "Light" => Avalonia.Styling.ThemeVariant.Light,
+                "Dark" => Avalonia.Styling.ThemeVariant.Dark,
+                _ => Avalonia.Styling.ThemeVariant.Default
+            };
+        }
+        catch
         {
-            await EnsureVoskModelAsync(scope.ServiceProvider);
-        });
+            // Fallback to default
+        }
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
@@ -106,35 +140,6 @@ public partial class App : Application
         }
     }
 
-    private static async Task EnsureVoskModelAsync(IServiceProvider serviceProvider)
-    {
-        try
-        {
-            var modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "vosk-model-tr");
-            var hasModel = File.Exists(Path.Combine(modelPath, "final.mdl"))
-                        || File.Exists(Path.Combine(modelPath, "am", "final.mdl"));
-            
-            if (!Directory.Exists(modelPath) || !hasModel)
-            {
-                System.Diagnostics.Debug.WriteLine("Vosk Turkish model not found. Downloading...");
-                
-                var speechService = serviceProvider.GetService<VoskSpeechRecognitionService>();
-                if (speechService != null)
-                {
-                    var progress = new Progress<double>(p => 
-                        System.Diagnostics.Debug.WriteLine($"Model download: {p:P0}"));
-                    
-                    await VoskSpeechRecognitionService.DownloadModelAsync(modelPath, progress);
-                    System.Diagnostics.Debug.WriteLine("Vosk model downloaded successfully");
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Vosk model ensure failed: {ex.Message}");
-        }
-    }
-
     private static IServiceCollection ConfigureServices()
     {
         var services = new ServiceCollection();
@@ -157,11 +162,10 @@ public partial class App : Application
             services.AddSingleton<IPermissionService, DesktopPermissionService>();
             
             services.AddSingleton<AudioService>();
-            services.AddSingleton<SpeechRecognitionService>();
             services.AddSingleton<VoskSpeechRecognitionService>();
             services.AddSingleton<SpeechRecognitionManager>();
             
-            // Game views always talk to the manager, which routes to the engine selected in settings
+            // Game views and settings interact with SpeechRecognitionManager
             services.AddSingleton<ISpeechRecognitionService>(sp => sp.GetRequiredService<SpeechRecognitionManager>());
 
             services.AddSingleton<MainViewModel>();

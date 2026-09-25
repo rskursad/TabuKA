@@ -37,6 +37,7 @@
 *.aab
 *.keystore
 *.jks
+keystore.properties
 *.ap_
 TabuKA.Android/build/
 TabuKA.Android/.gradle/

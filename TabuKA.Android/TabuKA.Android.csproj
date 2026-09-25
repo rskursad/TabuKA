@@ -16,6 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TabuKA.csproj" SetTargetFramework="TargetFramework=net10.0" AdditionalProperties="RuntimeIdentifier=" />
+    <ProjectReference Include="..\TabuKA.csproj" SetTargetFramework="TargetFramework=net10.0" AdditionalProperties="RuntimeIdentifier=;SelfContained=false" />
   </ItemGroup>
 </Project>

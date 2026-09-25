@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TabuKA.Views.Controls.BrandTriAccent"
+             IsHitTestVisible="False"
+             ClipToBounds="True">
+
+    <!--
+      Soft red triangular accent matching the TabuKA logo facets.
+      Variants: Corner | TopEdge | Edge
+    -->
+    <Panel>
+        <!-- Corner: top-right wedge -->
+        <Path x:Name="CornerPath"
+              VerticalAlignment="Top" HorizontalAlignment="Right"
+              Stretch="Uniform"
+              Fill="{StaticResource BrandTriAccentGradient}"
+              Opacity="0.22"
+              Data="M 0,0 L 1,0 L 1,0.55 Z" />
+
+        <!-- TopEdge: shallow diagonal band under/along top -->
+        <Path x:Name="TopEdgePath"
+              VerticalAlignment="Top" HorizontalAlignment="Stretch"
+              Height="28"
+              Stretch="Fill"
+              Fill="{StaticResource BrandTriAccentGradient}"
+              Opacity="0.16"
+              Data="M 0,1 L 1,0 L 1,0.35 L 0,1 Z"
+              IsVisible="False" />
+
+        <!-- Edge: left vertical facet (game HUD) -->
+        <Path x:Name="EdgePath"
+              VerticalAlignment="Stretch" HorizontalAlignment="Left"
+              Width="18"
+              Stretch="Fill"
+              Fill="{StaticResource BrandTriAccentGradient}"
+              Opacity="0.28"
+              Data="M 0,0 L 1,0.15 L 1,0.85 L 0,1 Z"
+              IsVisible="False" />
+    </Panel>
+</UserControl>

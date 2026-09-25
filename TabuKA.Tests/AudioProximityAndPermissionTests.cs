@@ -123,4 +123,75 @@ public class AudioProximityAndPermissionTests
         var isAvailable = await vosk.IsAvailableAsync();
         Assert.True(isAvailable, "Vosk Turkish model was not found in candidate paths!");
     }
+
+    internal sealed class FakeSettingsService : ISettingsService
+    {
+        public Task<T> GetSettingAsync<T>(string key, T defaultValue = default!) => Task.FromResult(defaultValue);
+        public Task SetSettingAsync<T>(string key, T value) => Task.CompletedTask;
+        public Task<TabuKA.Entities.AppSettings?> GetAppSettingAsync(string key) => Task.FromResult<TabuKA.Entities.AppSettings?>(null);
+        public Task<List<TabuKA.Entities.AppSettings>> GetAllSettingsAsync() => Task.FromResult(new List<TabuKA.Entities.AppSettings>());
+        public Task ResetToDefaultsAsync() => Task.CompletedTask;
+        public Task<string> GetThemeAsync() => Task.FromResult("System");
+        public Task SetThemeAsync(string theme) => Task.CompletedTask;
+        public Task<int> GetMasterVolumeAsync() => Task.FromResult(80);
+        public Task SetMasterVolumeAsync(int volume) => Task.CompletedTask;
+    }
+
+    [Fact]
+    public void SpeechRecognitionManager_GetEngineName_ReturnsVoskOnly()
+    {
+        using var audio = new AudioService();
+        using var vosk = new VoskSpeechRecognitionService(audio);
+        var settings = new FakeSettingsService();
+        using var manager = new SpeechRecognitionManager(settings, vosk);
+
+        Assert.Equal(SpeechEngineNames.Vosk, manager.GetEngineName());
+    }
+
+    [Fact]
+    public void VoskSpeechRecognitionService_GetDefaultInstallPath_ReturnsValidPath()
+    {
+        var path = VoskSpeechRecognitionService.GetDefaultInstallPath();
+        Assert.False(string.IsNullOrWhiteSpace(path));
+        Assert.Contains("vosk-model-tr", path);
+    }
+
+    [Fact]
+    public void VoskSpeechRecognitionService_HasModelFiles_FalseForNonExistentDirectory()
+    {
+        var nonExistent = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid().ToString("N"));
+        Assert.False(VoskSpeechRecognitionService.HasModelFiles(nonExistent));
+    }
+
+    [Fact]
+    public async Task GameSetupViewModel_WhenModelNotInstalled_PreventsEnablingAndOpensInstallDialog()
+    {
+        var nonExistentPath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), Guid.NewGuid().ToString("N"));
+        using var audio = new AudioService();
+        using var vosk = new VoskSpeechRecognitionService(audio, nonExistentPath);
+        var settings = new FakeSettingsService();
+        using var manager = new SpeechRecognitionManager(settings, vosk);
+
+        var (contextFactory, gameService, _) = GamePlayFlowTests.Setup(GamePlayFlowTests.BuildWords(5));
+        var db = new DatabaseService(contextFactory, Microsoft.Extensions.Logging.Abstractions.NullLogger<DatabaseService>.Instance);
+        var perm = new DesktopPermissionService(audio);
+
+        var vm = new TabuKA.ViewModels.GameSetupViewModel(
+            db, settings, gameService, new NavigationService(), contextFactory, perm, manager);
+
+        // When model is not available, turning on voice control triggers model install dialog and keeps toggle off
+        vm.EnableAutoTabooCheck = true;
+        await Task.Delay(100);
+
+        // If model is not installed, it opens the install dialog and keeps EnableAutoTabooCheck false
+        if (!await manager.IsModelInstalledAsync())
+        {
+            Assert.False(vm.EnableAutoTabooCheck);
+            Assert.True(vm.IsModelInstallDialogOpen);
+
+            vm.CancelModelInstallDialog();
+            Assert.False(vm.IsModelInstallDialogOpen);
+            Assert.False(vm.EnableAutoTabooCheck);
+        }
+    }
 }

@@ -7,20 +7,162 @@
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Resources>
-        <converters:BoolToStatusTextConverter x:Key="BoolToStatusTextConverter" />
-        <converters:BoolToStatusColorConverter x:Key="BoolToStatusColorConverter" />
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
-        <converters:RoundResultToTextConverter x:Key="RoundResultToTextConverter" />
-        <converters:RoundResultToColorConverter x:Key="RoundResultToColorConverter" />
-        <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
-        <converters:GameStatusToTextConverter x:Key="GameStatusToTextConverter" />
-        <converters:BoolToCategoryBackgroundConverter x:Key="BoolToCategoryBackgroundConverter" />
-        <converters:BoolToCategoryBorderConverter x:Key="BoolToCategoryBorderConverter" />
-        <converters:RoundNumberConverter x:Key="RoundNumberConverter" />
-        <converters:StatusToBackgroundConverter x:Key="StatusToBackgroundConverter" />
-        <converters:StatusToBorderConverter x:Key="StatusToBorderConverter" />
-        <FontFamily x:Key="PixelFont">avares://TabuKA/Assets/Fonts#Monocraft, Consolas, Courier New</FontFamily>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="AppBackgroundBrush">#0D0B18</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBackgroundBrush">#1A162B</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBackgroundSubtleBrush">#141124</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBorderBrush">#2C2546</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBorderSubtleBrush">#221C38</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTextPrimaryBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTextSecondaryBrush">#A09ABF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTextMutedBrush">#6C668A</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppWordCardBackgroundBrush">#1E1933</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMainWordBackgroundBrush">#120E22</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMainWordTextBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppForbiddenItemBgBrush">#281220</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppForbiddenItemBorderBrush">#4E1A32</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppForbiddenItemTextBrush">#FFA4B8</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTopBarBgBrush">#141124</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTopBarBorderBrush">#241E3A</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppHeroBadgeBgBrush">#2F1836</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppHeroBadgeBorderBrush">#FF3366</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppHeroBadgeTextBrush">#FF80A0</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppInputBgBrush">#120F20</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppInputBorderBrush">#2D2548</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppModalOverlayBrush">#D9080612</SolidColorBrush>
+
+                    <!-- Menu Card Icon Badges (Dark Mode) -->
+                    <SolidColorBrush x:Key="AppMenuIconWordBgBrush">#241B42</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconWordBorderBrush">#7C3AED</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconWordFgBrush">#C4B5FD</SolidColorBrush>
+
+                    <SolidColorBrush x:Key="AppMenuIconStatsBgBrush">#2E2415</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconStatsBorderBrush">#D97706</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconStatsFgBrush">#FCD34D</SolidColorBrush>
+
+                    <SolidColorBrush x:Key="AppMenuIconSettingsBgBrush">#162932</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconSettingsBorderBrush">#0891B2</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconSettingsFgBrush">#67E8F9</SolidColorBrush>
+
+                    <!-- Danger Button (Dark Mode) -->
+                    <SolidColorBrush x:Key="AppDangerButtonBgBrush">#26DC2626</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppDangerButtonBorderBrush">#55DC2626</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppDangerButtonFgBrush">#FF6B6B</SolidColorBrush>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="AppBackgroundBrush">#F5F6FC</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBackgroundBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBackgroundSubtleBrush">#EEF1FA</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBorderBrush">#DCE1F2</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppCardBorderSubtleBrush">#CBD2E8</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTextPrimaryBrush">#18142E</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTextSecondaryBrush">#585375</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTextMutedBrush">#8E8AA6</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppWordCardBackgroundBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMainWordBackgroundBrush">#F4F5FB</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMainWordTextBrush">#18142E</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppForbiddenItemBgBrush">#FFF0F3</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppForbiddenItemBorderBrush">#FED7E1</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppForbiddenItemTextBrush">#E11D48</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTopBarBgBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppTopBarBorderBrush">#E5E9F5</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppHeroBadgeBgBrush">#FFE4EC</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppHeroBadgeBorderBrush">#FFB3C7</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppHeroBadgeTextBrush">#E11D48</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppInputBgBrush">#FFFFFF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppInputBorderBrush">#CBD2E8</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppModalOverlayBrush">#A6000000</SolidColorBrush>
+
+                    <!-- Menu Card Icon Badges (Light Mode) -->
+                    <SolidColorBrush x:Key="AppMenuIconWordBgBrush">#F3E8FF</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconWordBorderBrush">#DDD6FE</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconWordFgBrush">#7C3AED</SolidColorBrush>
+
+                    <SolidColorBrush x:Key="AppMenuIconStatsBgBrush">#FEF3C7</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconStatsBorderBrush">#FDE68A</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconStatsFgBrush">#D97706</SolidColorBrush>
+
+                    <SolidColorBrush x:Key="AppMenuIconSettingsBgBrush">#E0F2FE</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconSettingsBorderBrush">#BAE6FD</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppMenuIconSettingsFgBrush">#0284C7</SolidColorBrush>
+
+                    <!-- Danger Button (Light Mode) -->
+                    <SolidColorBrush x:Key="AppDangerButtonBgBrush">#FEE2E2</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppDangerButtonBorderBrush">#FCA5A5</SolidColorBrush>
+                    <SolidColorBrush x:Key="AppDangerButtonFgBrush">#DC2626</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <!-- Brand Party Game Color Palette -->
+            <LinearGradientBrush x:Key="BrandHeroGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0.0" Color="#FF2D55" />
+                <GradientStop Offset="1.0" Color="#FF6B4A" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="BrandHeroHoverGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0.0" Color="#E01E44" />
+                <GradientStop Offset="1.0" Color="#F05A38" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="BrandCorrectGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0.0" Color="#10B981" />
+                <GradientStop Offset="1.0" Color="#059669" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="BrandTabooGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0.0" Color="#FF2A55" />
+                <GradientStop Offset="1.0" Color="#DC2626" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="BrandPassGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0.0" Color="#F59E0B" />
+                <GradientStop Offset="1.0" Color="#D97706" />
+            </LinearGradientBrush>
+
+            <SolidColorBrush x:Key="BrandHeroBrush">#FF2D55</SolidColorBrush>
+            <SolidColorBrush x:Key="BrandAccentBrush">#8B5CF6</SolidColorBrush>
+
+            <!-- Logo facet reds (from brand mark) -->
+            <SolidColorBrush x:Key="BrandRedDeep">#840C0C</SolidColorBrush>
+            <SolidColorBrush x:Key="BrandRedCore">#CC2424</SolidColorBrush>
+            <SolidColorBrush x:Key="BrandRedBright">#E43C3C</SolidColorBrush>
+            <SolidColorBrush x:Key="BrandRedEdge">#A81A1A</SolidColorBrush>
+
+            <LinearGradientBrush x:Key="BrandFacetGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0.0" Color="#E43C3C" />
+                <GradientStop Offset="0.55" Color="#CC2424" />
+                <GradientStop Offset="1.0" Color="#840C0C" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="BrandTriAccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Offset="0.0" Color="#E43C3C" />
+                <GradientStop Offset="1.0" Color="#840C0C" />
+            </LinearGradientBrush>
+
+            <converters:BoolToStatusTextConverter x:Key="BoolToStatusTextConverter" />
+            <converters:BoolToStatusColorConverter x:Key="BoolToStatusColorConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:RoundResultToTextConverter x:Key="RoundResultToTextConverter" />
+            <converters:RoundResultToColorConverter x:Key="RoundResultToColorConverter" />
+            <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
+            <converters:GameStatusToTextConverter x:Key="GameStatusToTextConverter" />
+            <converters:BoolToCategoryBackgroundConverter x:Key="BoolToCategoryBackgroundConverter" />
+            <converters:BoolToCategoryBorderConverter x:Key="BoolToCategoryBorderConverter" />
+            <converters:RoundNumberConverter x:Key="RoundNumberConverter" />
+            <converters:StatusToBackgroundConverter x:Key="StatusToBackgroundConverter" />
+            <converters:StatusToBorderConverter x:Key="StatusToBorderConverter" />
+            <converters:ModelStatusBgConverter x:Key="ModelStatusBgConverter" />
+            <converters:ModelStatusBorderConverter x:Key="ModelStatusBorderConverter" />
+            <converters:ModelStatusFgConverter x:Key="ModelStatusFgConverter" />
+            
+            <!-- Modern Professional App Font -->
+            <FontFamily x:Key="AppFont">avares://Avalonia.Fonts.Inter/Assets#Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Cantarell, sans-serif</FontFamily>
+            <FontFamily x:Key="PixelFont">avares://Avalonia.Fonts.Inter/Assets#Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Cantarell, sans-serif</FontFamily>
+        </ResourceDictionary>
     </Application.Resources>
 
     <Application.DataTemplates>
@@ -29,11 +171,5 @@
 
     <Application.Styles>
         <FluentTheme />
-        <Style Selector="TextBlock.Pixel">
-            <Setter Property="FontFamily" Value="{StaticResource PixelFont}" />
-        </Style>
-        <Style Selector="Button.Pixel">
-            <Setter Property="FontFamily" Value="{StaticResource PixelFont}" />
-        </Style>
     </Application.Styles>
 </Application>

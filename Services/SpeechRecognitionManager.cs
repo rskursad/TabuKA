@@ -1,124 +1,69 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace TabuKA.Services;
 
 public static class SpeechEngineNames
 {
-    public const string Simulation = "Simulation";
     public const string Vosk = "Vosk (Offline)";
 }
 
 /// <summary>
-/// Routes speech recognition to the engine selected in settings
-/// (Simulation or Vosk Offline) so the game view can keep using the
-/// same ISpeechRecognitionService regardless of the engine.
+/// Manages speech recognition powered exclusively by the real Vosk offline speech engine.
+/// Simulation has been completely removed. Provides model verification, in-app download,
+/// and internal installation for voice control.
 /// </summary>
 public class SpeechRecognitionManager : ISpeechRecognitionService, IDisposable
 {
     private readonly ISettingsService _settingsService;
-    private readonly SpeechRecognitionService _simulationService;
     private readonly VoskSpeechRecognitionService _voskService;
-    private ISpeechRecognitionService _activeService;
     private bool _disposed;
 
     public event Action<string>? SpeechRecognized;
     public event Action<string>? ErrorOccurred;
 
-    public bool IsListening => _activeService.IsListening;
+    public bool IsListening => _voskService.IsListening;
 
     public SpeechRecognitionManager(
         ISettingsService settingsService,
-        SpeechRecognitionService simulationService,
         VoskSpeechRecognitionService voskService)
     {
         _settingsService = settingsService;
-        _simulationService = simulationService;
         _voskService = voskService;
 
-        var engine = _settingsService.GetSettingAsync("SpeechEngine", string.Empty).GetAwaiter().GetResult();
-        var voskAvailable = _voskService.IsAvailableAsync().GetAwaiter().GetResult();
-
-        if (string.IsNullOrEmpty(engine))
-        {
-            engine = voskAvailable ? SpeechEngineNames.Vosk : SpeechEngineNames.Simulation;
-        }
-        else if (!IsVoskEngine(engine) && voskAvailable)
-        {
-            // Prefer Vosk offline speech recognition when the model is available
-            engine = SpeechEngineNames.Vosk;
-        }
-
-        _activeService = IsVoskEngine(engine) ? _voskService : (ISpeechRecognitionService)_simulationService;
-
-        Attach(_activeService);
+        _voskService.SpeechRecognized += OnSpeechRecognized;
+        _voskService.ErrorOccurred += OnErrorOccurred;
     }
 
-    public async Task<bool> IsVoskAvailableAsync()
+    public async Task<bool> IsModelInstalledAsync()
     {
         return await _voskService.IsAvailableAsync();
     }
 
-    private static bool IsVoskEngine(string engine)
+    public async Task<bool> DownloadAndInstallModelAsync(IProgress<double>? progress = null, Action<string>? statusCallback = null)
     {
-        return string.Equals(engine, SpeechEngineNames.Vosk, StringComparison.OrdinalIgnoreCase)
-            || string.Equals(engine, "Vosk");
+        return await _voskService.DownloadAndInstallModelAsync(progress, statusCallback);
     }
 
-    public async Task SetEngineAsync(string engine)
+    public async Task<bool> DeleteModelAsync()
     {
-        if (IsVoskEngine(engine) == ReferenceEquals(_activeService, _voskService))
-            return;
+        return await _voskService.DeleteModelAsync();
+    }
 
-        var wasListening = _activeService.IsListening;
-        if (wasListening)
-        {
-            await _activeService.StopListeningAsync();
-        }
-
-        Detach(_activeService);
-
-        if (IsVoskEngine(engine))
-        {
-            _activeService = _voskService;
-        }
-        else
-        {
-            _activeService = _simulationService;
-        }
-
-        Attach(_activeService);
-
-        if (wasListening)
-        {
-            await _activeService.StartListeningAsync();
-        }
+    public string GetInstalledModelPath()
+    {
+        return VoskSpeechRecognitionService.ResolveModelPath();
     }
 
     public string GetEngineName()
     {
-        return ReferenceEquals(_activeService, _voskService)
-            ? SpeechEngineNames.Vosk
-            : SpeechEngineNames.Simulation;
+        return SpeechEngineNames.Vosk;
     }
 
     public async Task<bool> IsCurrentEngineAvailableAsync()
     {
-        return await _activeService.IsAvailableAsync();
-    }
-
-    private void Attach(ISpeechRecognitionService service)
-    {
-        service.SpeechRecognized += OnSpeechRecognized;
-        service.ErrorOccurred += OnErrorOccurred;
-    }
-
-    private void Detach(ISpeechRecognitionService service)
-    {
-        service.SpeechRecognized -= OnSpeechRecognized;
-        service.ErrorOccurred -= OnErrorOccurred;
+        return await _voskService.IsAvailableAsync();
     }
 
     private void OnSpeechRecognized(string text)
@@ -133,27 +78,27 @@ public class SpeechRecognitionManager : ISpeechRecognitionService, IDisposable
 
     public void SetForbiddenWords(IEnumerable<string> words)
     {
-        _activeService.SetForbiddenWords(words);
+        _voskService.SetForbiddenWords(words);
     }
 
     public async Task StartListeningAsync()
     {
-        await _activeService.StartListeningAsync();
+        await _voskService.StartListeningAsync();
     }
 
     public async Task StopListeningAsync()
     {
-        await _activeService.StopListeningAsync();
+        await _voskService.StopListeningAsync();
     }
 
     public async Task<bool> IsAvailableAsync()
     {
-        return await _activeService.IsAvailableAsync();
+        return await _voskService.IsAvailableAsync();
     }
 
     public bool IsVoiceClose(float threshold = 0.025f)
     {
-        return _activeService.IsVoiceClose(threshold);
+        return _voskService.IsVoiceClose(threshold);
     }
 
     public void Dispose()
@@ -161,8 +106,8 @@ public class SpeechRecognitionManager : ISpeechRecognitionService, IDisposable
         if (_disposed)
             return;
 
-        Detach(_activeService);
-        _simulationService.Dispose();
+        _voskService.SpeechRecognized -= OnSpeechRecognized;
+        _voskService.ErrorOccurred -= OnErrorOccurred;
         _voskService.Dispose();
         _disposed = true;
     }
