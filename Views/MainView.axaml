@@ -30,7 +30,7 @@
         </DataTemplate>
     </UserControl.DataTemplates>
 
-    <Grid>
+    <Border x:Name="SafeAreaHost" Background="{DynamicResource AppBackgroundBrush}">
         <ContentControl Content="{Binding CurrentViewModel}" />
-    </Grid>
+    </Border>
 </UserControl>

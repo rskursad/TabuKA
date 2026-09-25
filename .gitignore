@@ -5,6 +5,9 @@
 *.exe.pdb
 *.dll
 
+# Vosk Android native kutuphaneleri (make vosk-android-libs ile indirilir, ~26 MB)
+TabuKA.Android/NativeLibs/
+
 # NuGet
 *.nupkg
 *.snupkg

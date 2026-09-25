@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:TabuKA.ViewModels"
              xmlns:controls="using:TabuKA.Views.Controls"
+             xmlns:controlsLegacy="using:Avalonia.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="800"
@@ -18,7 +19,7 @@
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="22,18" />
+            <Setter Property="Padding" Value="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14,16|22,18|22,18'}" />
             <Setter Property="CornerRadius" Value="18" />
             <Setter Property="Background" Value="{StaticResource BrandHeroGradient}" />
             <Setter Property="BorderThickness" Value="0" />
@@ -34,7 +35,7 @@
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Padding" Value="18,14" />
+            <Setter Property="Padding" Value="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12,12|18,14|18,14'}" />
             <Setter Property="Margin" Value="0,4" />
             <Setter Property="CornerRadius" Value="16" />
             <Setter Property="Background" Value="{DynamicResource AppCardBackgroundBrush}" />
@@ -53,84 +54,99 @@
         <!-- Soft red triangular facet behind header -->
         <controls:BrandTriAccent Variant="Corner" AccentOpacity="0.18"
                                  VerticalAlignment="Top" HorizontalAlignment="Right"
-                                 Width="280" Height="220" Margin="0,-40,-30,0" />
+                                 Width="280" Height="220" Margin="0,-40,-30,0"
+                                 IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}" />
         <controls:BrandTriAccent Variant="TopEdge" AccentOpacity="0.12"
                                  VerticalAlignment="Top" HorizontalAlignment="Stretch"
                                  Height="36" Margin="0,0,0,0" />
 
         <!-- Scrollable Main Container -->
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <Border Padding="24,32" HorizontalAlignment="Center" MaxWidth="540">
-                <StackPanel Spacing="24" HorizontalAlignment="Stretch">
+            <Border Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14,20,20,14|24,32|24,32'}"
+                    HorizontalAlignment="Center" MaxWidth="540">
+                <StackPanel Spacing="20" HorizontalAlignment="Stretch">
 
                     <!-- ================= BRAND & LOGO HEADER ================= -->
-                    <StackPanel Spacing="12" HorizontalAlignment="Center" Margin="0,8,0,4">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center" Margin="0,4,0,0">
 
                         <!-- Brand mark from Assets/temp.jpeg (processed) -->
                         <Image Source="/Assets/logo-mark.png"
-                               Width="96" Height="96"
+                               Width="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='68|96|96'}"
+                               Height="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='68|96|96'}"
                                Stretch="Uniform"
                                HorizontalAlignment="Center" />
 
                         <!-- Title and Catchphrase -->
                         <StackPanel Spacing="6" HorizontalAlignment="Center">
-                            <TextBlock Text="TabuKA" FontSize="36" FontWeight="Black"
+                            <TextBlock Text="TabuKA"
+                                       FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='30|36|36'}"
+                                       FontWeight="Black"
                                        Foreground="{DynamicResource AppTextPrimaryBrush}"
                                        HorizontalAlignment="Center" LetterSpacing="1"
                                        TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="400" />
                             <TextBlock Text="YASAK KELİMEYİ SÖYLEME • TAKIMINI ZAFERE TAŞI!"
-                                       FontSize="11" FontWeight="Bold" LetterSpacing="1.2"
+                                       FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='9.5|11|11'}"
+                                       FontWeight="Bold" LetterSpacing="1.2"
                                        Foreground="{DynamicResource AppHeroBadgeBorderBrush}"
-                                       HorizontalAlignment="Center" />
+                                       HorizontalAlignment="Center" TextAlignment="Center"
+                                       TextWrapping="Wrap" />
                         </StackPanel>
 
-                        <!-- Pill Badge: Dynamic Word Count -->
+                        <!-- Pill Badge: Dynamic Word Count (dar ekranda sarmalanır) -->
                         <Border Background="{DynamicResource AppCardBackgroundSubtleBrush}"
                                 BorderBrush="{DynamicResource AppCardBorderBrush}"
                                 BorderThickness="1" CornerRadius="20"
-                                Padding="16,6" HorizontalAlignment="Center" Margin="0,2,0,0">
-                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                <TextBlock Text="🔥" FontSize="13" VerticalAlignment="Center" />
+                                Padding="14,6" HorizontalAlignment="Center" Margin="0,2,0,0">
+                            <controlsLegacy:WrapPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock Text="🔥" FontSize="13" VerticalAlignment="Center" Margin="0,0,4,0" />
                                 <TextBlock Text="{Binding WordCount, StringFormat='{}{0} Kelime'}"
                                            FontSize="12" FontWeight="Bold"
-                                           Foreground="#10B981" VerticalAlignment="Center" />
-                                <TextBlock Text="•" FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" VerticalAlignment="Center" />
+                                           Foreground="#10B981" VerticalAlignment="Center" Margin="0,0,6,0" />
+                                <TextBlock Text="•" FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" VerticalAlignment="Center" Margin="0,0,6,0" />
                                 <TextBlock Text="{Binding CategoryCount, StringFormat='{}{0} Kategori'}"
                                            FontSize="12" FontWeight="Bold"
-                                           Foreground="#8B5CF6" VerticalAlignment="Center" />
-                                <TextBlock Text="•" FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" VerticalAlignment="Center" />
+                                           Foreground="#8B5CF6" VerticalAlignment="Center" Margin="0,0,6,0" />
+                                <TextBlock Text="•" FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" VerticalAlignment="Center" Margin="0,0,6,0" />
                                 <TextBlock Text="Oynamaya Hazır"
                                            FontSize="12" FontWeight="SemiBold"
                                            Foreground="{DynamicResource AppTextSecondaryBrush}" VerticalAlignment="Center" />
-                            </StackPanel>
+                            </controlsLegacy:WrapPanel>
                         </Border>
                     </StackPanel>
 
                     <!-- ================= HERO ACTION: OYUNA BAŞLA ================= -->
-                    <Button Classes="HeroPlayButton"
+                    <Button Classes="HeroPlayButton tappable"
                             Command="{Binding NavigateToGameSetupCommand}"
-                            Margin="0,6,0,6">
+                            Margin="0,4,0,4">
                         <Grid ColumnDefinitions="Auto,*,Auto">
                             <!-- Play Icon Badge -->
                             <Border Grid.Column="0" Background="#33FFFFFF" CornerRadius="14"
-                                    Width="50" Height="50" Margin="0,0,16,0"
+                                    Width="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='42|50|50'}"
+                                    Height="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='42|50|50'}"
+                                    Margin="0,0,14,0"
                                     VerticalAlignment="Center">
-                                <TextBlock Text="▶" FontSize="20" Foreground="White"
+                                <TextBlock Text="▶" FontSize="18" Foreground="White"
                                            HorizontalAlignment="Center" VerticalAlignment="Center"
                                            Margin="2,0,0,0" />
                             </Border>
 
                             <!-- Button Labels -->
                             <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
-                                <TextBlock Text="OYUNA BAŞLA" FontSize="18" FontWeight="Black"
+                                <TextBlock Text="OYUNA BAŞLA"
+                                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='16|18|18'}"
+                                           FontWeight="Black"
                                            Foreground="White" LetterSpacing="1" />
                                 <TextBlock Text="Takımları kur, süreyi seç ve kapışmaya başla!"
-                                           FontSize="12" Foreground="#FFE6EC" />
+                                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='11|12|12'}"
+                                           Foreground="#FFE6EC"
+                                           TextWrapping="Wrap" />
                             </StackPanel>
 
                             <!-- Forward Chevron -->
-                            <TextBlock Grid.Column="2" Text="›" FontSize="28" FontWeight="Bold"
-                                       Foreground="White" VerticalAlignment="Center" Margin="8,0,0,0" />
+                            <TextBlock Grid.Column="2" Text="›"
+                                       FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='24|28|28'}"
+                                       FontWeight="Bold"
+                                       Foreground="White" VerticalAlignment="Center" Margin="6,0,0,0" />
                         </Grid>
                     </Button>
 
@@ -138,85 +154,106 @@
                     <StackPanel Spacing="8" HorizontalAlignment="Stretch">
 
                         <!-- Card 1: Words Manager -->
-                        <Button Classes="MenuFeatureCard"
+                        <Button Classes="MenuFeatureCard tappable"
                                 Command="{Binding NavigateToWordManagementCommand}">
                             <Grid ColumnDefinitions="Auto,*,Auto">
                                 <Border Grid.Column="0" Background="{DynamicResource AppMenuIconWordBgBrush}"
                                         BorderBrush="{DynamicResource AppMenuIconWordBorderBrush}" BorderThickness="1.5"
-                                        CornerRadius="12" Width="44" Height="44" Margin="0,0,16,0">
+                                        CornerRadius="12"
+                                        Width="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='40|44|44'}"
+                                        Height="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='40|44|44'}"
+                                        Margin="0,0,14,0" VerticalAlignment="Center">
                                     <TextBlock Text="🃏" FontSize="20"
                                                Foreground="{DynamicResource AppMenuIconWordFgBrush}"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
                                     <TextBlock Text="Kelime Havuzu &amp; Editör" FontSize="15" FontWeight="Bold"
-                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
-                                    <TextBlock Text="Kelimeleri incele, filtrele veya yenilerini ekle" FontSize="12"
-                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="Kelimeleri incele, filtrele veya yenilerini ekle"
+                                               FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='11|12|12'}"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" Text="›" FontSize="24"
+                                <TextBlock Grid.Column="2" Text="›"
+                                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='22|24|24'}"
                                            Foreground="{DynamicResource AppTextMutedBrush}"
-                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                                           VerticalAlignment="Center" Margin="6,0,0,0" />
                             </Grid>
                         </Button>
 
                         <!-- Card 2: Scoreboard & Stats -->
-                        <Button Classes="MenuFeatureCard"
+                        <Button Classes="MenuFeatureCard tappable"
                                 Command="{Binding NavigateToStatisticsCommand}">
                             <Grid ColumnDefinitions="Auto,*,Auto">
                                 <Border Grid.Column="0" Background="{DynamicResource AppMenuIconStatsBgBrush}"
                                         BorderBrush="{DynamicResource AppMenuIconStatsBorderBrush}" BorderThickness="1.5"
-                                        CornerRadius="12" Width="44" Height="44" Margin="0,0,16,0">
+                                        CornerRadius="12"
+                                        Width="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='40|44|44'}"
+                                        Height="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='40|44|44'}"
+                                        Margin="0,0,14,0" VerticalAlignment="Center">
                                     <TextBlock Text="🏆" FontSize="20"
                                                Foreground="{DynamicResource AppMenuIconStatsFgBrush}"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
                                     <TextBlock Text="Skor Tablosu &amp; İstatistik" FontSize="15" FontWeight="Bold"
-                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
-                                    <TextBlock Text="Şampiyon takımları ve oyun geçmişini görüntüle" FontSize="12"
-                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="Şampiyon takımları ve oyun geçmişini görüntüle"
+                                               FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='11|12|12'}"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" Text="›" FontSize="24"
+                                <TextBlock Grid.Column="2" Text="›"
+                                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='22|24|24'}"
                                            Foreground="{DynamicResource AppTextMutedBrush}"
-                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                                           VerticalAlignment="Center" Margin="6,0,0,0" />
                             </Grid>
                         </Button>
 
                         <!-- Card 3: Settings -->
-                        <Button Classes="MenuFeatureCard"
+                        <Button Classes="MenuFeatureCard tappable"
                                 Command="{Binding NavigateToSettingsCommand}">
                             <Grid ColumnDefinitions="Auto,*,Auto">
                                 <Border Grid.Column="0" Background="{DynamicResource AppMenuIconSettingsBgBrush}"
                                         BorderBrush="{DynamicResource AppMenuIconSettingsBorderBrush}" BorderThickness="1.5"
-                                        CornerRadius="12" Width="44" Height="44" Margin="0,0,16,0">
+                                        CornerRadius="12"
+                                        Width="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='40|44|44'}"
+                                        Height="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='40|44|44'}"
+                                        Margin="0,0,14,0" VerticalAlignment="Center">
                                     <TextBlock Text="⚙️" FontSize="20"
                                                Foreground="{DynamicResource AppMenuIconSettingsFgBrush}"
                                                HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Border>
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
                                     <TextBlock Text="Oyun Ayarları" FontSize="15" FontWeight="Bold"
-                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
-                                    <TextBlock Text="Ses seviyesi, tema ve sesli tabu algılama seçenekleri" FontSize="12"
-                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="Ses seviyesi, tema ve sesli tabu algılama seçenekleri"
+                                               FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='11|12|12'}"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" Text="›" FontSize="24"
+                                <TextBlock Grid.Column="2" Text="›"
+                                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='22|24|24'}"
                                            Foreground="{DynamicResource AppTextMutedBrush}"
-                                           VerticalAlignment="Center" Margin="8,0,0,0" />
+                                           VerticalAlignment="Center" Margin="6,0,0,0" />
                             </Grid>
                         </Button>
                     </StackPanel>
 
                     <!-- ================= CLEAN GAME FOOTER ================= -->
-                    <StackPanel Spacing="4" HorizontalAlignment="Center" Margin="0,16,0,8">
+                    <StackPanel Spacing="4" HorizontalAlignment="Center" Margin="0,12,0,4">
                         <TextBlock Text="TabuKA • Eğlenceli Kelime Oyunu"
                                    FontSize="12" FontWeight="SemiBold"
                                    Foreground="{DynamicResource AppTextMutedBrush}"
-                                   HorizontalAlignment="Center" />
+                                   HorizontalAlignment="Center" TextAlignment="Center" />
                         <TextBlock Text="Arkadaşlarınla eğlenirken sınırları zorla!"
                                    FontSize="11"
                                    Foreground="{DynamicResource AppTextMutedBrush}"
-                                   HorizontalAlignment="Center" />
+                                   HorizontalAlignment="Center" TextAlignment="Center" />
                     </StackPanel>
 
                 </StackPanel>

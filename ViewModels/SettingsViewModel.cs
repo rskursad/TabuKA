@@ -104,13 +104,27 @@ public partial class SettingsViewModel : ViewModelBase
     public async Task RefreshModelStatusAsync()
     {
         IsModelInstalled = await _speechManager.IsModelInstalledAsync();
-        ModelStatusText = IsModelInstalled ? "✅ Kurulu ve Hazır" : "⚠️ Model Yüklü Değil";
+        ModelStatusText = BuildModelStatusText();
+    }
+
+    private string BuildModelStatusText()
+    {
+        if (!_speechManager.IsEngineSupported)
+            return "⚠️ Bu cihazda desteklenmiyor";
+
+        return IsModelInstalled ? "✅ Kurulu ve Hazır" : "⚠️ Model Yüklü Değil";
     }
 
     [RelayCommand]
     public async Task DownloadModelAsync()
     {
         if (IsDownloadingModel) return;
+
+        if (!_speechManager.IsEngineSupported)
+        {
+            StatusMessage = _speechManager.GetEngineUnavailableReason();
+            return;
+        }
 
         IsDownloadingModel = true;
         ModelDownloadProgress = 0;

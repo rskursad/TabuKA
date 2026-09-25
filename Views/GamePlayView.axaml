@@ -1,7 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:TabuKA.ViewModels"
-             xmlns:converters="using:TabuKA.Converters"
+             xmlns:controls="using:TabuKA.Views.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="700"
@@ -56,6 +56,18 @@
             <Setter Property="Opacity" Value="0.35" />
         </Style>
 
+        <Style Selector="Button.HudButton">
+            <Setter Property="Background" Value="{DynamicResource AppCardBackgroundSubtleBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
         <Style Selector="Border.ForbiddenItem">
             <Setter Property="Background" Value="{DynamicResource AppForbiddenItemBgBrush}" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppForbiddenItemBorderBrush}" />
@@ -63,6 +75,27 @@
             <Setter Property="CornerRadius" Value="12" />
             <Setter Property="Padding" Value="14,7" />
             <Setter Property="Margin" Value="0,2.5" />
+        </Style>
+
+        <Style Selector="Border.ForbiddenItem TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{DynamicResource AppForbiddenItemTextBrush}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <!-- ================= RESPONSIVE OVERRIDES ================= -->
+
+        <!-- Dar ekranda HUD butonları ikon + etiket olarak dikey yığılır,
+             dokunma hedefleri büyütülür. -->
+        <Style Selector="Button.GameAction">
+            <Setter Property="Height" Value="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='66|60|60'}" />
+        </Style>
+
+        <Style Selector="Button.HudButton">
+            <Setter Property="Padding" Value="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='10,8|14,8|14,8'}" />
+            <Setter Property="FontSize" Value="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12.5|13|13'}" />
+            <Setter Property="MinHeight" Value="44" />
         </Style>
     </UserControl.Styles>
 
@@ -75,39 +108,27 @@
                     Background="{DynamicResource AppTopBarBgBrush}"
                     BorderThickness="0,0,0,1"
                     BorderBrush="{DynamicResource AppTopBarBorderBrush}"
-                    Padding="16,10">
-                <Grid ColumnDefinitions="Auto,*,Auto">
-                    <!-- Pause Button -->
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='10,8|16,10|16,10'}">
+                <Grid>
+                <!-- WIDE / TABLET: tek satırda duraklat · süre · skor · bitir -->
+                <Grid ColumnDefinitions="Auto,*,Auto"
+                      IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}">
                     <Button Grid.Column="0"
                             Content="⏸ Duraklat"
                             Command="{Binding PauseGameCommand}"
-                            Background="{DynamicResource AppCardBackgroundSubtleBrush}"
-                            Foreground="{DynamicResource AppTextPrimaryBrush}"
-                            BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
-                            Padding="14,8" FontSize="13" FontWeight="Bold" CornerRadius="10"
-                            Cursor="Hand"
+                            Classes="HudButton"
                             IsEnabled="{Binding IsRoundActive}" />
 
-                    <!-- Center Turn & Timer Display -->
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Spacing="4">
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2"
+                                HorizontalAlignment="Center">
                         <TextBlock Text="{Binding GameStatusText}"
                                    FontSize="13" FontWeight="Bold"
                                    Foreground="{DynamicResource AppTextPrimaryBrush}"
-                                   HorizontalAlignment="Center" />
-
-                        <!-- Timer Badge -->
-                        <Border Background="{DynamicResource AppCardBackgroundSubtleBrush}"
-                                CornerRadius="12" Padding="20,5"
-                                BorderThickness="2"
-                                BorderBrush="{Binding IsUrgentTime, Converter={StaticResource StatusToBorderConverter}}">
-                            <TextBlock Text="{Binding TimeRemaining, StringFormat='⏱ {0} SN'}"
-                                       FontSize="24" FontWeight="Black"
-                                       Foreground="{Binding IsUrgentTime, Converter={StaticResource BoolToStatusColorConverter}}"
-                                       HorizontalAlignment="Center" />
-                        </Border>
+                                   HorizontalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" />
+                        <controls:RoundTimerBadge />
                     </StackPanel>
 
-                    <!-- Scoreboard Toggle & End Game Buttons -->
                     <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
                         <Button Content="★ Skor Tablosu"
                                 Command="{Binding ToggleScoreboardCommand}"
@@ -115,14 +136,56 @@
                                 Foreground="{DynamicResource AppHeroBadgeTextBrush}"
                                 BorderThickness="1" BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}"
                                 Padding="14,8" FontSize="12.5" FontWeight="Bold" CornerRadius="10"
-                                Cursor="Hand" />
+                                Cursor="Hand" MinHeight="44" />
                         <Button Content="Bitir"
                                 Command="{Binding EndGameCommand}"
                                 Background="#26DC2626" Foreground="#FF6B6B"
                                 BorderThickness="1" BorderBrush="#55DC2626"
                                 Padding="14,8" FontSize="12.5" FontWeight="Bold" CornerRadius="10"
-                                Cursor="Hand" />
+                                Cursor="Hand" MinHeight="44" />
                     </StackPanel>
+                </Grid>
+
+                <!-- COMPACT: süre üstte, aksiyon butonları tam genişlikte altta -->
+                <StackPanel IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}"
+                            Spacing="8">
+                    <controls:RoundTimerBadge HorizontalAlignment="Center" />
+
+                    <Grid ColumnDefinitions="*,*,*">
+                        <Button Grid.Column="0" Classes="HudButton"
+                                Command="{Binding PauseGameCommand}"
+                                IsEnabled="{Binding IsRoundActive}"
+                                HorizontalContentAlignment="Center"
+                                HorizontalAlignment="Stretch" Margin="0,0,4,0">
+                            <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+                                <TextBlock Text="⏸" FontSize="14" VerticalAlignment="Center" />
+                                <TextBlock Text="Duraklat" FontSize="12" FontWeight="Bold" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Grid.Column="1" Classes="HudButton"
+                                Command="{Binding ToggleScoreboardCommand}"
+                                HorizontalContentAlignment="Center"
+                                HorizontalAlignment="Stretch" Margin="4,0">
+                            <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+                                <TextBlock Text="★" FontSize="14" VerticalAlignment="Center" />
+                                <TextBlock Text="Skor" FontSize="12" FontWeight="Bold" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Grid.Column="2" Classes="HudButton"
+                                Command="{Binding EndGameCommand}"
+                                HorizontalAlignment="Stretch" Margin="4,0,0,0"
+                                HorizontalContentAlignment="Center"
+                                Background="#26DC2626" Foreground="#FF6B6B"
+                                BorderBrush="#55DC2626">
+                            <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+                                <TextBlock Text="■" FontSize="14" VerticalAlignment="Center" />
+                                <TextBlock Text="Bitir" FontSize="12" FontWeight="Bold" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
                 </Grid>
             </Border>
 
@@ -131,8 +194,37 @@
                     Background="{DynamicResource AppTopBarBgBrush}"
                     BorderThickness="0,1,0,0"
                     BorderBrush="{DynamicResource AppTopBarBorderBrush}"
-                    Padding="16,8">
-                <Grid ColumnDefinitions="Auto,*,Auto">
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='10,8|16,8|16,8'}">
+                <Grid>
+                <!-- COMPACT: sadece pas durumu + ses algılama -->
+                <Grid ColumnDefinitions="*,*"
+                      IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}">
+                    <Border Grid.Column="0" Background="{DynamicResource AppCardBackgroundSubtleBrush}"
+                            CornerRadius="8" Padding="10,5" Margin="0,0,4,0"
+                            BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
+                            HorizontalAlignment="Stretch">
+                        <TextBlock Text="{Binding PassStatusText}"
+                                   FontWeight="Bold" FontSize="12"
+                                   Foreground="#F59E0B"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" />
+                    </Border>
+
+                    <Border Grid.Column="1" Background="{DynamicResource AppCardBackgroundSubtleBrush}"
+                            BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
+                            Padding="10,5" Margin="4,0,0,0" CornerRadius="8"
+                            ToolTip.Tip="Mikrofon durumu oyun boyunca kilitlidir">
+                        <TextBlock Text="{Binding IsAutoTabooEnabled, Converter={StaticResource BoolToStatusTextConverter}}"
+                                   FontSize="11.5" FontWeight="Bold"
+                                   Foreground="{Binding IsAutoTabooEnabled, Converter={StaticResource BoolToStatusColorConverter}}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" />
+                    </Border>
+                </Grid>
+
+                <!-- WIDE / TABLET: tam durum şeridi -->
+                <Grid ColumnDefinitions="Auto,*,Auto"
+                      IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}">
                     <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
                         <Border Background="{DynamicResource AppCardBackgroundSubtleBrush}"
                                 CornerRadius="8" Padding="12,5"
@@ -170,148 +262,171 @@
                                FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}"
                                VerticalAlignment="Center" />
                 </Grid>
+                </Grid>
             </Border>
 
             <!-- Main Interactive Play Area -->
             <Grid>
-                <!-- Playing Area -->
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" HorizontalAlignment="Center" VerticalAlignment="Top"
-                          MaxWidth="520" Margin="16,8">
+                <!-- Playing Area: kart kaydırılır, aksiyon butonları her zaman ekranda kalır -->
+                <Grid RowDefinitions="*,Auto">
+                    <ScrollViewer Grid.Row="0"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <Grid RowDefinitions="Auto,Auto,Auto"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top"
+                              MaxWidth="520"
+                              Margin="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12,8|16,8|16,8'}">
 
-                        <!-- Live Mini Score Bar -->
-                        <Border Grid.Row="0" Background="{DynamicResource AppCardBackgroundBrush}"
-                                CornerRadius="12" Padding="14,6" Margin="0,0,0,8"
-                                HorizontalAlignment="Stretch" BorderThickness="1.5"
-                                BorderBrush="{DynamicResource AppCardBorderBrush}"
-                                IsVisible="{Binding TeamScoreSummaryText, Converter={StaticResource BoolToVisibilityConverter}}">
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <TextBlock Grid.Column="0" Text="★" FontSize="15" Foreground="#F59E0B"
-                                           VerticalAlignment="Center" Margin="0,0,8,0" />
-                                <TextBlock Grid.Column="1" Text="{Binding TeamScoreSummaryText}"
-                                           FontSize="13" FontWeight="Bold"
-                                           Foreground="{DynamicResource AppTextPrimaryBrush}"
-                                           TextTrimming="CharacterEllipsis"
-                                           VerticalAlignment="Center" />
-                                <Button Grid.Column="2" Content="Detay"
-                                        Command="{Binding ToggleScoreboardCommand}"
-                                        Background="Transparent" Foreground="{DynamicResource AppHeroBadgeBorderBrush}"
-                                        Padding="8,3" FontSize="12" FontWeight="Bold" Cursor="Hand" />
-                            </Grid>
-                        </Border>
-
-                        <!-- Taboo Card Container -->
-                        <Border Grid.Row="1"
-                                Background="{DynamicResource AppWordCardBackgroundBrush}"
-                                CornerRadius="18"
-                                BorderThickness="1.5"
-                                BorderBrush="{DynamicResource AppCardBorderBrush}"
-                                Padding="18,12" Margin="0,0,0,10"
-                                HorizontalAlignment="Stretch"
-                                BoxShadow="0 12 32 0 #35000000">
-                            <StackPanel Spacing="10">
-                                <!-- Card Header: Category & Difficulty Badges -->
-                                <Grid ColumnDefinitions="*,Auto">
-                                    <Border Grid.Column="0"
-                                            Background="{DynamicResource AppHeroBadgeBgBrush}"
-                                            BorderThickness="1" BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}"
-                                            CornerRadius="9" Padding="10,4" HorizontalAlignment="Left">
-                                        <TextBlock Text="{Binding CurrentWord.Category.Name, FallbackValue='Genel'}"
-                                                   FontSize="12" FontWeight="Black"
-                                                   Foreground="{DynamicResource AppHeroBadgeTextBrush}"
-                                                   VerticalAlignment="Center" />
-                                    </Border>
-                                    <Border Grid.Column="1"
-                                            Background="{DynamicResource AppCardBackgroundSubtleBrush}"
-                                            BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
-                                            CornerRadius="9" Padding="10,4">
-                                        <TextBlock Text="{Binding CurrentWord.Difficulty, StringFormat='⭐ Zorluk: {0}/3'}"
-                                                   FontSize="11.5" FontWeight="Bold"
-                                                   Foreground="{DynamicResource AppTextSecondaryBrush}"
-                                                   VerticalAlignment="Center" />
-                                    </Border>
+                            <!-- Live Mini Score Bar -->
+                            <Border Grid.Row="0" Background="{DynamicResource AppCardBackgroundBrush}"
+                                    CornerRadius="12" Padding="14,6" Margin="0,0,0,8"
+                                    HorizontalAlignment="Stretch" BorderThickness="1.5"
+                                    BorderBrush="{DynamicResource AppCardBorderBrush}"
+                                    IsVisible="{Binding TeamScoreSummaryText, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <TextBlock Grid.Column="0" Text="★" FontSize="15" Foreground="#F59E0B"
+                                               VerticalAlignment="Center" Margin="0,0,8,0" />
+                                    <TextBlock Grid.Column="1" Text="{Binding TeamScoreSummaryText}"
+                                               FontSize="13" FontWeight="Bold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                               TextTrimming="CharacterEllipsis"
+                                               VerticalAlignment="Center" />
+                                    <Button Grid.Column="2" Content="Detay"
+                                            Command="{Binding ToggleScoreboardCommand}"
+                                            Background="Transparent" Foreground="{DynamicResource AppHeroBadgeBorderBrush}"
+                                            Padding="8,3" FontSize="12" FontWeight="Bold" Cursor="Hand" />
                                 </Grid>
+                            </Border>
 
-                                <!-- Main Word (Hero Banner) -->
-                                <Border Margin="0,2" Padding="16,10"
-                                        Background="{DynamicResource AppMainWordBackgroundBrush}"
-                                        CornerRadius="12"
-                                        BorderThickness="1.5"
-                                        BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}">
-                                    <TextBlock Text="{Binding CurrentWord.MainWord, FallbackValue='KART BEKLENİYOR'}"
-                                               FontSize="28" FontWeight="Black"
-                                               Foreground="{DynamicResource AppMainWordTextBrush}"
-                                               HorizontalAlignment="Center" TextAlignment="Center"
-                                               LetterSpacing="1.2"
-                                               TextWrapping="Wrap" />
-                                </Border>
+                            <!-- Taboo Card Container -->
+                            <Border Grid.Row="1"
+                                    Background="{DynamicResource AppWordCardBackgroundBrush}"
+                                    CornerRadius="18"
+                                    BorderThickness="1.5"
+                                    BorderBrush="{DynamicResource AppCardBorderBrush}"
+                                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14,10|18,12|18,12'}"
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Stretch"
+                                    BoxShadow="0 12 32 0 #35000000">
+                                <StackPanel Spacing="10">
+                                    <!-- Card Header: Category & Difficulty Badges -->
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Border Grid.Column="0"
+                                                Background="{DynamicResource AppHeroBadgeBgBrush}"
+                                                BorderThickness="1" BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}"
+                                                CornerRadius="9" Padding="10,4" HorizontalAlignment="Left">
+                                            <TextBlock Text="{Binding CurrentWord.Category.Name, FallbackValue='Genel'}"
+                                                       FontSize="12" FontWeight="Black"
+                                                       Foreground="{DynamicResource AppHeroBadgeTextBrush}"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <Border Grid.Column="1"
+                                                Background="{DynamicResource AppCardBackgroundSubtleBrush}"
+                                                BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
+                                                CornerRadius="9" Padding="10,4">
+                                            <TextBlock Text="{Binding CurrentWord.Difficulty, StringFormat='⭐ Zorluk: {0}/3'}"
+                                                       FontSize="11.5" FontWeight="Bold"
+                                                       Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                    </Grid>
 
-                                <!-- Forbidden Words Header Divider -->
-                                <Grid ColumnDefinitions="*,Auto,*" Margin="0,4">
-                                    <Rectangle Grid.Column="0" Height="1.5" Fill="{DynamicResource AppCardBorderBrush}" VerticalAlignment="Center" />
-                                    <Border Grid.Column="1" Background="{DynamicResource AppForbiddenItemBgBrush}"
-                                            BorderBrush="{DynamicResource AppForbiddenItemBorderBrush}" BorderThickness="1"
-                                            CornerRadius="8" Padding="10,3" Margin="12,0">
-                                        <TextBlock Text="🚫 YASAKLI KELİMELER"
-                                                   FontSize="11" FontWeight="Black" LetterSpacing="1"
-                                                   Foreground="#FF2A55" />
+                                    <!-- Main Word (Hero Banner) -->
+                                    <Border Margin="0,2"
+                                            Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12,8|16,10|16,10'}"
+                                            Background="{DynamicResource AppMainWordBackgroundBrush}"
+                                            CornerRadius="12"
+                                            BorderThickness="1.5"
+                                            BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}">
+                                        <TextBlock Text="{Binding CurrentWord.MainWord, FallbackValue='KART BEKLENİYOR'}"
+                                                   FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='24|28|28'}"
+                                                   FontWeight="Black"
+                                                   Foreground="{DynamicResource AppMainWordTextBrush}"
+                                                   HorizontalAlignment="Center" TextAlignment="Center"
+                                                   LetterSpacing="1.2"
+                                                   TextWrapping="Wrap" />
                                     </Border>
-                                    <Rectangle Grid.Column="2" Height="1.5" Fill="{DynamicResource AppCardBorderBrush}" VerticalAlignment="Center" />
+
+                                    <!-- Forbidden Words Header Divider -->
+                                    <Grid ColumnDefinitions="*,Auto,*" Margin="0,4">
+                                        <Rectangle Grid.Column="0" Height="1.5" Fill="{DynamicResource AppCardBorderBrush}" VerticalAlignment="Center" />
+                                        <Border Grid.Column="1" Background="{DynamicResource AppForbiddenItemBgBrush}"
+                                                BorderBrush="{DynamicResource AppForbiddenItemBorderBrush}" BorderThickness="1"
+                                                CornerRadius="8" Padding="10,3" Margin="8,0">
+                                            <TextBlock Text="🚫 YASAKLI KELİMELER"
+                                                       FontSize="11" FontWeight="Black" LetterSpacing="1"
+                                                       Foreground="#FF2A55" />
+                                        </Border>
+                                        <Rectangle Grid.Column="2" Height="1.5" Fill="{DynamicResource AppCardBorderBrush}" VerticalAlignment="Center" />
+                                    </Grid>
+
+                                    <!-- Forbidden Words List -->
+                                    <ItemsControl ItemsSource="{Binding CurrentWord.ForbiddenWords}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Classes="ForbiddenItem">
+                                                    <TextBlock Text="{Binding}"
+                                                               FontSize="{Binding $parent[UserControl].((vm:GamePlayViewModel)DataContext).Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='15|17|17'}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Live Speech Feedback Banner -->
+                            <Border Grid.Row="2"
+                                    IsVisible="{Binding IsAutoTabooEnabled}"
+                                    Background="{DynamicResource AppCardBackgroundSubtleBrush}"
+                                    BorderBrush="#3B82F6" BorderThickness="1.5"
+                                    CornerRadius="10" Padding="14,9" Margin="0,0,0,12">
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <TextBlock Grid.Column="0" Text="🎤" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding SpeechDisplayStatus}"
+                                               FontSize="12.5" FontWeight="Bold"
+                                               Foreground="#38BDF8"
+                                               VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis" />
                                 </Grid>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
 
-                                <!-- Forbidden Words List -->
-                                <ItemsControl ItemsSource="{Binding CurrentWord.ForbiddenWords}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border Classes="ForbiddenItem">
-                                                <TextBlock Text="{Binding}"
-                                                           FontSize="17" FontWeight="Bold"
-                                                           Foreground="{DynamicResource AppForbiddenItemTextBrush}"
-                                                           HorizontalAlignment="Center" />
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Live Speech Feedback Banner -->
-                        <Border Grid.Row="2"
-                                IsVisible="{Binding IsAutoTabooEnabled}"
-                                Background="{DynamicResource AppCardBackgroundSubtleBrush}"
-                                BorderBrush="#3B82F6" BorderThickness="1.5"
-                                CornerRadius="10" Padding="14,9" Margin="0,0,0,12">
-                            <Grid ColumnDefinitions="Auto,*">
-                                <TextBlock Grid.Column="0" Text="🎤" FontSize="15" VerticalAlignment="Center" Margin="0,0,8,0" />
-                                <TextBlock Grid.Column="1"
-                                           Text="{Binding SpeechDisplayStatus}"
-                                           FontSize="12.5" FontWeight="Bold"
-                                           Foreground="#38BDF8"
-                                           VerticalAlignment="Center"
-                                           TextTrimming="CharacterEllipsis" />
-                            </Grid>
-                        </Border>
-
-                        <!-- Action Buttons -->
-                        <Grid Grid.Row="3" ColumnDefinitions="*,*,*" Margin="0,0,0,8"
+                    <!-- Pinned Action Bar (mobile'da kaydırmadan da erişilebilir) -->
+                    <Border Grid.Row="1"
+                            Background="{DynamicResource AppTopBarBgBrush}"
+                            BorderThickness="0,1,0,0"
+                            BorderBrush="{DynamicResource AppTopBarBorderBrush}"
+                            Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='10,8|16,8|16,8'}">
+                        <Grid ColumnDefinitions="*,*,*"
+                              MaxWidth="520" HorizontalAlignment="Center"
                               IsEnabled="{Binding IsRoundActive}">
                             <!-- Correct Button -->
                             <Button Grid.Column="0" Classes="GameAction Correct"
                                     Command="{Binding SubmitCorrectCommand}"
                                     Margin="0,0,4,0">
-                                <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
-                                    <TextBlock Text="✓" FontSize="18" FontWeight="Black" VerticalAlignment="Center" />
-                                    <TextBlock Text="DOĞRU (+1)" FontSize="13" FontWeight="Black" VerticalAlignment="Center" />
+                                <StackPanel Orientation="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='Vertical|Horizontal|Horizontal'}"
+                                            Spacing="2" HorizontalAlignment="Center">
+                                    <TextBlock Text="✓" FontSize="18" FontWeight="Black" HorizontalAlignment="Center" />
+                                    <TextBlock Text="DOĞRU" FontSize="12" FontWeight="Black" HorizontalAlignment="Center" />
+                                    <TextBlock Text="+1" FontSize="10.5" FontWeight="Bold" HorizontalAlignment="Center"
+                                               IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}" />
                                 </StackPanel>
                             </Button>
 
                             <!-- Taboo Button -->
                             <Button Grid.Column="1" Classes="GameAction Taboo"
                                     Command="{Binding SubmitTabooCommand}"
-                                    Margin="2,0,2,0">
-                                <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
-                                    <TextBlock Text="✕" FontSize="18" FontWeight="Black" VerticalAlignment="Center" />
-                                    <TextBlock Text="TABU (-1)" FontSize="13" FontWeight="Black" VerticalAlignment="Center" />
+                                    Margin="4,0">
+                                <StackPanel Orientation="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='Vertical|Horizontal|Horizontal'}"
+                                            Spacing="2" HorizontalAlignment="Center">
+                                    <TextBlock Text="✕" FontSize="18" FontWeight="Black" HorizontalAlignment="Center" />
+                                    <TextBlock Text="TABU" FontSize="12" FontWeight="Black" HorizontalAlignment="Center" />
+                                    <TextBlock Text="-1" FontSize="10.5" FontWeight="Bold" HorizontalAlignment="Center"
+                                               IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}" />
                                 </StackPanel>
                             </Button>
 
@@ -320,14 +435,17 @@
                                     Command="{Binding SubmitPassCommand}"
                                     IsEnabled="{Binding CanPass}"
                                     Margin="4,0,0,0">
-                                <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Center">
-                                    <TextBlock Text="↷" FontSize="18" FontWeight="Black" VerticalAlignment="Center" />
-                                    <TextBlock Text="PAS GEÇ" FontSize="13" FontWeight="Black" VerticalAlignment="Center" />
+                                <StackPanel Orientation="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='Vertical|Horizontal|Horizontal'}"
+                                            Spacing="2" HorizontalAlignment="Center">
+                                    <TextBlock Text="↷" FontSize="18" FontWeight="Black" HorizontalAlignment="Center" />
+                                    <TextBlock Text="PAS" FontSize="12" FontWeight="Black" HorizontalAlignment="Center" />
+                                    <TextBlock Text="GEÇ" FontSize="10.5" FontWeight="Bold" HorizontalAlignment="Center"
+                                               IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}" />
                                 </StackPanel>
                             </Button>
                         </Grid>
-                    </Grid>
-                </ScrollViewer>
+                    </Border>
+                </Grid>
 
                 <!-- Scoreboard Drawer -->
                 <Border IsVisible="{Binding IsScoreboardOpen}"
@@ -336,8 +454,9 @@
                     <Border Background="{DynamicResource AppCardBackgroundBrush}"
                             BorderThickness="0,0,1,0"
                             BorderBrush="{DynamicResource AppCardBorderBrush}"
-                            Padding="20"
-                            Width="360" MaxWidth="420"
+                            Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14|20|20'}"
+                            Width="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='300|340|380'}"
+                            MaxWidth="420"
                             HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <Grid RowDefinitions="Auto,*">
                             <!-- Drawer Header -->
@@ -346,13 +465,13 @@
                                            FontSize="18" FontWeight="Bold"
                                            Foreground="{DynamicResource AppTextPrimaryBrush}"
                                            VerticalAlignment="Center"
-                                           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="280" />
+                                           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" />
                                 <Button Grid.Column="1" Content="✕ Kapat"
                                         Command="{Binding ToggleScoreboardCommand}"
                                         Background="{DynamicResource AppCardBackgroundSubtleBrush}"
                                         Foreground="{DynamicResource AppTextSecondaryBrush}"
                                         BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
-                                        Padding="10,4" FontSize="12" CornerRadius="6" Cursor="Hand" />
+                                        Padding="10,4" FontSize="12" CornerRadius="6" Cursor="Hand" MinHeight="40" />
                             </Grid>
 
                             <!-- Scoreboard & History Items -->
@@ -393,19 +512,16 @@
                                                 <Border Padding="10,6" Margin="0,2" CornerRadius="8"
                                                         Background="{DynamicResource AppCardBackgroundSubtleBrush}"
                                                         BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}">
-                                                    <Grid ColumnDefinitions="Auto,*,Auto">
-                                                        <TextBlock Grid.Column="0" Text="{Binding TeamName}"
-                                                                   FontSize="11" Margin="0,0,8,0"
-                                                                   Foreground="{DynamicResource AppTextMutedBrush}"
-                                                                   VerticalAlignment="Center" />
-                                                        <TextBlock Grid.Column="1" Text="{Binding Word}"
+                                                    <Grid ColumnDefinitions="*,Auto">
+                                                        <TextBlock Grid.Column="0" Text="{Binding Word}"
                                                                    FontSize="12" FontWeight="SemiBold"
                                                                    Foreground="{DynamicResource AppTextPrimaryBrush}"
                                                                    TextTrimming="CharacterEllipsis"
                                                                    VerticalAlignment="Center" />
-                                                        <TextBlock Grid.Column="2" Text="{Binding ResultText}"
+                                                        <TextBlock Grid.Column="1" Text="{Binding ResultText}"
                                                                    FontSize="12" FontWeight="Bold"
                                                                    Foreground="{Binding ResultColor}"
+                                                                   Margin="6,0,0,0"
                                                                    VerticalAlignment="Center" />
                                                     </Grid>
                                                 </Border>
@@ -427,7 +543,10 @@
                 Background="{DynamicResource AppModalOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource AppCardBackgroundBrush}"
-                    CornerRadius="16" Padding="28,24" MaxWidth="440" Margin="16"
+                    CornerRadius="16"
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='18,16|24,20|28,24'}"
+                    MaxWidth="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='340|400|440'}"
+                    Margin="14"
                     BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     BoxShadow="0 16 36 0 #30000000">
@@ -443,10 +562,10 @@
                                    FontSize="13" FontWeight="Medium"
                                    Foreground="{DynamicResource AppTextSecondaryBrush}" HorizontalAlignment="Center" />
                         <TextBlock Text="{Binding CurrentTeam.Name}"
-                                   FontSize="26" FontWeight="Black"
+                                   FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='22|26|26'}"
+                                   FontWeight="Black"
                                    Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
-                                   TextWrapping="Wrap" TextAlignment="Center"
-                                   TextTrimming="CharacterEllipsis" MaxWidth="350" />
+                                   TextWrapping="Wrap" TextAlignment="Center" />
                         <TextBlock Text="{Binding CurrentGame.CurrentRound, StringFormat='Tur {0}'}"
                                    FontSize="13" FontWeight="SemiBold"
                                    Foreground="#6366F1" HorizontalAlignment="Center" />
@@ -454,7 +573,7 @@
 
                     <TextBlock Text="Yasaklı kelimeleri kullanmadan en çok kelimeyi takımına anlat. Hazır olduğunuzda başlatın."
                                FontSize="13" TextWrapping="Wrap" TextAlignment="Center"
-                               Foreground="{DynamicResource AppTextSecondaryBrush}" MaxWidth="360" Margin="0,4" />
+                               Foreground="{DynamicResource AppTextSecondaryBrush}" Margin="0,4" />
 
                     <Button Content="🚀 Turu Başlat"
                             Command="{Binding StartTurnCommand}"
@@ -472,15 +591,19 @@
                 Background="{DynamicResource AppModalOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource AppCardBackgroundBrush}"
-                    CornerRadius="20" Padding="28,24" MaxWidth="440" Margin="16"
+                    CornerRadius="20"
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='18,16|24,20|28,24'}"
+                    MaxWidth="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='340|400|440'}"
+                    Margin="14"
                     BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     BoxShadow="0 18 40 0 #40000000">
                 <StackPanel Spacing="16" HorizontalAlignment="Center">
-<TextBlock Text="⏱ Süre Doldu!"
-                                   FontSize="26" FontWeight="Black"
-                                   Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
-                                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="350" />
+                    <TextBlock Text="⏱ Süre Doldu!"
+                               FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='22|26|26'}"
+                               FontWeight="Black"
+                               Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
+                               TextWrapping="Wrap" TextAlignment="Center" />
                     <TextBlock Text="{Binding CurrentTeam.Name, StringFormat='{}{0} • Tur Özeti'}"
                                FontSize="15" FontWeight="Bold"
                                Foreground="{DynamicResource AppTextSecondaryBrush}" HorizontalAlignment="Center"
@@ -507,7 +630,8 @@
                             CornerRadius="10" Padding="14,6">
                         <TextBlock Text="{Binding TurnScoreDelta, StringFormat='Kazanılan Puan: {0}'}"
                                    FontSize="15" FontWeight="Black"
-                                   Foreground="{DynamicResource AppHeroBadgeTextBrush}" HorizontalAlignment="Center" />
+                                   Foreground="{DynamicResource AppHeroBadgeTextBrush}" HorizontalAlignment="Center"
+                                   TextWrapping="Wrap" TextAlignment="Center" />
                     </Border>
 
                     <Button Content="Sıradaki Takıma Geç ›"
@@ -526,16 +650,21 @@
                 Background="{DynamicResource AppModalOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource AppCardBackgroundBrush}"
-                    CornerRadius="20" Padding="28,24" MaxWidth="380" Margin="16"
+                    CornerRadius="20"
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='18,16|24,20|28,24'}"
+                    MaxWidth="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='320|360|380'}"
+                    Margin="14"
                     BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     BoxShadow="0 18 40 0 #40000000">
                 <StackPanel Spacing="16" HorizontalAlignment="Center">
-<TextBlock Text="⏸ Oyun Duraklatıldı"
-                                   FontSize="22" FontWeight="Black"
-                                   Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
-                                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="300" />
+                    <TextBlock Text="⏸ Oyun Duraklatıldı"
+                               FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='19|22|22'}"
+                               FontWeight="Black"
+                               Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
+                               TextWrapping="Wrap" TextAlignment="Center" />
                     <TextBlock Text="Mola bittiğinde devam edebilirsiniz." FontSize="13"
+                               TextWrapping="Wrap" TextAlignment="Center"
                                Foreground="{DynamicResource AppTextSecondaryBrush}" HorizontalAlignment="Center" />
 
                     <Button Content="Oyuna Devam Et"
@@ -558,7 +687,10 @@
                 Background="{DynamicResource AppModalOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource AppCardBackgroundBrush}"
-                    CornerRadius="20" Padding="32,28" MaxWidth="460" Margin="16"
+                    CornerRadius="20"
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='20,18|26,24|32,28'}"
+                    MaxWidth="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='340|420|460'}"
+                    Margin="14"
                     BorderThickness="2" BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     BoxShadow="0 20 48 0 #50000000">
@@ -571,21 +703,21 @@
                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
 
-<TextBlock Text="OYUN TAMAMLANDI!"
-                                   FontSize="22" FontWeight="Black"
-                                   Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
-                                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="300" />
-<TextBlock Text="{Binding WinnerText}"
-                               FontSize="26" FontWeight="Black"
+                    <TextBlock Text="OYUN TAMAMLANDI!"
+                               FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='19|22|22'}"
+                               FontWeight="Black"
+                               Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
+                               TextWrapping="Wrap" TextAlignment="Center" />
+                    <TextBlock Text="{Binding WinnerText}"
+                               FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='22|26|26'}"
+                               FontWeight="Black"
                                Foreground="#10B981" HorizontalAlignment="Center"
-                               TextWrapping="Wrap" TextAlignment="Center"
-                               TextTrimming="CharacterEllipsis" MaxWidth="350" />
-                        <TextBlock Text="{Binding WinnerDetailsText}"
+                               TextWrapping="Wrap" TextAlignment="Center" />
+                    <TextBlock Text="{Binding WinnerDetailsText}"
                                FontSize="13.5" FontWeight="SemiBold"
                                Foreground="{DynamicResource AppTextSecondaryBrush}"
                                TextWrapping="Wrap" TextAlignment="Center"
-                               HorizontalAlignment="Center"
-                               MaxWidth="350" />
+                               HorizontalAlignment="Center" />
 
                     <Separator Margin="0,8" Background="{DynamicResource AppCardBorderBrush}" />
 
@@ -610,14 +742,18 @@
                 Background="#E6F43F5E"
                 IsHitTestVisible="False"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8"
+                        Margin="20">
                 <TextBlock Text="TABU!"
-                           FontSize="48" FontWeight="Black" Foreground="White"
+                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='38|48|48'}"
+                           FontWeight="Black" Foreground="White"
                            HorizontalAlignment="Center" TextAlignment="Center" LetterSpacing="2"
-                           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="350" />
+                           TextWrapping="Wrap" />
                 <TextBlock Text="Yasaklı kelime kullanıldı (-1 Puan)"
-                           FontSize="16" Foreground="White"
-                           FontWeight="SemiBold" HorizontalAlignment="Center" />
+                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14|16|16'}"
+                           Foreground="White"
+                           FontWeight="SemiBold" HorizontalAlignment="Center"
+                           TextAlignment="Center" TextWrapping="Wrap" />
             </StackPanel>
         </Border>
     </Grid>

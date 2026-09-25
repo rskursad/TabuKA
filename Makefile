@@ -53,7 +53,7 @@ endef
 
 .PHONY: all help build run test ci publish \
         publish-linux publish-win publish-mac \
-        workload-android android-build android-run apk \
+        workload-android vosk-android-libs android-build android-run apk \
         android-keystore keystore android-keystore-custom keystore-custom keystore-interactive \
         android-publish publish-android \
         android-publish-apk android-publish-bundle clean
@@ -74,6 +74,7 @@ help:
 	@echo ""
 	@echo "  Android Komutları:"
 	@echo "  make workload-android        Android iş yükünü kur (dotnet workload install android)"
+	@echo "  make vosk-android-libs       Sesli tabu için Vosk Android kütüphanesini indir (offline tanıma)"
 	@echo "  make android-build           Android APK derle (Debug/Release)"
 	@echo "  make android-run             Bağlı cihaz veya emülatörde çalıştır"
 	@echo "  make android-keystore        Test imza anahtarı oluştur (şifre sorulur)"
@@ -137,6 +138,38 @@ publish-mac:
 workload-android:
 	$(call banner,Android İş Yükü Kurulumu)
 	dotnet workload install android
+
+# Sesli tabu için Vosk'un resmi Android kütüphanesini indirir.
+# NDK gerekmez: resmi com.alphacephei:vosk-android AAR'ı hazır libvosk.so içerir.
+# Tamamen offline (internetsiz) tanıma sağlar.
+VOSK_ANDROID_VERSION ?= 0.3.75
+VOSK_NATIVE_DIR      := TabuKA.Android/NativeLibs
+VOSK_NATIVE_ABIS     := arm64-v8a armeabi-v7a x86_64
+
+vosk-android-libs:
+	$(call banner,Vosk Android Kütüphanesi Kuruluyor [$(VOSK_ANDROID_VERSION)])
+	@tmp=$$(mktemp -d); \
+	url="https://repo1.maven.org/maven2/com/alphacephei/vosk-android/$(VOSK_ANDROID_VERSION)/vosk-android-$(VOSK_ANDROID_VERSION).aar"; \
+	if ! curl -fsSL -o "$$tmp/vosk.aar" "$$url"; then \
+		printf "$(C_RED)❌ Vosk AAR indirilemedi: $$url\n$(C_RESET)"; \
+		rm -rf "$$tmp"; exit 1; \
+	fi; \
+	found=0; \
+	for abi in $(VOSK_NATIVE_ABIS); do \
+		mkdir -p "$(VOSK_NATIVE_DIR)/$$abi"; \
+		if unzip -p "$$tmp/vosk.aar" "jni/$$abi/libvosk.so" > "$(VOSK_NATIVE_DIR)/$$abi/libvosk.so" 2>/dev/null && \
+		   [ -s "$(VOSK_NATIVE_DIR)/$$abi/libvosk.so" ]; then \
+			found=$$((found+1)); \
+			printf "  ✓ %s\n" "$$abi"; \
+		else \
+			rm -f "$(VOSK_NATIVE_DIR)/$$abi/libvosk.so"; \
+		fi; \
+	done; \
+	rm -rf "$$tmp"; \
+	if [ "$$found" -eq 0 ]; then \
+		printf "$(C_RED)❌ Hiçbir ABI için libvosk.so çıkarılamadı.\n$(C_RESET)"; exit 1; \
+	fi; \
+	printf "$(C_GREEN)✅ $$found ABI için libvosk.so hazır. Sesli tabu offline çalışabilir.\n$(C_RESET)"
 
 android-build:
 	$(call banner,Android APK Derleniyor [$(CONFIG)])

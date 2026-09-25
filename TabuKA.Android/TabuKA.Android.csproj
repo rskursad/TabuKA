@@ -18,4 +18,27 @@
   <ItemGroup>
     <ProjectReference Include="..\TabuKA.csproj" SetTargetFramework="TargetFramework=net10.0" AdditionalProperties="RuntimeIdentifier=;SelfContained=false" />
   </ItemGroup>
+
+  <!--
+    Vosk'in Android icin derlenmis libvosk.so dosyalarini paketle.
+    Beklenen duzen:  TabuKA.Android/NativeLibs/<abi>/libvosk.so
+    Ornek:        NativeLibs/arm64-v8a/libvosk.so
+                  NativeLibs/x86_64/libvosk.so
+
+    Bu dosyalar resmi com.alphacephei:vosk-android AAR'indan alinir (bkz. Makefile:
+    make vosk-android-libs). NDK gerekmez, tamamen offline tanima saglar.
+
+    Onemli: Android SDK'si "**\/*.so" dosyalarini Link bilgisi olmadan da
+    AndroidNativeLibrary'ye ekliyor. Ayni dosya iki kez paketlenince XA4301
+    uyarisi cikiyor. Asagidaki Remove, SDK'nin ekledigi kopyalari temizler.
+  -->
+  <ItemGroup>
+    <AndroidNativeLibrary Remove="NativeLibs\**\*.so" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidNativeLibrary Include="NativeLibs\**\*.so">
+      <Link>lib/%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </AndroidNativeLibrary>
+  </ItemGroup>
 </Project>

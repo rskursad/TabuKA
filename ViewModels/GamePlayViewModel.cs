@@ -620,22 +620,27 @@ public partial class GamePlayViewModel : ViewModelBase, IDisposable
     {
         if (CurrentWord == null) return;
 
-        _speechService.SetForbiddenWords(CurrentWord.ForbiddenWords);
-        var available = await _speechService.IsAvailableAsync();
-        if (available)
+        if (!_speechService.IsEngineSupported)
         {
-            try
-            {
-                await _speechService.StartListeningAsync();
-            }
-            catch (Exception ex)
-            {
-                LastRecognizedSpeech = $"⚠️ Mikrofon hatası: {ex.Message}";
-            }
+            LastRecognizedSpeech = "⚠️ Sesli tabu bu cihazda desteklenmiyor.";
+            return;
         }
-        else
+
+        _speechService.SetForbiddenWords(CurrentWord.ForbiddenWords);
+
+        if (!await _speechService.IsAvailableAsync())
         {
             LastRecognizedSpeech = "⚠️ Vosk modeli bulunamadı";
+            return;
+        }
+
+        try
+        {
+            await _speechService.StartListeningAsync();
+        }
+        catch (Exception ex)
+        {
+            LastRecognizedSpeech = $"⚠️ Mikrofon hatası: {ex.Message}";
         }
     }
 

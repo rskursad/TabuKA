@@ -62,12 +62,13 @@
             <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="MinHeight" Value="160" />
         </Style>
     </UserControl.Styles>
 
-    <DockPanel>
+    <DockPanel LastChildFill="True">
         <!-- Header -->
-        <Border DockPanel.Dock="Top" Padding="24,14"
+        <Border DockPanel.Dock="Top" Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12,12|24,14|24,14'}"
                 Background="{DynamicResource AppTopBarBgBrush}"
                 BorderThickness="0,0,0,1"
                 BorderBrush="{DynamicResource AppTopBarBorderBrush}">
@@ -77,190 +78,259 @@
                                          Height="20" Margin="0,0,0,0" />
                 <controls:BrandTriAccent Variant="Corner" AccentOpacity="0.16"
                                          VerticalAlignment="Top" HorizontalAlignment="Right"
-                                         Width="120" Height="90" Margin="0,-30,-20,0" />
-                <Grid ColumnDefinitions="Auto,*,Auto">
-                    <Button Grid.Column="0" Content="← Ana Menü" Command="{Binding GoBackCommand}"
-                            Classes="NavButton" Width="120"
-                            VerticalAlignment="Center" />
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Spacing="2" Orientation="Horizontal">
-                        <Image Source="/Assets/logo-mark.png" Width="22" Height="22"
-                               Stretch="Uniform" Margin="0,0,8,0" VerticalAlignment="Center" />
-<StackPanel Spacing="2" VerticalAlignment="Center">
-                            <TextBlock Text="Kelime Havuzu & Editör" FontSize="20" FontWeight="Black"
-                                       Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center"
-                                       TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="300" />
-                            <TextBlock Text="Kelimeleri inceleyin, filtreleyin veya yeni kartlar ekleyin"
-                                       FontSize="12" Foreground="{DynamicResource AppTextSecondaryBrush}" HorizontalAlignment="Center"
-                                       TextWrapping="Wrap" MaxWidth="300" />
-                        </StackPanel>
+                                         Width="120" Height="90" Margin="0,-30,-20,0"
+                                         IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}" />
+                <Grid ColumnDefinitions="Auto,Auto,*">
+                    <Button Grid.Column="0" Classes="NavButton tappable" Command="{Binding GoBackCommand}"
+                            VerticalAlignment="Center"
+                            IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}"
+                            Content="← Ana Menü" />
+
+                    <Button Grid.Column="0" Classes="NavButton tappable" Command="{Binding GoBackCommand}"
+                            VerticalAlignment="Center" Padding="12,9"
+                            IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}">
+                        <TextBlock Text="←" FontSize="16" />
+                    </Button>
+
+                    <Image Grid.Column="1" Source="/Assets/logo-mark.png" Width="22" Height="22"
+                           Stretch="Uniform" VerticalAlignment="Center" Margin="10,0,0,0" />
+
+                    <StackPanel Grid.Column="2" Spacing="2" VerticalAlignment="Center" Margin="8,0,0,0">
+                        <TextBlock Text="Kelime Havuzu &amp; Editör"
+                                   FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='17|20|20'}"
+                                   FontWeight="Black"
+                                   Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                   TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="Kelimeleri inceleyin, filtreleyin veya yeni kartlar ekleyin"
+                                   FontSize="12" Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                   TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                   IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}" />
                     </StackPanel>
                 </Grid>
             </Panel>
         </Border>
 
-        <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,380" Margin="20,16">
-            <!-- Toolbar -->
-            <Border Grid.Row="0" Grid.ColumnSpan="2" Padding="16,12" CornerRadius="14"
-                    Background="{DynamicResource AppCardBackgroundBrush}"
-                    BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
-                    Margin="0,0,0,12"
-                    BoxShadow="0 4 14 0 #15000000">
-                <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,*,Auto,Auto,Auto">
-                    <TextBlock Grid.Column="0" Text="Ara:" VerticalAlignment="Center" FontSize="13.5" FontWeight="SemiBold"
-                               Foreground="{DynamicResource AppTextSecondaryBrush}" Margin="0,0,8,0" />
-                    <TextBox Grid.Column="1" Text="{Binding SearchText}" Width="200" VerticalAlignment="Center"
-                             PlaceholderText="Kelime ara..." CornerRadius="8" />
-                    <TextBlock Grid.Column="2" Text="Kategori:" VerticalAlignment="Center" FontSize="13.5" FontWeight="SemiBold"
-                               Foreground="{DynamicResource AppTextSecondaryBrush}" Margin="16,0,8,0" />
-                    <ComboBox Grid.Column="3" ItemsSource="{Binding Categories}" Width="160" VerticalAlignment="Center"
-                              SelectedItem="{Binding SelectedFilterCategory, Mode=TwoWay}"
-                              DisplayMemberBinding="{Binding Name}" CornerRadius="8" />
-                    
-                    <Button Grid.Column="5" Classes="PrimaryButton" Content="➕ Yeni Kelime" Command="{Binding StartAddCommand}"
-                            Margin="8,0,4,0" />
-                    <Button Grid.Column="6" Classes="NavButton" Content="✏️ Düzenle" Command="{Binding StartEditCommand}"
-                            Margin="4,0,4,0" />
-                    <Button Grid.Column="7" Classes="DangerButton" Content="🗑 Sil" Command="{Binding DeleteWordCommand}"
-                            Margin="4,0,0,0" />
-                </Grid>
-            </Border>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Border Margin="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12|20,16|20,16'}">
+                <StackPanel Spacing="12">
 
-            <!-- Words table -->
-            <Border Grid.Row="1" Grid.Column="0" Padding="16" CornerRadius="14"
-                    Background="{DynamicResource AppCardBackgroundBrush}"
-                    BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
-                    Margin="0,0,12,0"
-                    BoxShadow="0 4 14 0 #15000000">
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Top" Text="Kayıtlı Kelimeler" FontSize="16" FontWeight="Bold"
-                               Foreground="{DynamicResource AppTextPrimaryBrush}" Margin="0,0,0,10" />
-                    <DataGrid ItemsSource="{Binding Words}" AutoGenerateColumns="False"
-                              IsReadOnly="True" CanUserResizeColumns="True" CanUserSortColumns="True"
-                              SelectedItem="{Binding SelectedWord, Mode=TwoWay}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Kelime" Binding="{Binding MainWord}" Width="2*" />
-                            <DataGridTextColumn Header="Kategori" Binding="{Binding CategoryName}" Width="1.2*" />
-                            <DataGridTextColumn Header="Zorluk" Binding="{Binding Difficulty}" Width="70" />
-                            <DataGridTextColumn Header="Yasaklı Kelimeler" Binding="{Binding ForbiddenText}" Width="3*" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </DockPanel>
-            </Border>
+                    <!-- Toolbar: dar ekranda arama / kategori / aksiyonlar alt alta -->
+                    <Border Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12|16,12|16,12'}"
+                            CornerRadius="14"
+                            Background="{DynamicResource AppCardBackgroundBrush}"
+                            BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
+                            BoxShadow="0 4 14 0 #15000000">
+                        <StackPanel Spacing="10">
+                            <controls:ReflowPanel Columns="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='1|2|2'}"
+                                                   ColumnSpacing="10" RowSpacing="10">
+                                <!-- Search -->
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Ara:" FontSize="12.5" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                    <TextBox Text="{Binding SearchText}" Classes="tappable"
+                                             PlaceholderText="Kelime ara..." CornerRadius="8" />
+                                </StackPanel>
 
-            <!-- Side panel -->
-            <StackPanel Grid.Row="1" Grid.Column="1" Spacing="12">
-                <!-- Add / Edit form -->
-                <Border Padding="18" CornerRadius="14"
-                        Background="{DynamicResource AppCardBackgroundBrush}"
-                        BorderThickness="1.5" BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}"
-                        IsVisible="{Binding IsEditing}"
-                        BoxShadow="0 6 20 0 #20000000">
-                    <StackPanel Spacing="12">
-                        <TextBlock Text="Kart Editörü" FontSize="16" FontWeight="Bold"
-                                   Foreground="{DynamicResource AppTextPrimaryBrush}" />
-                        
-                        <StackPanel Spacing="4">
-                            <TextBlock Text="Ana Kelime" FontSize="12.5" FontWeight="SemiBold"
-                                       Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                            <TextBox Text="{Binding EditMainWord, Mode=TwoWay}" PlaceholderText="Örn: Uçak" FontSize="15" FontWeight="Bold"
-                                     CornerRadius="8" />
+                                <!-- Category filter -->
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Kategori:" FontSize="12.5" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                    <ComboBox ItemsSource="{Binding Categories}" Classes="tappable"
+                                              SelectedItem="{Binding SelectedFilterCategory, Mode=TwoWay}"
+                                              DisplayMemberBinding="{Binding Name}" CornerRadius="8"
+                                              HorizontalAlignment="Stretch" MinWidth="140" />
+                                </StackPanel>
+                            </controls:ReflowPanel>
+
+                            <controls:ReflowPanel Columns="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='3|3|3'}"
+                                                   ColumnSpacing="6">
+                                <Button Classes="PrimaryButton tappable"
+                                        Command="{Binding StartAddCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+                                        <TextBlock Text="➕" />
+                                        <TextBlock Text="Yeni Kelime"
+                                                   IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}" />
+                                        <TextBlock Text="Yeni"
+                                                   IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="NavButton tappable" Command="{Binding StartEditCommand}"
+                                        HorizontalContentAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+                                        <TextBlock Text="✏️" />
+                                        <TextBlock Text="Düzenle" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Classes="DangerButton tappable" Command="{Binding DeleteWordCommand}"
+                                        HorizontalContentAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Center">
+                                        <TextBlock Text="🗑" />
+                                        <TextBlock Text="Sil" />
+                                    </StackPanel>
+                                </Button>
+                            </controls:ReflowPanel>
                         </StackPanel>
+                    </Border>
 
-                        <StackPanel Spacing="4">
-                            <TextBlock Text="Yasaklı Kelimeler (virgülle ayırın)" FontSize="12.5" FontWeight="SemiBold"
-                                       Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                            <TextBox Text="{Binding EditForbiddenWords, Mode=TwoWay}" PlaceholderText="kanat, gökyüzü, pilot, hava, bulut"
-                                     MinLines="2" MaxLines="4" CornerRadius="8" />
+                    <!-- Words table + side panel: dar ekranda alt alta -->
+                    <controls:ReflowPanel Columns="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='1|2|2'}"
+                                           ColumnSpacing="12" RowSpacing="12">
+
+                        <!-- Words table -->
+                        <Border Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12|16|16'}"
+                                CornerRadius="14"
+                                Background="{DynamicResource AppCardBackgroundBrush}"
+                                BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
+                                BoxShadow="0 4 14 0 #15000000"
+                                Height="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='400|520|620'}">
+                            <DockPanel LastChildFill="True">
+                                <TextBlock DockPanel.Dock="Top" Text="Kayıtlı Kelimeler"
+                                           FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='15|16|16'}"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}" Margin="0,0,0,10" />
+                                <DataGrid ItemsSource="{Binding Words}" AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          CanUserResizeColumns="True" CanUserSortColumns="True"
+                                          HorizontalScrollBarVisibility="Auto"
+                                          SelectedItem="{Binding SelectedWord, Mode=TwoWay}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Kelime" Binding="{Binding MainWord}" Width="1.6*" />
+                                        <DataGridTextColumn Header="Kategori" Binding="{Binding CategoryName}" Width="1*" />
+                                        <DataGridTextColumn Header="Zorluk" Binding="{Binding Difficulty}" Width="0.6*" />
+                                        <DataGridTextColumn Header="Yasaklı Kelimeler" Binding="{Binding ForbiddenText}" Width="2.2*" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Side panel -->
+                        <StackPanel Spacing="12"
+                                    controls:ReflowPanel.ChildFixedWidth="380">
+                            <!-- Add / Edit form -->
+                            <Border Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14|18|18'}"
+                                    CornerRadius="14"
+                                    Background="{DynamicResource AppCardBackgroundBrush}"
+                                    BorderThickness="1.5" BorderBrush="{DynamicResource AppHeroBadgeBorderBrush}"
+                                    IsVisible="{Binding IsEditing}"
+                                    BoxShadow="0 6 20 0 #20000000">
+                                <StackPanel Spacing="12">
+                                    <TextBlock Text="Kart Editörü" FontSize="16" FontWeight="Bold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
+
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="Ana Kelime" FontSize="12.5" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                        <TextBox Text="{Binding EditMainWord, Mode=TwoWay}" Classes="tappable"
+                                                 PlaceholderText="Örn: Uçak" FontSize="15" FontWeight="Bold"
+                                                 CornerRadius="8" />
+                                    </StackPanel>
+
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="Yasaklı Kelimeler (virgülle ayırın)" FontSize="12.5" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                        <TextBox Text="{Binding EditForbiddenWords, Mode=TwoWay}" PlaceholderText="kanat, gökyüzü, pilot, hava, bulut"
+                                                 MinLines="2" MaxLines="4" CornerRadius="8" />
+                                    </StackPanel>
+
+                                    <controls:ReflowPanel Columns="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='1|2|2'}"
+                                                           ColumnSpacing="10" RowSpacing="8">
+                                        <StackPanel Spacing="4"
+                                                    controls:ReflowPanel.ChildWeight="1.6">
+                                            <TextBlock Text="Kategori" FontSize="12.5" FontWeight="SemiBold"
+                                                       Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                            <ComboBox ItemsSource="{Binding Categories}" Classes="tappable"
+                                                      SelectedItem="{Binding EditCategory, Mode=TwoWay}"
+                                                      HorizontalAlignment="Stretch" MinWidth="120"
+                                                      CornerRadius="8">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Spacing="4"
+                                                    controls:ReflowPanel.ChildWeight="1">
+                                            <TextBlock Text="Zorluk" FontSize="12.5" FontWeight="SemiBold"
+                                                       Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                            <ComboBox ItemsSource="{Binding DifficultyLevels}" Classes="tappable"
+                                                      SelectedItem="{Binding EditDifficulty, Mode=TwoWay}"
+                                                      HorizontalAlignment="Stretch" MinWidth="90"
+                                                      CornerRadius="8" />
+                                        </StackPanel>
+                                    </controls:ReflowPanel>
+
+                                    <Grid ColumnDefinitions="*,*" Margin="0,4,0,0">
+                                        <Button Grid.Column="0" Classes="PrimaryButton tappable" Content="💾 Kaydet"
+                                                Command="{Binding SaveWordCommand}" HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center" Margin="0,0,4,0" />
+                                        <Button Grid.Column="1" Classes="NavButton tappable" Content="İptal"
+                                                Command="{Binding CancelEditCommand}" HorizontalAlignment="Stretch"
+                                                HorizontalContentAlignment="Center" Margin="4,0,0,0" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Category management -->
+                            <Border Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14|18|18'}"
+                                    CornerRadius="14"
+                                    Background="{DynamicResource AppCardBackgroundBrush}"
+                                    BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
+                                    BoxShadow="0 4 14 0 #15000000">
+                                <StackPanel Spacing="12">
+                                    <TextBlock Text="Kategori Ekle / Sil" FontSize="16" FontWeight="Bold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <TextBox Grid.Column="0" Text="{Binding NewCategoryName, Mode=TwoWay}" Classes="tappable"
+                                                 PlaceholderText="Yeni kategori adı..." CornerRadius="8" Margin="0,0,8,0" />
+                                        <Button Grid.Column="1" Content="➕ Ekle" Command="{Binding AddCategoryCommand}"
+                                                Classes="NavButton tappable" Padding="12,8" />
+                                    </Grid>
+
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <ComboBox Grid.Column="0" ItemsSource="{Binding Categories}" Classes="tappable"
+                                                  SelectedItem="{Binding SelectedCategoryToDelete, Mode=TwoWay}"
+                                                  DisplayMemberBinding="{Binding Name}"
+                                                  PlaceholderText="Silinecek kategori..."
+                                                  CornerRadius="8" HorizontalAlignment="Stretch" Margin="0,0,8,0"
+                                                  MinWidth="100" />
+                                        <Button Grid.Column="1" Classes="DangerButton tappable" Content="🗑 Sil"
+                                                Command="{Binding DeleteCategoryCommand}" Padding="12,8" />
+                                    </Grid>
+                                    <TextBlock Text="Dikkat: Kategori silindiğinde o kategoriye ait kelimeler de silinir."
+                                               FontSize="11.5" Foreground="{DynamicResource AppTextMutedBrush}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Status Message -->
+                            <Border IsVisible="{Binding StatusMessage, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Padding="14" CornerRadius="10"
+                                    Background="{Binding StatusMessage, Converter={StaticResource StatusToBackgroundConverter}}"
+                                    BorderThickness="1"
+                                    BorderBrush="{Binding StatusMessage, Converter={StaticResource StatusToBorderConverter}}">
+                                <TextBlock Text="{Binding StatusMessage}" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}" TextWrapping="Wrap"
+                                           HorizontalAlignment="Center" TextAlignment="Center" />
+                            </Border>
                         </StackPanel>
+                    </controls:ReflowPanel>
 
-                        <StackPanel Orientation="Horizontal" Spacing="12">
-                            <StackPanel Spacing="4">
-                                <TextBlock Text="Kategori" FontSize="12.5" FontWeight="SemiBold"
-                                           Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                                <ComboBox ItemsSource="{Binding Categories}" Width="180"
-                                          SelectedItem="{Binding EditCategory, Mode=TwoWay}"
-                                          CornerRadius="8">
-                                    <ComboBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Name}" />
-                                        </DataTemplate>
-                                    </ComboBox.ItemTemplate>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Spacing="4">
-                                <TextBlock Text="Zorluk" FontSize="12.5" FontWeight="SemiBold"
-                                           Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                                <ComboBox ItemsSource="{Binding DifficultyLevels}" Width="90"
-                                          SelectedItem="{Binding EditDifficulty, Mode=TwoWay}"
-                                          CornerRadius="8" />
-                            </StackPanel>
+                    <!-- Footer -->
+                    <Border Padding="16,8" CornerRadius="10"
+                            Background="{DynamicResource AppCardBackgroundBrush}"
+                            BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}">
+                        <StackPanel Spacing="2" HorizontalAlignment="Center">
+                            <TextBlock Text="TabuKA Kelime Havuzu" FontSize="12" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="Değişiklikler anında yerel veritabanına işlenir." FontSize="11.5"
+                                       Foreground="{DynamicResource AppTextMutedBrush}"
+                                       HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" />
                         </StackPanel>
-                        
-                        <Grid ColumnDefinitions="*,*" Margin="0,4,0,0">
-                            <Button Grid.Column="0" Classes="PrimaryButton" Content="💾 Kaydet"
-                                    Command="{Binding SaveWordCommand}" HorizontalAlignment="Stretch"
-                                    HorizontalContentAlignment="Center" Margin="0,0,4,0" />
-                            <Button Grid.Column="1" Classes="NavButton" Content="İptal"
-                                    Command="{Binding CancelEditCommand}" HorizontalAlignment="Stretch"
-                                    HorizontalContentAlignment="Center" Margin="4,0,0,0" />
-                        </Grid>
-                    </StackPanel>
-                </Border>
-
-                <!-- Category management -->
-                <Border Padding="18" CornerRadius="14"
-                        Background="{DynamicResource AppCardBackgroundBrush}"
-                        BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}"
-                        BoxShadow="0 4 14 0 #15000000">
-                    <StackPanel Spacing="12">
-                        <TextBlock Text="Kategori Ekle / Sil" FontSize="16" FontWeight="Bold"
-                                   Foreground="{DynamicResource AppTextPrimaryBrush}" />
-                        <Grid ColumnDefinitions="*,Auto">
-                            <TextBox Grid.Column="0" Text="{Binding NewCategoryName, Mode=TwoWay}"
-                                     PlaceholderText="Yeni kategori adı..." CornerRadius="8" Margin="0,0,8,0" />
-                            <Button Grid.Column="1" Content="➕ Ekle" Command="{Binding AddCategoryCommand}"
-                                    Classes="NavButton" Padding="12,8" />
-                        </Grid>
-                        
-                        <Grid ColumnDefinitions="*,Auto">
-                            <ComboBox Grid.Column="0" ItemsSource="{Binding Categories}"
-                                      SelectedItem="{Binding SelectedCategoryToDelete, Mode=TwoWay}"
-                                      DisplayMemberBinding="{Binding Name}"
-                                      PlaceholderText="Silinecek kategori..."
-                                      CornerRadius="8" HorizontalAlignment="Stretch" Margin="0,0,8,0" />
-                            <Button Grid.Column="1" Classes="DangerButton" Content="🗑 Sil"
-                                    Command="{Binding DeleteCategoryCommand}" Padding="12,8" />
-                        </Grid>
-                        <TextBlock Text="Dikkat: Kategori silindiğinde o kategoriye ait kelimeler de silinir."
-                                   FontSize="11.5" Foreground="{DynamicResource AppTextMutedBrush}" TextWrapping="Wrap" />
-                    </StackPanel>
-                </Border>
-
-                <!-- Status Message -->
-                <Border IsVisible="{Binding StatusMessage, Converter={StaticResource BoolToVisibilityConverter}}"
-                        Padding="14" CornerRadius="10"
-                        Background="{Binding StatusMessage, Converter={StaticResource StatusToBackgroundConverter}}"
-                        BorderThickness="1"
-                        BorderBrush="{Binding StatusMessage, Converter={StaticResource StatusToBorderConverter}}">
-                    <TextBlock Text="{Binding StatusMessage}" FontSize="13" FontWeight="SemiBold"
-                               Foreground="{DynamicResource AppTextPrimaryBrush}" TextWrapping="Wrap"
-                               HorizontalAlignment="Center" />
-                </Border>
-            </StackPanel>
-
-            <!-- Footer -->
-            <Border Grid.Row="2" Grid.ColumnSpan="2" Padding="16,8" CornerRadius="10"
-                    Background="{DynamicResource AppCardBackgroundBrush}"
-                    BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
-                    Margin="0,12,0,0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="16">
-                    <TextBlock Text="TabuKA Kelime Havuzu" FontSize="12" FontWeight="SemiBold"
-                               Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                    <TextBlock Text="•" FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" />
-                    <TextBlock Text="Değişiklikler anında yerel veritabanına işlenir." FontSize="11.5"
-                               Foreground="{DynamicResource AppTextMutedBrush}" />
+                    </Border>
                 </StackPanel>
             </Border>
-        </Grid>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

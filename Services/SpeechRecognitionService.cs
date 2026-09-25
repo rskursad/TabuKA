@@ -14,6 +14,13 @@ public interface ISpeechRecognitionService
     event Action<string>? ErrorOccurred;
     
     bool IsListening { get; }
+
+    /// <summary>
+    /// False when the platform cannot run the engine at all (missing native library).
+    /// <see cref="IsAvailableAsync"/> also depends on this and on the model being installed.
+    /// </summary>
+    bool IsEngineSupported { get; }
+
     Task StartListeningAsync();
     Task StopListeningAsync();
     Task<bool> IsAvailableAsync();

@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:TabuKA.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="260" d:DesignHeight="70"
+             x:Class="TabuKA.Views.Controls.RoundTimerBadge"
+             x:DataType="vm:GamePlayViewModel">
+
+    <Border Background="{DynamicResource AppCardBackgroundSubtleBrush}"
+            CornerRadius="12"
+            Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='16,4|20,5|20,5'}"
+            BorderThickness="2"
+            BorderBrush="{Binding IsUrgentTime, Converter={StaticResource StatusToBorderConverter}}">
+        <StackPanel Spacing="2" HorizontalAlignment="Center">
+            <!-- Dar ekranlarda HUD tek satıra sığmadığı için durum metni buraya taşınır -->
+            <TextBlock Text="{Binding GameStatusText}"
+                       FontSize="11.5" FontWeight="Bold"
+                       Foreground="{DynamicResource AppTextPrimaryBrush}"
+                       HorizontalAlignment="Center"
+                       TextTrimming="CharacterEllipsis"
+                       IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}" />
+
+            <TextBlock Text="{Binding TimeRemaining, StringFormat='{}{0} SN'}"
+                       FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='26|24|24'}"
+                       FontWeight="Black"
+                       Foreground="{Binding IsUrgentTime, Converter={StaticResource BoolToStatusColorConverter}}"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center" />
+        </StackPanel>
+    </Border>
+</UserControl>

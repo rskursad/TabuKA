@@ -158,6 +158,9 @@
             <converters:ModelStatusBgConverter x:Key="ModelStatusBgConverter" />
             <converters:ModelStatusBorderConverter x:Key="ModelStatusBorderConverter" />
             <converters:ModelStatusFgConverter x:Key="ModelStatusFgConverter" />
+            <converters:ResponsiveValueConverter x:Key="Rsp" />
+            <converters:ResponsiveVisibilityConverter x:Key="RspVis" />
+            <converters:SafeAreaBottomConverter x:Key="SafeAreaBottom" />
             
             <!-- Modern Professional App Font -->
             <FontFamily x:Key="AppFont">avares://Avalonia.Fonts.Inter/Assets#Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, Cantarell, sans-serif</FontFamily>
@@ -171,5 +174,26 @@
 
     <Application.Styles>
         <FluentTheme />
+
+        <!-- ==== Responsive / dokunmatik hedefleri ==== -->
+        <Style Selector="Button.tappable">
+            <Setter Property="MinHeight" Value="48" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="TextBox.tappable">
+            <Setter Property="MinHeight" Value="44" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="ComboBox.tappable">
+            <Setter Property="MinHeight" Value="44" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="NumericUpDown.tappable">
+            <Setter Property="MinHeight" Value="44" />
+        </Style>
     </Application.Styles>
 </Application>

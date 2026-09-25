@@ -19,7 +19,7 @@
             <Setter Property="BorderThickness" Value="1.5" />
             <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}" />
             <Setter Property="CornerRadius" Value="18" />
-            <Setter Property="Padding" Value="24" />
+            <Setter Property="Padding" Value="{Binding $parent[UserControl].((vm:GameSetupViewModel)DataContext).Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14|24|24'}" />
             <Setter Property="BoxShadow" Value="0 6 20 0 #20000000" />
         </Style>
 
@@ -33,6 +33,26 @@
 
         <Style Selector="Border.CategoryChip CheckBox">
             <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style Selector="TextBlock.CardTitle">
+            <Setter Property="FontSize" Value="{Binding $parent[UserControl].((vm:GameSetupViewModel)DataContext).Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='15|16|16'}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.FieldLabel">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextSecondaryBrush}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+        <Style Selector="TextBlock.FieldValue">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
         <Style Selector="Button.ModernSecondaryBtn">
@@ -68,134 +88,131 @@
     <Grid Background="{DynamicResource AppBackgroundBrush}">
         <controls:BrandTriAccent Variant="Corner" AccentOpacity="0.14"
                                  VerticalAlignment="Top" HorizontalAlignment="Right"
-                                 Width="200" Height="160" Margin="0,-30,-20,0" />
+                                 Width="200" Height="160" Margin="0,-30,-20,0"
+                                 IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}" />
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <Border Padding="20,24" HorizontalAlignment="Center" MaxWidth="820">
-                <StackPanel Spacing="20">
+            <Border Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='12,16|20,24|20,24'}"
+                    HorizontalAlignment="Center" MaxWidth="820">
+                <StackPanel Spacing="16">
                     <!-- Header -->
-                    <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Grid ColumnDefinitions="Auto,Auto,*">
                         <Button Grid.Column="0" Content="← Ana Menü" Command="{Binding GoBackCommand}"
-                                Classes="ModernSecondaryBtn"
-                                VerticalAlignment="Center" />
+                                Classes="ModernSecondaryBtn tappable"
+                                VerticalAlignment="Center"
+                                IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}" />
+                        <Button Grid.Column="0" Content="←" Command="{Binding GoBackCommand}"
+                                Classes="ModernSecondaryBtn tappable" Padding="12,8" FontSize="16"
+                                VerticalAlignment="Center"
+                                IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}" />
 
-                        <StackPanel Grid.Column="1" HorizontalAlignment="Center" Spacing="4" Orientation="Horizontal">
-                            <Image Source="/Assets/logo-mark.png" Width="28" Height="28"
-                                   Stretch="Uniform" Margin="0,0,10,0" VerticalAlignment="Center" />
-                            <StackPanel Spacing="4" VerticalAlignment="Center">
-                                <TextBlock Text="Oyun Kurulumu"
-                                           FontSize="24" FontWeight="Black"
-                                           Foreground="{DynamicResource AppTextPrimaryBrush}" 
-                                           HorizontalAlignment="Center"
-                                           TextWrapping="Wrap"
-                                           TextTrimming="CharacterEllipsis"
-                                           MaxWidth="300" />
-                                <TextBlock Text="Takımları belirleyin, süreyi ve kuralları ayarlayın"
-                                           FontSize="13" FontWeight="Medium"
-                                           Foreground="{DynamicResource AppTextSecondaryBrush}" 
-                                           HorizontalAlignment="Center"
-                                           TextWrapping="Wrap"
-                                           MaxWidth="300" />
-                            </StackPanel>
+                        <Image Grid.Column="1" Source="/Assets/logo-mark.png" Width="28" Height="28"
+                               Stretch="Uniform" VerticalAlignment="Center" Margin="10,0,0,0" />
+
+                        <StackPanel Grid.Column="2" Spacing="2" VerticalAlignment="Center" Margin="8,0,0,0">
+                            <TextBlock Text="Oyun Kurulumu"
+                                       FontSize="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='19|24|24'}"
+                                       FontWeight="Black"
+                                       Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                       TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="Takımları belirleyin, süreyi ve kuralları ayarlayın"
+                                       FontSize="12.5" FontWeight="Medium"
+                                       Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                       TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                                       IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='!compact'}" />
                         </StackPanel>
                     </Grid>
 
                     <!-- 1. Game Rules Card -->
                     <Border Classes="SectionCard">
-                        <StackPanel Spacing="18">
-                            <TextBlock Text="Oyun Kuralları ve Süre"
-                                       FontSize="16" FontWeight="Bold" Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                        <StackPanel Spacing="16">
+                            <TextBlock Text="Oyun Kuralları ve Süre" Classes="CardTitle" />
 
-                            <!-- Row 1: Time & Pass -->
-                            <Grid ColumnDefinitions="*,*">
+                            <!-- Time & Pass / Target Score & Voice: dar ekranda alt alta -->
+                            <controls:ReflowPanel Columns="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='1|2|2'}"
+                                                   ColumnSpacing="16" RowSpacing="16">
                                 <!-- Round Time -->
-                                <StackPanel Grid.Column="0" Spacing="8" Margin="0,0,16,0">
-                                    <TextBlock Text="Tur Süresi"
-                                               FontWeight="SemiBold" FontSize="13" Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                                    <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Tur Süresi" Classes="FieldLabel" />
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                                         <Slider Grid.Column="0" Minimum="30" Maximum="180" Value="{Binding RoundTimeSeconds}"
                                                 TickFrequency="15" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
                                         <TextBlock Grid.Column="1" Text="{Binding RoundTimeSeconds, StringFormat='{}{0} sn'}"
-                                                   FontWeight="Bold" FontSize="15" Width="60" TextAlignment="Right"
-                                                   Foreground="#10B981"
-                                                   VerticalAlignment="Center" />
+                                                   Classes="FieldValue" MinWidth="52" Foreground="#10B981" />
                                     </Grid>
                                 </StackPanel>
 
                                 <!-- Pass Limit -->
-                                <StackPanel Grid.Column="1" Spacing="8" Margin="16,0,0,0">
-                                    <TextBlock Text="Pas Hakkı (Her Tur)"
-                                               FontWeight="SemiBold" FontSize="13" Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                                    <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Pas Hakkı (Her Tur)" Classes="FieldLabel" />
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                                         <Slider Grid.Column="0" Minimum="0" Maximum="10" Value="{Binding PassLimit}"
                                                 TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
-                                        <TextBlock Grid.Column="1"
-                                                   Text="{Binding PassLimit, StringFormat='{}{0}'}"
-                                                   FontWeight="Bold" FontSize="15" Width="50" TextAlignment="Right"
-                                                   Foreground="#F59E0B"
-                                                   VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Text="{Binding PassLimit, StringFormat='{}{0}'}"
+                                                   Classes="FieldValue" MinWidth="42" Foreground="#F59E0B" />
                                     </Grid>
                                     <TextBlock Text="0 = Sınırsız pas"
                                                FontSize="11" Foreground="{DynamicResource AppTextMutedBrush}" />
                                 </StackPanel>
-                            </Grid>
 
-                            <!-- Row 2: Target Score & Auto Taboo Speech Recognition -->
-                            <Grid ColumnDefinitions="*,*">
                                 <!-- Target Score -->
-                                <StackPanel Grid.Column="0" Spacing="8" Margin="0,0,16,0">
-                                    <TextBlock Text="Kazanma Hedefi"
-                                               FontWeight="SemiBold" FontSize="13" Foreground="{DynamicResource AppTextSecondaryBrush}" />
-                                    <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Kazanma Hedefi" Classes="FieldLabel" />
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                                         <Slider Grid.Column="0" Minimum="0" Maximum="50" Value="{Binding ScoreToWin}"
                                                 TickFrequency="5" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
-                                        <TextBlock Grid.Column="1"
-                                                   Text="{Binding ScoreToWin, StringFormat='{}{0} Puan'}"
-                                                   FontWeight="Bold" FontSize="15" Width="70" TextAlignment="Right"
-                                                   Foreground="#3B82F6"
-                                                   VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Text="{Binding ScoreToWin, StringFormat='{}{0} Puan'}"
+                                                   Classes="FieldValue" MinWidth="62" Foreground="#3B82F6" />
                                     </Grid>
                                     <TextBlock Text="0 = Serbest mod"
                                                FontSize="11" Foreground="{DynamicResource AppTextMutedBrush}" />
                                 </StackPanel>
 
                                 <!-- Auto Taboo Voice Control -->
-                                <StackPanel Grid.Column="1" Spacing="8" Margin="16,0,0,0">
-                                    <TextBlock Text="Sesli Tabu Algılama"
-                                               FontWeight="SemiBold" FontSize="13" Foreground="{DynamicResource AppTextSecondaryBrush}" />
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="Sesli Tabu Algılama" Classes="FieldLabel" />
                                     <ToggleSwitch IsChecked="{Binding EnableAutoTabooCheck}"
-                                                  OnContent="Açık (Mikrofon ile otomatik dinleme)"
-                                                  OffContent="Kapalı (Yalnızca butonlar)" />
+                                                  OnContent="Açık" OffContent="Kapalı"
+                                                  HorizontalAlignment="Left" />
                                     <TextBlock Text="{Binding PermissionStatusBadge}"
                                                FontSize="11" FontWeight="SemiBold"
-                                               Foreground="#10B981"
+                                               Foreground="#10B981" TextWrapping="Wrap"
                                                IsVisible="{Binding PermissionStatusBadge, Converter={StaticResource BoolToVisibilityConverter}}" />
                                     <TextBlock Text="Anlatıcının söylediği yasaklı kelimeleri ses algılama motoru ile otomatik tespit eder."
-                                               FontSize="11" Foreground="{DynamicResource AppTextMutedBrush}" TextWrapping="Wrap" />
+                                               FontSize="11" Foreground="{DynamicResource AppTextMutedBrush}"
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
-                            </Grid>
+                            </controls:ReflowPanel>
                         </StackPanel>
                     </Border>
 
                     <!-- 2. Teams Setup Card -->
                     <Border Classes="SectionCard">
-                        <StackPanel Spacing="16">
-                            <Grid ColumnDefinitions="*,Auto">
-                                <TextBlock Grid.Column="0" Text="Takımlar"
-                                           FontSize="16" FontWeight="Bold"
-                                           Foreground="{DynamicResource AppTextPrimaryBrush}" VerticalAlignment="Center" />
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
-                                    <TextBlock Text="Takım Sayısı:"
-                                               FontSize="13" Foreground="{DynamicResource AppTextSecondaryBrush}" VerticalAlignment="Center" />
-                                    <NumericUpDown Value="{Binding TeamCount}" Minimum="2" Maximum="6"
-                                                   Width="100" FontSize="13" />
+                        <StackPanel Spacing="14">
+                            <controls:ReflowPanel Columns="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='1|2|2'}"
+                                                   ColumnSpacing="12" RowSpacing="10">
+                                <StackPanel Spacing="2" VerticalAlignment="Center">
+                                    <TextBlock Text="Takımlar" Classes="CardTitle" />
+                                    <TextBlock Text="Takım sayısını ve adlarını belirleyin"
+                                               FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}"
+                                               TextWrapping="Wrap"
+                                               IsVisible="{Binding Responsive.IsCompact, Converter={StaticResource RspVis}, ConverterParameter='compact'}" />
                                 </StackPanel>
-                            </Grid>
+
+                                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center"
+                                            controls:ReflowPanel.ChildFixedWidth="210">
+                                    <TextBlock Text="Takım Sayısı:" FontSize="13"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}" VerticalAlignment="Center" />
+                                    <NumericUpDown Value="{Binding TeamCount}" Minimum="2" Maximum="6"
+                                                   Classes="tappable" Width="100" FontSize="13" />
+                                </StackPanel>
+                            </controls:ReflowPanel>
 
                             <ItemsControl ItemsSource="{Binding Teams}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="{DynamicResource AppCardBackgroundSubtleBrush}"
-                                                CornerRadius="12" Padding="14,10" Margin="0,4"
+                                                CornerRadius="12" Padding="{Binding $parent[ItemsControl].((vm:GameSetupViewModel)DataContext).Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='14,10,6,10|14,10|14,10'}"
+                                                Margin="0,4"
                                                 BorderThickness="1.5" BorderBrush="{DynamicResource AppCardBorderBrush}">
                                             <Grid ColumnDefinitions="Auto,*">
                                                 <Border Grid.Column="0" Background="{StaticResource BrandHeroGradient}"
@@ -204,6 +221,7 @@
                                                                FontSize="12" FontWeight="Black" Foreground="White" />
                                                 </Border>
                                                 <TextBox Grid.Column="1" Text="{Binding Name}"
+                                                         Classes="tappable"
                                                          PlaceholderText="Takım adını girin..." FontSize="14" FontWeight="SemiBold"
                                                          CornerRadius="8" />
                                             </Grid>
@@ -216,25 +234,29 @@
 
                     <!-- 3. Categories Selection Card -->
                     <Border Classes="SectionCard">
-                        <StackPanel Spacing="16">
-                            <Grid ColumnDefinitions="*,Auto">
+                        <StackPanel Spacing="14">
+                            <controls:ReflowPanel Columns="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='1|2|2'}"
+                                                   ColumnSpacing="12" RowSpacing="10">
                                 <StackPanel Grid.Column="0" Spacing="2">
-                                    <TextBlock Text="Kategoriler"
-                                               FontSize="16" FontWeight="Bold"
-                                               Foreground="{DynamicResource AppTextPrimaryBrush}" VerticalAlignment="Center" />
-                                    <TextBlock Text="(Seçim yapılmazsa tüm kategoriler karıştırılır)"
-                                               FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}" />
+                                    <TextBlock Text="Kategoriler" Classes="CardTitle" />
+                                    <TextBlock Text="Seçim yapılmazsa tüm kategoriler karıştırılır"
+                                               FontSize="12" Foreground="{DynamicResource AppTextMutedBrush}"
+                                               TextWrapping="Wrap" />
                                 </StackPanel>
 
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8"
+                                            VerticalAlignment="Center"
+                                            controls:ReflowPanel.ChildFixedWidth="230">
                                     <Button Content="Tümünü Seç" Command="{Binding SelectAllCategoriesCommand}"
-                                            Classes="ModernSecondaryBtn"
-                                            Padding="12,6" FontSize="12" />
+                                            Classes="ModernSecondaryBtn tappable"
+                                            Padding="12,6" FontSize="12" Margin="0"
+                                            HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
                                     <Button Content="Temizle" Command="{Binding DeselectAllCategoriesCommand}"
-                                            Classes="ModernSecondaryBtn"
-                                            Padding="12,6" FontSize="12" />
+                                            Classes="ModernSecondaryBtn tappable"
+                                            Padding="12,6" FontSize="12" Margin="0"
+                                            HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
                                 </StackPanel>
-                            </Grid>
+                            </controls:ReflowPanel>
 
                             <ItemsControl ItemsSource="{Binding Categories}">
                                 <ItemsControl.ItemsPanel>
@@ -267,15 +289,15 @@
 
                     <!-- Validation Error Message -->
                     <TextBlock Text="{Binding ValidationMessage}"
-                               Foreground="#EF4444" FontWeight="SemiBold"
-                               HorizontalAlignment="Center"
+                               Foreground="#EF4444" FontWeight="SemiBold" FontSize="13"
+                               HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"
                                IsVisible="{Binding ValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}" />
 
                     <!-- Launch Game Button -->
                     <Button Content="MAÇI BAŞLAT 🚀"
                             Command="{Binding StartGameCommand}"
-                            Classes="ModernPrimaryBtn"
-                            FontSize="17" Height="54"
+                            Classes="ModernPrimaryBtn tappable"
+                            FontSize="17" Height="56"
                             HorizontalAlignment="Stretch" MaxWidth="380"
                             HorizontalContentAlignment="Center" />
                 </StackPanel>
@@ -287,31 +309,35 @@
                 Background="{DynamicResource AppModalOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource AppCardBackgroundBrush}"
-                    CornerRadius="16" Padding="28,24" MaxWidth="440" Margin="16"
+                    CornerRadius="16"
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='18,16|28,24|28,24'}"
+                    MaxWidth="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='340|400|440'}"
+                    Margin="14"
                     BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     BoxShadow="0 16 36 0 #30000000">
                 <StackPanel Spacing="16" HorizontalAlignment="Center">
-                    <TextBlock Text="🎙️" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="🎙️" FontSize="34" HorizontalAlignment="Center" />
                     <TextBlock Text="Mikrofon İzni Gerekli"
                                FontSize="18" FontWeight="Bold"
-                               Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center" />
+                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                               HorizontalAlignment="Center" TextAlignment="Center" />
                     <TextBlock Text="TabuKA'nın oyun sırasında anlatıcının söylediği yasaklı kelimeleri otomatik algılayabilmesi için mikrofon erişimi gerekmektedir.&#x0a;&#x0a;Yalnızca aktif oyun rauntları sırasında kullanılır. İzin vermek istiyor musunuz?"
                                FontSize="13" Foreground="{DynamicResource AppTextSecondaryBrush}"
                                TextWrapping="Wrap" TextAlignment="Center" />
 
-                    <Grid ColumnDefinitions="*,*" Margin="0,8,0,0">
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
                         <Button Grid.Column="0" Content="İzin Ver"
                                 Command="{Binding GrantMicrophonePermissionCommand}"
-                                Classes="ModernPrimaryBtn"
-                                Padding="12,10" FontSize="13"
-                                Margin="0,0,6,0" HorizontalContentAlignment="Center" />
+                                Classes="ModernPrimaryBtn tappable"
+                                Padding="12,12" FontSize="13" Margin="0"
+                                HorizontalContentAlignment="Center" />
 
                         <Button Grid.Column="1" Content="Vazgeç"
                                 Command="{Binding DenyMicrophonePermissionCommand}"
-                                Classes="ModernSecondaryBtn"
-                                Padding="12,10" FontSize="13"
-                                Margin="6,0,0,0" HorizontalContentAlignment="Center" />
+                                Classes="ModernSecondaryBtn tappable"
+                                Padding="12,12" FontSize="13" Margin="0"
+                                HorizontalContentAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </Border>
@@ -322,25 +348,30 @@
                 Background="{DynamicResource AppModalOverlayBrush}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Border Background="{DynamicResource AppCardBackgroundBrush}"
-                    CornerRadius="16" Padding="28,24" MaxWidth="460" Margin="16"
+                    CornerRadius="16"
+                    Padding="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='18,16|28,24|28,24'}"
+                    MaxWidth="{Binding Responsive.SizeClass, Converter={StaticResource Rsp}, ConverterParameter='340|400|460'}"
+                    Margin="14"
                     BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     BoxShadow="0 16 36 0 #30000000">
                 <StackPanel Spacing="16" HorizontalAlignment="Center">
-                    <TextBlock Text="📥" FontSize="36" HorizontalAlignment="Center" />
+                    <TextBlock Text="📥" FontSize="34" HorizontalAlignment="Center" />
                     <TextBlock Text="Ses Tanıma Modeli Gerekli"
                                FontSize="18" FontWeight="Bold"
-                               Foreground="{DynamicResource AppTextPrimaryBrush}" HorizontalAlignment="Center" />
+                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                               HorizontalAlignment="Center" TextAlignment="Center" />
                     <TextBlock Text="Sesli Tabu Algılama özelliğini açabilmek için çevrimdışı Türkçe ses tanıma modelinin (~50 MB) uygulama içine indirilip kurulması gerekmektedir.&#x0a;&#x0a;Model bir kez kurulduktan sonra internet bağlantısı olmadan tamamen yerel ve gizli çalışır."
                                FontSize="13" Foreground="{DynamicResource AppTextSecondaryBrush}"
                                TextWrapping="Wrap" TextAlignment="Center" />
 
                     <!-- Live Download & Installation Progress -->
                     <StackPanel Spacing="6" HorizontalAlignment="Stretch" IsVisible="{Binding IsDownloadingModel}" Margin="0,4">
-                        <Grid ColumnDefinitions="*,Auto">
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                             <TextBlock Grid.Column="0" Text="{Binding ModelInstallStatusMessage}"
                                        FontSize="12" FontWeight="SemiBold"
-                                       Foreground="{DynamicResource AppTextPrimaryBrush}" />
+                                       Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                       TextTrimming="CharacterEllipsis" />
                             <TextBlock Grid.Column="1" Text="{Binding ModelInstallProgress, StringFormat='{}{0:0}%'}"
                                        FontSize="12" FontWeight="Bold" Foreground="#10B981" />
                         </Grid>
@@ -349,20 +380,20 @@
                                      Background="{DynamicResource AppCardBackgroundSubtleBrush}" />
                     </StackPanel>
 
-                    <Grid ColumnDefinitions="*,*" Margin="0,8,0,0">
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
                         <Button Grid.Column="0" Content="İndir ve Kur"
                                 Command="{Binding DownloadAndInstallModelCommand}"
                                 IsEnabled="{Binding IsDownloadingModel, Converter={StaticResource InverseBoolConverter}}"
-                                Classes="ModernPrimaryBtn"
-                                Padding="12,10" FontSize="13"
-                                Margin="0,0,6,0" HorizontalContentAlignment="Center" />
+                                Classes="ModernPrimaryBtn tappable"
+                                Padding="12,12" FontSize="13" Margin="0"
+                                HorizontalContentAlignment="Center" />
 
                         <Button Grid.Column="1" Content="Vazgeç"
                                 Command="{Binding CancelModelInstallDialogCommand}"
                                 IsEnabled="{Binding IsDownloadingModel, Converter={StaticResource InverseBoolConverter}}"
-                                Classes="ModernSecondaryBtn"
-                                Padding="12,10" FontSize="13"
-                                Margin="6,0,0,0" HorizontalContentAlignment="Center" />
+                                Classes="ModernSecondaryBtn tappable"
+                                Padding="12,12" FontSize="13" Margin="0"
+                                HorizontalContentAlignment="Center" />
                     </Grid>
                 </StackPanel>
             </Border>

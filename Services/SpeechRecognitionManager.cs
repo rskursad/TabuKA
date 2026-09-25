@@ -25,6 +25,8 @@ public class SpeechRecognitionManager : ISpeechRecognitionService, IDisposable
 
     public bool IsListening => _voskService.IsListening;
 
+    public bool IsEngineSupported => _voskService.IsEngineSupported;
+
     public SpeechRecognitionManager(
         ISettingsService settingsService,
         VoskSpeechRecognitionService voskService)
@@ -59,6 +61,11 @@ public class SpeechRecognitionManager : ISpeechRecognitionService, IDisposable
     public string GetEngineName()
     {
         return SpeechEngineNames.Vosk;
+    }
+
+    public string GetEngineUnavailableReason()
+    {
+        return VoskNative.UnavailableReason;
     }
 
     public async Task<bool> IsCurrentEngineAvailableAsync()

@@ -25,6 +25,12 @@ public class VoskSpeechRecognitionService : ISpeechRecognitionService, IDisposab
 
     public bool IsListening => _isListening;
 
+    /// <summary>
+    /// True when the native libvosk library is present. When false the engine cannot run at
+    /// all on this device (the Vosk NuGet ships no Android/iOS binary), regardless of the model.
+    /// </summary>
+    public bool IsEngineSupported => VoskNative.IsAvailable;
+
     public bool IsVoiceClose(float threshold = 0.025f) => _audioService.IsVoiceClose(threshold);
 
     public VoskSpeechRecognitionService(IAudioService audioService, string? modelPath = null)
@@ -102,8 +108,14 @@ public class VoskSpeechRecognitionService : ISpeechRecognitionService, IDisposab
     {
         if (_isListening) return;
 
+        if (!VoskNative.IsAvailable)
+        {
+            ErrorOccurred?.Invoke(VoskNative.UnavailableReason);
+            return;
+        }
+
         _modelPath = ResolveModelPath(_modelPath);
-        if (!await IsAvailableAsync())
+        if (!HasModelFiles(_modelPath))
         {
             ErrorOccurred?.Invoke("Vosk modeli bulunamadı. Lütfen Ayarlar veya Oyun Kurulumu menüsünden modeli indirin.");
             return;
@@ -120,8 +132,15 @@ public class VoskSpeechRecognitionService : ISpeechRecognitionService, IDisposab
         catch (Exception ex)
         {
             _isListening = false;
-            ErrorOccurred?.Invoke($"Vosk başlatılamadı: {ex.Message}");
-            throw;
+            _recognizer?.Dispose();
+            _recognizer = null;
+            _model?.Dispose();
+            _model = null;
+
+            if (VoskNative.IsNativeLoadFailure(ex))
+                ErrorOccurred?.Invoke(VoskNative.UnavailableReason);
+            else
+                ErrorOccurred?.Invoke($"Vosk başlatılamadı: {ex.Message}");
         }
     }
 
@@ -148,10 +167,10 @@ public class VoskSpeechRecognitionService : ISpeechRecognitionService, IDisposab
         }
     }
 
-    public async Task<bool> IsAvailableAsync()
+    public Task<bool> IsAvailableAsync()
     {
         _modelPath = ResolveModelPath(_modelPath);
-        return await Task.FromResult(HasModelFiles(_modelPath));
+        return Task.FromResult(HasModelFiles(_modelPath) && VoskNative.IsAvailable);
     }
 
     private void RecreateRecognizer()
